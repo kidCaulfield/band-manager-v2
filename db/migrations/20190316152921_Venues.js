@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('venues', t => {
     t.increments('id').primary();
@@ -6,7 +5,7 @@ exports.up = function(knex, Promise) {
     t.string('address');
     t.string('phone_number').unique();
     t.json('geo');
-    t.timestamps('updatedAt');
+    t.timestamps(true, true)
   });
 };
 
