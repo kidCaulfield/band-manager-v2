@@ -1,0 +1,26 @@
+{
+  "name": "band-manager-v2-node-server",
+  "version": "2.0.0",
+  "description": "node server for chat and interacting with google place api",
+  "main": "app.js",
+  "author": "Wesley Coderre",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon app.js",
+    "db:create": "createdb -e band_manager_v2",
+    "db:drop": "dropdb --if-exist -e band_manager_v2",
+    "db:migrate": "knex migrate:latest",
+    "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "morgan": "^1.9.1",
+    "pg": "^7.9.0"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "nodemon": "^1.18.10"
+  }
+}
