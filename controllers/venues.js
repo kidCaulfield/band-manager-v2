@@ -1,7 +1,7 @@
-
 const express = require("express");
 const router = express.Router();
 const knex = require("../db/client");
+const Joi = require('joi')
 
 module.exports = {
   async index(req, res) {
@@ -20,18 +20,41 @@ module.exports = {
 
   },
   create: [
-    async (req, res) => {
-      const { name, address, phone_number, geo } = req.body;
-     
+    async (req, res, next) => {
+
+
+      const schema = Joi.object().keys({
+        venues: {
+          name: Joi.string().trim().required(),
+          address: Joi.string().required(),
+          phone_number: Joi.any().allow(null),
+          geo: Joi.any().allow(null)
+        }
+      });
+
+      Joi.validate(req.body, schema, (err, result) => {
+        if (err) {
+          console.log('err: ', err);
+          res.status(422).json({
+                status: 'error',
+                message: 'Invalid request data',
+                data: res.body
+          });
+        }
+      })
+      
+      // Make Sure to activate app.use(express.json()); in middle where to enable json req
+      
+      const { name, address, phone_number, geo } = req.body.venues;
       const venue = await knex("venues")
         .insert({
-          name,
-          address,
-          phone_number,
-          geo
+            name,
+            address,
+            phone_number,
+            geo
         })
-        .returning("id");
-
+        .returning("id")
+    
       res.status(200).json(venue);
     }
   ],

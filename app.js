@@ -24,6 +24,9 @@ app.use(express.urlencoded({ extended: true })); // bodyParser
 // The data from the form will be available on the
 // `request.body` property instead of the `request.query`.
 
+// this is a key piece of middle ware to run a json api.
+app.use(express.json())
+
 //////////////////////////////////////////////////////////////////////
 /*                            Routes                                */
 //////////////////////////////////////////////////////////////////////
