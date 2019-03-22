@@ -11,13 +11,31 @@ module.exports = {
     // only inside functions or methods that are prefixed with the keyword `async`
 
     try {
-    const venues = await knex("venues").orderBy("id", "desc");
+    const venues = await knex("venues").orderBy("id", "asc");
     console.log(`venues request`); // find out how to log the IP of the computer requesting
     res.status(200).json({ venues });
     } catch (error) {
-      console.log(error)
+      next(error)
     }
 
+  },
+
+  // This seems unecessary may be removed
+  async show(req, res, next) {
+    const { id } = req.params;
+
+    try {
+      const venue = await knex("venues")
+        .where("id", id)
+        .first();
+      
+      // something to test later
+      // const reviews = await Review.forReviewWithUsers(post.id);
+
+      res.status(200).json({venue});
+    } catch (error) {
+      next(error);
+    }
   },
   create: [
     async (req, res, next) => {
@@ -57,14 +75,22 @@ module.exports = {
         .returning("id")
         res.status(200).json({venue});
       } catch (error) {
-      console.log(error)
+      next(error)
       }
     
     }
   ],
+  async destroy(req, res) {
+    const { id } = req.params;
+
+    const venue = await knex("venues")
+      .where("id", id)
+      .del()
+
+      res.status(200).send(`Venue at id: ${id} has been deleted`)
+   },
   async edit(req, res) {
     const { id } = req.params;
-    console.log('id: ', id);
 
     const venue = await knex("venues")
       .where("id", id)
@@ -73,12 +99,9 @@ module.exports = {
       res.status(200).json({venue});
   },
   async update(req, res) {
-    const { id } = req.params;
-    console.log('id: ', id);
-    console.log('req.body.venues: ', req.body.venues);
     const { name, address, phone_number, geo } = req.body.venues
-    console.log('name: ', name);
-
+    
+    try {
     const venue = await knex("venues")
       .where("id", id)
       .update({
@@ -90,5 +113,8 @@ module.exports = {
       .returning("*")
 
       res.status(200).json({venue});
+      } catch (error) {
+      next(error)
+      }
   }
 }
