@@ -63,8 +63,8 @@ module.exports = {
     }
   ],
   async edit(req, res) {
-    console.log('req: ', req);
     const { id } = req.params;
+    console.log('id: ', id);
 
     const venue = await knex("venues")
       .where("id", id)
@@ -73,9 +73,11 @@ module.exports = {
       res.status(200).json({venue});
   },
   async update(req, res) {
-    console.log('req: ', req);
     const { id } = req.params;
-    const { name, address, phone_number, geo } = req.body
+    console.log('id: ', id);
+    console.log('req.body.venues: ', req.body.venues);
+    const { name, address, phone_number, geo } = req.body.venues
+    console.log('name: ', name);
 
     const venue = await knex("venues")
       .where("id", id)
