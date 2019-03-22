@@ -54,18 +54,42 @@ class App extends Component {
     
     return (
       <div className="App">
+
         <header className="App-header">
           <h1 className="App-title">Welcome to React</h1>
         </header>
         {/* Render the newly fetched data inside of this.state.data  */}
         <p className="App-intro">{this.state.data}</p>
-        <div>
+
+        <div className="Venue-index">
           {this.state.venues.map(venue => (
             <div key={venue.id}>
               <p>{venue.name}</p>
             </div>
           ))}
         </div>
+
+        <div className="Venue-form-box">
+          <h1 className="Title Blue">Make or Break Venue</h1>
+          <form className="Venue-form">
+            <div>
+              <label htmlFor="name">Name</label> <br/>
+              <input type="text" name="name"></input>
+            </div>
+            <div>
+              <label htmlFor="address">Address</label> <br/>
+              <input type="text" name="address"></input>
+            </div>
+            <div>
+              <label htmlFor="phone_number">Phone Number</label> <br/>
+              <input type="text" name="phone_number"></input>
+            </div>
+            <div>
+            <input className="Button-form" type="submit" value="Break" />
+            </div>
+          </form>
+        </div>
+
       </div>
     );
   }

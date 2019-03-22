@@ -46,6 +46,7 @@ module.exports = {
       // Make Sure to activate app.use(express.json()); in middle where to enable json req
       
       const { name, address, phone_number, geo } = req.body.venues;
+      try {
       const venue = await knex("venues")
         .insert({
             name,
@@ -54,8 +55,38 @@ module.exports = {
             geo
         })
         .returning("id")
+        res.status(200).json({venue});
+      } catch (error) {
+      console.log(error)
+      }
     
-      res.status(200).json(venue);
     }
   ],
+  async edit(req, res) {
+    console.log('req: ', req);
+    const { id } = req.params;
+
+    const venue = await knex("venues")
+      .where("id", id)
+      .first()
+
+      res.status(200).json({venue});
+  },
+  async update(req, res) {
+    console.log('req: ', req);
+    const { id } = req.params;
+    const { name, address, phone_number, geo } = req.body
+
+    const venue = await knex("venues")
+      .where("id", id)
+      .update({
+        name,
+        address,
+        phone_number,
+        geo
+      })
+      .returning("*")
+
+      res.status(200).json({venue});
+  }
 }

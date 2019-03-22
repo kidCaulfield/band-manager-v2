@@ -10,5 +10,7 @@ router.get('/express_backend', (req, res) => {
 /* routes */
 router.get('/venues', venuesController.index);
 router.post('/venues', venuesController.create);
+router.get('/venues/:id', venuesController.edit);
+router.patch('/venues/:id', venuesController.update)
 
 module.exports = router;

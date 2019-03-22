@@ -31,3 +31,27 @@
     transform: rotate(360deg);
   }
 }
+
+
+/*===========================================================================*/
+.Venue-form-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Venue-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  /* max-width: 200px; */
+}
+
+input {
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 3px;
+  border-radius: 2px;
+}
