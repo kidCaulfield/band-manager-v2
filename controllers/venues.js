@@ -1,5 +1,5 @@
-const express = require("express");
-const router = express.Router();
+// const express = require("express");
+// const router = express.Router();
 const knex = require("../db/client");
 const Joi = require('joi')
 
@@ -40,7 +40,6 @@ module.exports = {
   create: [
     async (req, res, next) => {
 
-
       const schema = Joi.object().keys({
         venues: {
           name: Joi.string().trim().required(),
@@ -64,6 +63,7 @@ module.exports = {
       // Make Sure to activate app.use(express.json()); in middle where to enable json req
       
       const { name, address, phone_number, geo } = req.body.venues;
+      
       try {
       const venue = await knex("venues")
         .insert({

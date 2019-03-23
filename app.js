@@ -31,8 +31,11 @@ app.use(express.json())
 /*                            Routes                                */
 //////////////////////////////////////////////////////////////////////
 
-const indexRouter = require("./routes/index")
-app.use("/", indexRouter);
+const venuesRouter = require("./routes/venues")
+app.use("/", venuesRouter);
+
+const usersRouter = require("./routes/users")
+app.use("/", usersRouter);
 
 //////////////////////////////////////////////////////////////////////
 /*                            Server                                */

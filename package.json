@@ -13,6 +13,7 @@
     "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate"
   },
   "dependencies": {
+    "bcrypt": "^3.0.5",
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
     "joi": "^14.3.1",
