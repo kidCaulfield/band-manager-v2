@@ -1,5 +1,5 @@
-// const express = require("express");
-// const router = express.Router();
+const express = require("express");
+const router = express.Router();
 const knex = require("../db/client");
 const Joi = require('joi')
 
@@ -15,9 +15,9 @@ module.exports = {
     console.log(`venues request`); // find out how to log the IP of the computer requesting
     res.status(200).json({ venues });
     } catch (error) {
+      console.log(error);
       next(error)
     }
-
   },
 
   // This seems unecessary may be removed

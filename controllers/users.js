@@ -9,17 +9,30 @@ const someOtherPlaintextPassword = 'not_bacon';
 module.exports = {
   async create(req, res, next) {
     let { userName, email, password, passwordDigest } = req.body.users;
+    console.log('passwordDigest: ', passwordDigest);
 
-    //not effective
-    if (!password == passwordDigest) {
-      return "PASSWORDS DO NOT MATCH"
-    }
+    const schema = Joi.object().keys({
+      users: {
+        userName: Joi.string().max(30),
+        email: Joi.string().email(),
+        password: Joi.string().valid(passwordDigest),
+        passwordDigest: Joi.string()
+      }
+    })
 
+    Joi.validate(req.body, schema, (err, result) => {
+      if (err) {
+        console.log('err: ', err);
+        res.status(422).json({
+              status: 'error',
+              message: 'Invalid request data',
+              data: res.body
+        });
+      }
+    })
+    
     try {
       const hashedPassword = await bcrypt.hash(password, saltRounds)
-      console.log('hashedPassword: ', hashedPassword);
-
-
       const user = await knex("users")
         .insert({
             userName,
@@ -27,7 +40,7 @@ module.exports = {
             passwordDigest: hashedPassword
         })
         .returning("*");
-
+        
         res.status(200).json(user);
     } catch (error) {
       next(error);
