@@ -3,6 +3,7 @@ const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const User = require("../models/users");
 
+
 const saltRounds = 10;
 const someOtherPlaintextPassword = 'not_bacon';
 
@@ -33,23 +34,48 @@ module.exports = {
     
     try {
       const hashedPassword = await bcrypt.hash(password, saltRounds)
-      const user = await knex("users")
-        .insert({
-            userName,
-            email,
-            passwordDigest: hashedPassword
-        })
-        .returning("*");
-        
-        res.status(200).json(user);
+      const rows = await knex("users")
+        .select()
+        .where('email', email);
+      let checkedData;
+      if (rows.length===0) {
+      checkedData = await knex("users")
+              .insert({
+              userName,
+              email,
+              passwordDigest: hashedPassword
+            }).returning('*')
+        } else {
+            throw "duplicate user found"
+        }
+      res.status(200).json(checkedData);
     } catch (error) {
       next(error);
     }
-
-
   }
 };
+
+
+// look into whereNotExist for filtering Validations
+// .whereNotExists(knex("users").where('email', email))
+ 
 //         bcrypt.compareSync(password, hash);
 //         console.log('bcrypt.compareSync(myPlaintextPassword, hash);: ', bcrypt.compareSync(password, hash));
 //         bcrypt.compareSync(someOtherPlaintextPassword, hash);
-//         console.log(' bcrypt.compareSync(someOtherPlaintextPassword, hash);: ',  bcrypt.compareSync(someOtherPlaintextPassword, hash));      
+//         console.log(' bcrypt.compareSync(someOtherPlaintextPassword, hash);: ',  bcrypt.compareSync(someOtherPlaintextPassword, hash));
+
+
+
+
+// for signing in 
+// async function checkUser(username, password) {
+//     //... fetch user from a db etc.
+ 
+//     const match = await bcrypt.compare(password, user.passwordHash);
+ 
+//     if(match) {
+//         //login
+//     }
+ 
+//     //...
+// }
