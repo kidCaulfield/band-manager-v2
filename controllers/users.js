@@ -10,14 +10,13 @@ const someOtherPlaintextPassword = 'not_bacon';
 module.exports = {
   async create(req, res, next) {
     let { userName, email, password, passwordDigest } = req.body.users;
-    console.log('passwordDigest: ', passwordDigest);
 
     const schema = Joi.object().keys({
       users: {
-        userName: Joi.string().max(30),
-        email: Joi.string().email(),
-        password: Joi.string().valid(passwordDigest),
-        passwordDigest: Joi.string()
+        userName: Joi.string().max(30).required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().valid(passwordDigest).required(),
+        passwordDigest: Joi.string().required()
       }
     })
 
@@ -26,14 +25,13 @@ module.exports = {
         console.log('err: ', err);
         res.status(422).json({
               status: 'error',
-              message: 'Invalid request data',
+              message: `${err.details[0].message}`,
               data: res.body
         });
       }
     })
     
     try {
-      const hashedPassword = await bcrypt.hash(password, saltRounds)
       const rows = await knex("users")
         .select()
         .where('email', email);
@@ -43,7 +41,7 @@ module.exports = {
               .insert({
               userName,
               email,
-              passwordDigest: hashedPassword
+              passwordDigest: await bcrypt.hash(password, saltRounds)
             }).returning('*')
         } else {
             throw "duplicate user found"
