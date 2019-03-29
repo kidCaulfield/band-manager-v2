@@ -31,6 +31,14 @@ app.use(express.urlencoded({ extended: true })); // bodyParser
 app.use(express.json())
 
 // SESSION
+// // https://devcenter.heroku.com/articles/heroku-redis#connecting-in-node-js
+// const RedisStore = connectRedis(session);
+
+// let store = new RedisStore({ port: 6379, host: "localhost" });
+// if (process.env.REDIS_URL) {
+//   store = new RedisStore({ url: process.env.REDIS_URL });
+// }
+
 
 const genuuid = () => {
   return "Session ID"
@@ -40,11 +48,15 @@ var sess = {
   genid: function(req) {
     return genuuid() // use UUIDs for session IDs
   },
-  name: "COOOOOKIE!!!",
+  userId: null,
+  name: "COOOKIE!!!!",
   secret: 'Coookie Monster',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 60000 }
+  cookie: { secure: false,
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+            HttpOnly: false,
+            path: '/' }
 }
  
 if (app.get('env') === 'production') {
@@ -54,18 +66,19 @@ if (app.get('env') === 'production') {
  
 app.use(session(sess))
 
-app.get('/', function(req, res, next) {
-  if (req.session.views) {
-    req.session.views++
-    res.setHeader('Content-Type', 'text/html')
-    res.write('<p>views: ' + req.session.views + '</p>')
-    res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-    res.end()
-  } else {
-    req.session.views = 1
-    res.end('welcome to the session demo. refresh!')
-  }
-})
+// app.get('/', function(req, res, next) {
+//   console.log("req.session", req.session);
+//   if (req.session.views) {
+//     req.session.views++
+//     res.setHeader('Content-Type', 'text/html')
+//     res.write('<p>views: ' + req.session.views + '</p>')
+//     res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+//     res.end()
+//   } else {
+//     req.session.views = 1
+//     res.end('welcome to the session demo. refresh!')
+//   }
+// })
 
 
 //////////////////////////////////////////////////////////////////////
@@ -78,8 +91,9 @@ app.use("/", venuesRouter);
 const usersRouter = require("./routes/users");
 app.use("/", usersRouter);
 
-// const sessionRouter = require("./routes/session");
-// app.use("/", sessionRouter);
+const sessionRouter = require("./routes/session")
+app.use("/", sessionRouter);
+
 
 //////////////////////////////////////////////////////////////////////
 /*                            Server                                */

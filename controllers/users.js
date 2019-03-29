@@ -52,28 +52,3 @@ module.exports = {
     }
   }
 };
-
-
-// look into whereNotExist for filtering Validations
-// .whereNotExists(knex("users").where('email', email))
- 
-//         bcrypt.compareSync(password, hash);
-//         console.log('bcrypt.compareSync(myPlaintextPassword, hash);: ', bcrypt.compareSync(password, hash));
-//         bcrypt.compareSync(someOtherPlaintextPassword, hash);
-//         console.log(' bcrypt.compareSync(someOtherPlaintextPassword, hash);: ',  bcrypt.compareSync(someOtherPlaintextPassword, hash));
-
-
-
-
-// for signing in 
-// async function checkUser(username, password) {
-//     //... fetch user from a db etc.
- 
-//     const match = await bcrypt.compare(password, user.passwordHash);
- 
-//     if(match) {
-//         //login
-//     }
- 
-//     //...
-// }

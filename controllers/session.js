@@ -2,27 +2,22 @@ const knex = require("../db/client");
 const bcrypt = require('bcrypt');
 
 module.exports = {
-
   async create(req, res, next) {
+    res.setHeader('Content-Type', 'application/json')
     const { email, password } = req.body;
 
-    try {
+    // try {
       const user = await knex("users")
         .where("email", email)
         .first();
 
+      console.log('user: ', user);
       if (user && (await bcrypt.compare(password, user.passwordDigest))) {
         req.session.userId = user.id;
-        
+        req.session.name = user.userName;
+        console.log('req.session.name: ', req.session.name)
 
-        req.flash("success", `Welcome back, ${user.userName}!`);
-        res.status(200);
-      } else {
-        req.flash("danger", "Invalid Email or Password");
-        res.status(400);
-      }
-    } catch (error) {
-      next(error);
+      res.status(200).json(req.session.userId);
     }
   },
   destroy(req, res) {
@@ -30,4 +25,4 @@ module.exports = {
 
     res.status(200);
   }
- };
+};

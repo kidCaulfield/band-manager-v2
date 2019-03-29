@@ -1,7 +1,5 @@
-// const bcrypt = require('bcrypt');
+// const bcrypt = require("bcrypt");
 // const knex = require("../db/client");
-// // const salt = bcrypt.genSaltSync(10);
-// // const hash = bcrypt.hashSync("B4c0/\/", salt);
 
 // class User {
 //   constructor({
