@@ -11,7 +11,7 @@ class App extends Component {
     };
 }
   componentDidMount() {
-      // Call our fetch function below once the component mounts
+    // Call our fetch function below once the component mounts
     this.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
       .catch(err => console.log(err));
@@ -20,8 +20,6 @@ class App extends Component {
       .catch(err => console.log(err));     
   }
 
-  // Fetches our GET route from the Express server.
-  //(Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
     const response = await fetch('/express_backend');
     const body = await response.json();
@@ -41,55 +39,57 @@ class App extends Component {
     }
     return body
   }
+  
+  createSession = async (params) => {
+    const response = await fetch('/session', {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    });
+    const session = await response.json();
+  }
+
+  destroy() {
+    return fetch(`/session`, {
+      method: "DELETE",
+      credentials: "include"
+    }).then(res => res.json());
+
+  }
+
+  signIn = (event) => {
+    event.preventDefault();
+    const { currentTarget } = event;
+    const formData = new FormData(currentTarget);
+
+    this.createSession({
+      email: formData.get("email"),
+      password: formData.get("password")
+    })
+  }
 
   render() {
-    console.log("venues", this.state.venues);
-    if(!this.state.venues) {
-      return (
-        <div>
-          <h1>Where's the venues</h1>
-        </div>
-      )
-    }
-    
     return (
-      <div className="App">
-
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        {/* Render the newly fetched data inside of this.state.data  */}
-        <p className="App-intro">{this.state.data}</p>
-
-        <div className="Venue-index">
-          {this.state.venues.map(venue => (
-            <div key={venue.id}>
-              <p>{venue.name}</p>
-            </div>
-          ))}
-        </div>
-
+      <div className="App">    
         <div className="Venue-form-box">
-          <h1 className="Title Blue">Make or Break Venue</h1>
-          <form className="Venue-form">
+          <h1 className="Title Blue">Sign In</h1>
+          <form className="Venue-form" onSubmit={this.signIn}>
             <div>
-              <label htmlFor="name">Name</label> <br/>
-              <input type="text" name="name"></input>
+              <label htmlFor="email">email</label><br/>
+              <input type="text" name="email" value="jh@job.com"></input>
             </div>
             <div>
-              <label htmlFor="address">Address</label> <br/>
-              <input type="text" name="address"></input>
+              <label htmlFor="password">password</label><br/>
+              <input type="text" name="password" value="p1234"></input>
             </div>
-            <div>
-              <label htmlFor="phone_number">Phone Number</label> <br/>
-              <input type="text" name="phone_number"></input>
-            </div>
-            <div>
-            <input className="Button-form" type="submit" value="Break" />
-            </div>
+            <input className="Button-form" type="submit" value="Sign In" />
           </form>
         </div>
 
+        <button className="Button-form" onClick={this.destroy}>Sign Out</button>
       </div>
     );
   }

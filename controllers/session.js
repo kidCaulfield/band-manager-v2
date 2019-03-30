@@ -6,22 +6,25 @@ module.exports = {
     res.setHeader('Content-Type', 'application/json')
     const { email, password } = req.body;
 
-    // try {
+    try {
       const user = await knex("users")
         .where("email", email)
         .first();
-
-      console.log('user: ', user);
       if (user && (await bcrypt.compare(password, user.passwordDigest))) {
         req.session.userId = user.id;
-        req.session.name = user.userName;
-        console.log('req.session.name: ', req.session.name)
 
       res.status(200).json(req.session.userId);
+      }
+    } catch (err) {
+      throw err
     }
   },
-  destroy(req, res) {
-    req.session.userId = undefined;
+  async destroy(req, res) {
+    console.log("jibbi");
+    console.log('req.session: ', req.session);
+    req.session.destroy(function(){
+      res.clearCookie('connect.sid', { path: '/' });
+    });
 
     res.status(200);
   }

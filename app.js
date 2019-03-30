@@ -1,15 +1,8 @@
 const express = require('express');
 const app = express();
 const logger = require("morgan");
-const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const flash = require("connect-flash");
-const connectRedis = require("connect-redis");
-
-// T E M P L A T E  V A R I A B L E S
-// Initialize errors to an empty array to avoid crashes
-// when there are no validation errors
-//app.locals.errors = [];
+const RedisStore = require('connect-redis')(session);
 
 //////////////////////////////////////////////////////////////////////
 /*                         Middle Ware                              */
@@ -17,7 +10,7 @@ const connectRedis = require("connect-redis");
 
 app.use(logger("dev"));
 
-// URLENCODED
+// U R L E N C O D E D
 
 // This middleware will decode data from forms that
 // use the POST method.
@@ -27,18 +20,14 @@ app.use(express.urlencoded({ extended: true })); // bodyParser
 // The data from the form will be available on the
 // `request.body` property instead of the `request.query`.
 
-// this is a key piece of middle ware to run a json api.
-app.use(express.json())
+// J S O N   A P I
 
-// SESSION
-// // https://devcenter.heroku.com/articles/heroku-redis#connecting-in-node-js
-// const RedisStore = connectRedis(session);
+app.use(express.json()) // required for building a json api in express.
 
-// let store = new RedisStore({ port: 6379, host: "localhost" });
-// if (process.env.REDIS_URL) {
-//   store = new RedisStore({ url: process.env.REDIS_URL });
-// }
+// S E S S I O N
 
+const localRedis = { port: 6379, host: 'localhost' };
+const deployedRedis = { url: process.env.REDIS_URL };
 
 const genuuid = () => {
   return "Session ID"
@@ -51,6 +40,7 @@ var sess = {
   userId: null,
   name: "COOOKIE!!!!",
   secret: 'Coookie Monster',
+  store: new RedisStore((process.env.NODE_ENV === 'production') ? deployedRedis : localRedis),
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false,
@@ -80,7 +70,6 @@ app.use(session(sess))
 //   }
 // })
 
-
 //////////////////////////////////////////////////////////////////////
 /*                            Routes                                */
 //////////////////////////////////////////////////////////////////////
@@ -93,7 +82,6 @@ app.use("/", usersRouter);
 
 const sessionRouter = require("./routes/session")
 app.use("/", sessionRouter);
-
 
 //////////////////////////////////////////////////////////////////////
 /*                            Server                                */
