@@ -20,12 +20,8 @@ module.exports = {
     }
   },
   async destroy(req, res) {
-    console.log("jibbi");
-    console.log('req.session: ', req.session);
     req.session.destroy(function(){
-      res.clearCookie('connect.sid', { path: '/' });
+      res.clearCookie('COOOKIE!!!!', { path: '/' }).status(200).json({ message: 'Signed Out' });
     });
-
-    res.status(200);
   }
 };

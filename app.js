@@ -39,7 +39,7 @@ var sess = {
   },
   userId: null,
   name: "COOOKIE!!!!",
-  secret: 'Coookie Monster',
+  secret: 'Coookie Monster', // this need to become a randomly generated value for prduction
   store: new RedisStore((process.env.NODE_ENV === 'production') ? deployedRedis : localRedis),
   resave: false,
   saveUninitialized: false,
