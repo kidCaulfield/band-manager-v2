@@ -7,7 +7,8 @@ class App extends Component {
 
   this.state = {
       data: null,
-      venues: null
+      venues: null,
+      currentUser: null
     };
 }
   componentDidMount() {
@@ -50,6 +51,7 @@ class App extends Component {
       body: JSON.stringify(params)
     });
     const session = await response.json();
+    this.setState({currentUser: session})
   }
 
   destroy() {
@@ -57,7 +59,6 @@ class App extends Component {
       method: "DELETE",
       credentials: "include"
     }).then(res => res.json());
-
   }
 
   signIn = (event) => {

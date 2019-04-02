@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const logger = require("morgan");
 const session = require("express-session");
-const RedisStore = require('connect-redis')(session);
+const RedisStore = require('connect-redis')(session); // will not work in dev without redis installed and running locally
 
 //////////////////////////////////////////////////////////////////////
 /*                         Middle Ware                              */
@@ -40,6 +40,7 @@ var sess = {
   userId: null,
   name: "COOOKIE!!!!",
   secret: 'Coookie Monster', // this need to become a randomly generated value for prduction
+  // fire up your redis server for dev with "redis-server /usr/local/etc/redis.conf"
   store: new RedisStore((process.env.NODE_ENV === 'production') ? deployedRedis : localRedis),
   resave: false,
   saveUninitialized: false,
@@ -56,19 +57,6 @@ if (app.get('env') === 'production') {
  
 app.use(session(sess))
 
-// app.get('/', function(req, res, next) {
-//   console.log("req.session", req.session);
-//   if (req.session.views) {
-//     req.session.views++
-//     res.setHeader('Content-Type', 'text/html')
-//     res.write('<p>views: ' + req.session.views + '</p>')
-//     res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-//     res.end()
-//   } else {
-//     req.session.views = 1
-//     res.end('welcome to the session demo. refresh!')
-//   }
-// })
 
 //////////////////////////////////////////////////////////////////////
 /*                            Routes                                */

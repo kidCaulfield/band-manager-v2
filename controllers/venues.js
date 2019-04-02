@@ -5,11 +5,7 @@ const Joi = require('joi')
 
 module.exports = {
   async index(req, res) {
-
-    // Whenever you need to use the method `then` with a callback to get a value
-    // from asynchronous code, you can instead use keyword `await` to for that value
-    // only inside functions or methods that are prefixed with the keyword `async`
-
+  
     try {
     const venues = await knex("venues").orderBy("id", "asc");
     console.log(`venues request`); // find out how to log the IP of the computer requesting
@@ -28,9 +24,6 @@ module.exports = {
       const venue = await knex("venues")
         .where("id", id)
         .first();
-      
-      // something to test later
-      // const reviews = await Review.forReviewWithUsers(post.id);
 
       res.status(200).json({venue});
     } catch (error) {

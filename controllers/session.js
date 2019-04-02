@@ -12,8 +12,9 @@ module.exports = {
         .first();
       if (user && (await bcrypt.compare(password, user.passwordDigest))) {
         req.session.userId = user.id;
+        req.currentUser = user.userName;
 
-      res.status(200).json(req.session.userId);
+      res.status(200).json(req.currentUser);
       }
     } catch (err) {
       throw err
@@ -21,7 +22,8 @@ module.exports = {
   },
   async destroy(req, res) {
     req.session.destroy(function(){
-      res.clearCookie('COOOKIE!!!!', { path: '/' }).status(200).json({ message: 'Signed Out' });
+      res.clearCookie('COOOKIE!!!!', { path: '/' }).status(200).json({});
+      req.currentUser = undefined;
     });
   }
 };
