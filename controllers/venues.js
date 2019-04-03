@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const knex = require("../db/client");
 const Joi = require('joi')
 const Venue = require("../models/venues");
@@ -39,7 +37,7 @@ module.exports = {
     }
   },
 
-  // This seems unecessary for api may be removed later
+  // This seems unecessary for api may be removed later if never used
   async show(req, res, next) {
     const { id } = req.params;
 
@@ -73,7 +71,7 @@ module.exports = {
           throw "duplicate venue found"
         }
       } catch (error) {
-      throw error;
+      next(error);
       }
     }
   ],
