@@ -1,6 +1,6 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable("users", t => {
-    t.increments("id");
+    t.increments("id").primary();
     t.string("userName");
     t.string("email");
     t.string("passwordDigest"); // this stores salt + hashing of (salt + password)

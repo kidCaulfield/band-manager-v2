@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     t.string('address');
     t.string('phone_number').unique();
     t.json('geo');
-    t.timestamps(true, true)
+    t.timestamps(true, true);
   });
 };
 
