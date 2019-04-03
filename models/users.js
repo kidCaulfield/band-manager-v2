@@ -3,13 +3,13 @@ const saltRounds = 10
 const knex = require("../db/client");
 
 module.exports = class User {
-  constructor({ id, userName, email, password, passwordDigest, createdAt } = {}) {
+  constructor({ id, userName, email, password, passwordDigest, created_at } = {}) {
     this.id = id;
     this.userName = userName;
     this.email = email;
     this.password = password;
     this.passwordDigest = passwordDigest;
-    this.createdAt = createdAt;
+    this.created_at = created_at;
   }
 
   static async findByEmail(email) {
@@ -22,11 +22,12 @@ module.exports = class User {
   async save() {
     const { email, userName, password } = this;
     const newUser = await knex("users")
-            .insert({
-            userName,
-            email,
-            passwordDigest: await bcrypt.hash(password, saltRounds)
-            }).returning('*');
+      .insert({
+      userName,
+      email,
+      passwordDigest: await bcrypt.hash(password, saltRounds)
+      }).returning('*');
+
     return newUser
   }
 }

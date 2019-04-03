@@ -1,29 +1,34 @@
 const knex = require("../db/client");
 
+module.exports = class Venue {
+  constructor({id, name, address, phone_number, geo, created_at, updated_at} = {}) {
+    this.id = id,
+    this.name =  name,
+    this.address =  address,
+    this.phone_number =  phone_number,
+    this.geo = geo,
+    this.created_at = created_at,
+    this.updated_at = updated_at
+  };
 
-/* Explore this login later */
+  static async findByName(name) {
+    const venue = await knex("venues")
+      .select()
+      .where("name", name);
+      
+    return venue;
+  };
 
-// const distinctUserIds = objs =>
-//   Array.from(
-//     new Set(
-//       objs.map(c => parseInt(c.userId, 10)).filter(id => !Number.isNaN(id))
-//     )
-//   );
-
-// module.exports = class Venue {
-//   static async forWithUsers(postId) {
-//     const venues = await knex("venues")
-//       .where("postId", postId)
-//       .orderBy("createdAt", "desc")
-//       .returning("*");
-
-//     const userIds = distinctUserIds(venues);
-//     const users = await knex("users").whereIn("id", userIds);
-
-//     venues.forEach(
-//       c => (c.user = users.find(u => u.id === parseInt(c.userId)))
-//     );
-
-//     return venues;
-//   }
-// };
+  async save() {
+    const {name, address, phone_number, geo} = this;
+    const newVenue = await knex("venues")
+      .insert({
+        name,
+        address,
+        phone_number,
+        geo
+      }).returning("id");
+    
+    return newVenue
+  }
+};

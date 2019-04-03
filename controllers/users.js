@@ -4,7 +4,7 @@ const Joi = require('joi');
 const User = require("../models/users");
 const saltRounds = 10;
 
-const validateUser = (requestBody) => {
+const validateUser = (requestBody, response) => {
 let { userName, email, password, passwordDigest } = requestBody.users
 const schema = Joi.object().keys({
       users: {
@@ -18,10 +18,10 @@ const schema = Joi.object().keys({
   Joi.validate(requestBody, schema, (err, result) => {
     if (err) {
       console.log('err: ', err);
-      res.status(422).json({
+      response.status(422).json({
             status: 'error',
             message: `${err.details[0].message}`,
-            data: res.body
+            data: response.body
       });
     }
   })
@@ -30,8 +30,7 @@ const schema = Joi.object().keys({
 module.exports = {
   async create(req, res, next) {
     let { userName, email, password, passwordDigest } = req.body.users;
-
-    validateUser(req.body);
+    validateUser(req.body, res);
 
     try {
     const verify = await User.findByEmail(email)
