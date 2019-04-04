@@ -3,12 +3,12 @@ const saltRounds = 10
 const knex = require("../db/client");
 
 module.exports = class User {
-  constructor({ id, userName, email, password, passwordDigest, created_at } = {}) {
+  constructor({ id, username, email, password, password_digest, created_at } = {}) {
     this.id = id;
-    this.userName = userName;
+    this.username = username;
     this.email = email;
     this.password = password;
-    this.passwordDigest = passwordDigest;
+    this.password_digest = password_digest;
     this.created_at = created_at;
   }
 
@@ -20,12 +20,12 @@ module.exports = class User {
   }
     
   async save() {
-    const { email, userName, password } = this;
+    const { email, username, password } = this;
     const newUser = await knex("users")
       .insert({
-      userName,
+      username,
       email,
-      passwordDigest: await bcrypt.hash(password, saltRounds)
+      password_digest: await bcrypt.hash(password, saltRounds)
       }).returning('*');
 
     return newUser

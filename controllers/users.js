@@ -5,45 +5,46 @@ const User = require("../models/users");
 const saltRounds = 10;
 
 const validateUser = (requestBody, response) => {
-let { userName, email, password, passwordDigest } = requestBody.users
+let { username, email, password, password_digest } = requestBody.users
 const schema = Joi.object().keys({
       users: {
-        userName: Joi.string().max(30).required(),
+        username: Joi.string().max(30).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().valid(passwordDigest).required(),
-        passwordDigest: Joi.string().required()
+        password: Joi.string().valid(password_digest).required(),
+        password_digest: Joi.string().required()
       }
     })
 
-  Joi.validate(requestBody, schema, (err, result) => {
+  const result = Joi.validate(requestBody, schema, (err) => {
     if (err) {
       console.log('err: ', err);
       response.status(422).json({
-            status: 'error',
-            message: `${err.details[0].message}`,
-            data: response.body
-      });
+        error: `${err.details[0].message}`,
+      })
     }
+    return err
   })
+  return result;
 }
 
 module.exports = {
   async create(req, res, next) {
-    let { userName, email, password, passwordDigest } = req.body.users;
-    validateUser(req.body, res);
-
-    try {
-    const verify = await User.findByEmail(email)
-    let user;
-    if (verify.length === 0) {
-      user = new User({userName, email, password, passwordDigest})
-      user.save()
-    } else {
-      throw "duplicate user found"
-    }
-    res.status(200).json(user);
-    } catch (error) {
-      next(error);
+    const valid = validateUser(req.body, res);
+    if (valid === null) {
+      try {
+        const { username, email, password, password_digest } = req.body.users;
+        const verify = await User.findByEmail(email)
+        let user;
+        if (verify.length === 0) {
+          user = new User({username, email, password, password_digest})
+          user.save()
+        } else {
+          throw "duplicate user found"
+        }
+        res.status(200).json(user);
+      } catch (error) {
+        next(error);
+      }
     }
   }
 };

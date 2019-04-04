@@ -10,9 +10,9 @@ module.exports = {
       const user = await knex("users")
         .where("email", email)
         .first();
-      if (user && (await bcrypt.compare(password, user.passwordDigest))) {
+      if (user && (await bcrypt.compare(password, user.password_digest))) {
         req.session.userId = user.id;
-        req.currentUser = user.userName;
+        req.currentUser = user.username;
 
       res.status(200).json(req.currentUser);
       }

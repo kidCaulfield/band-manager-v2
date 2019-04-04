@@ -6,11 +6,12 @@
   "author": "Wesley Coderre",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon app.js",
+    "dev": "nodemon app.js",
     "db:create": "createdb -e band_manager_v2",
     "db:drop": "dropdb --if-exist -e band_manager_v2",
     "db:migrate": "knex migrate:latest",
-    "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate"
+    "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate",
+    "redis": "redis-server /usr/local/etc/redis.conf"
   },
   "dependencies": {
     "bcrypt": "^3.0.5",

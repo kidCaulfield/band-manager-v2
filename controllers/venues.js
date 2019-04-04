@@ -13,16 +13,16 @@ const validateVenue = (requestBody, response) => {
     }
   });
 
-  Joi.validate(requestBody, schema, (err, result) => {
+  const result = Joi.validate(requestBody, schema, (err) => {
     if (err) {
       console.log('err: ', err);
       response.status(422).json({
-        status: 'error',
-        message: `${err.details[0].message}`,
-        data: response.body
-      });
+        error: `${err.details[0].message}`,
+      })
     }
+    return err
   })
+  return result
 }
 
 module.exports = {
@@ -53,25 +53,23 @@ module.exports = {
   },
   create: [
     async (req, res, next) => {
-      validateVenue(req.body, res)
+      const invalid = validateVenue(req.body, res)  
+      const { name, address, phone_number, geo } = req.body.venues;  
 
-      const { name, address, phone_number, geo } = req.body.venues;
-      try {
-        let verify = null // trying to solve memory issue
-        verify = await Venue.findByName(name)
-        //console.log('verify: ', verify); // **this may become a memory issue come back later**
-        let venue;
-        const sameNameDifferentTown = (location) => location.address != address;
-        if (verify.length === 0 || verify.every(sameNameDifferentTown)) {
-          venue = new Venue({name, address, phone_number, geo});
-          const id = await venue.save()
-
-          res.status(200).json({id});
-        } else {
-          throw "duplicate venue found"
+      if (invalid === null) {
+        try {
+          verify = await Venue.findByName(name) // **this may become a memory issue come back later**
+          const sameNameDifferentTown = (location) => location.address != address;
+          if (verify.length === 0 || verify.every(sameNameDifferentTown)) {
+            const venue = new Venue({name, address, phone_number, geo});
+            const id = await venue.save()
+            res.status(200).json({id});
+          } else {
+            throw "duplicate venue found"
+          }
+        } catch (error) {
+        next(error);
         }
-      } catch (error) {
-      next(error);
       }
     }
   ],
@@ -119,8 +117,8 @@ module.exports = {
       .returning("*")
 
       res.status(200).json({venue});
-      } catch (error) {
-      throw error;
-      }
+    } catch (error) {
+    throw error;
+    }
   }
 }
