@@ -18,6 +18,10 @@ Express/Node API for band-manager react-app
 
 * Joi - 14.3.1: Object schema description language and validator for JavaScript objects.
 
-### Password Encryption 
+### Password Hashing 
 
 * bcrypt - 3.0.5: A library to help you hash passwords.
+
+### IMDB (In Memory Database)
+
+* Redis - 5.0.4
