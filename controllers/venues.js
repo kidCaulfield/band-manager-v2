@@ -25,13 +25,12 @@ const validateVenue = (requestBody, response) => {
   return result
 }
 
-// refactor this more later
+// Add admin User privilages later for Venues CRUD
 
 module.exports = {
   async index(req, res) {
-  
     try {
-    const venues = await knex("venues").orderBy("id", "asc");
+    const venues = await Venue.allVenues();
     console.log(`${venues}`); // find out how to log the IP of the computer requesting later
     res.status(200).json({ venues });
     } catch (error) {
@@ -39,14 +38,11 @@ module.exports = {
     }
   },
 
-  // This seems unecessary for api may be removed later if never used
+  // This seems unecessary for api may be removed later if never used, also edit is the same.
   async show(req, res, next) {
-    const { id } = req.params;
-
     try {
-      const venue = await knex("venues")
-        .where("id", id)
-        .first();
+      const { id } = req.params;
+      const venue = await Venue.findById(id);
 
       res.status(200).json({venue});
     } catch (error) {
@@ -55,10 +51,10 @@ module.exports = {
   },
   create: [
     async (req, res, next) => {
-      const invalid = validateVenue(req.body, res)  
+      const valid = validateVenue(req.body, res)  
       const { name, address, phone_number, geo } = req.body.venues;  
 
-      if (invalid === null) {
+      if (valid === null) {
         try {
           verify = await Venue.findByName(name) // **this may become a memory issue come back later**
           const sameNameDifferentTown = (location) => location.address != address;
@@ -75,26 +71,29 @@ module.exports = {
       }
     }
   ],
-  async destroy(req, res) {
-    const { id } = req.params;
+  async destroy(req, res) { // currently no one is authorized to delete venues
+    if (req.session.userId) {
+      try {
+        const { id } = req.params;
+        const authorized = await Venue.authorize(id, req.session.userId)
+        if (authorized) {
+        const deleted = await Venue.deleteTour(id)
 
-    try {
-    const venue = await knex("venues")
-      .where("id", id)
-      .del()
-
-      res.status(200).send(`Venue at id: ${id} has been deleted`)
+        res.status(200).send(`Venue at id: ${id} has been deleted`)
+        } else {
+          res.status(401).json({error: "You are unauthorized"})
+        }
       } catch (error) {
       throw error;
       }
+    } else {
+      res.status(401).json({error: "You must be signed in"})
+    }
    },
   async edit(req, res) {
-    const { id } = req.params;
-
     try {
-    const venue = await knex("venues")
-      .where("id", id)
-      .first()
+    const { id } = req.params;
+    const venue = await Venue.findById(id)
 
       res.status(200).json({venue});
       } catch (error) {
@@ -102,25 +101,16 @@ module.exports = {
       }
   },
   async update(req, res) {
-    validateVenue(req.body, res);
+    const valid = validateVenue(req.body, res);
+    if (valid === null) {
+      try {
+        const { id } = req.params;
+        const venue = await Venue.updateVenue(id ,req.body.venues)
 
-    const { id } = req.params;
-    const { name, address, phone_number, geo } = req.body.venues
-    
-    try {
-    const venue = await knex("venues")
-      .where("id", id)
-      .update({
-        name,
-        address,
-        phone_number,
-        geo
-      })
-      .returning("*")
-
-      res.status(200).json({venue});
-    } catch (error) {
-    throw error;
+        res.status(200).json({venue});
+      } catch (error) {
+      throw error;
+      }
     }
   }
 }

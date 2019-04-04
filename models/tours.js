@@ -7,7 +7,7 @@ module.exports = class Tour {
     this.band = band;
     this.user_id = user_id;
     this.created_at = created_at;
-    this,updated_at = updated_at;
+    this.updated_at = updated_at;
   }
 
   static async findTourById(id) {

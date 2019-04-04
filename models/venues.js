@@ -19,6 +19,52 @@ module.exports = class Venue {
     return venue;
   };
 
+  static async findById(id) {
+    const venue = await knex("venues")
+      .where("id", id)
+      .first()
+
+    return venue;
+  }
+
+  static async allVenues() {
+    const venues = await knex("venues").orderBy("id", "asc");
+
+    return venues
+  }
+
+  static async authorize(id, uid) {
+    let key;
+    const venue = await knex("venues")
+      .where("id", id)
+      .first()
+    venue.user_id == uid ? key = true : key = false;
+    return key;
+  }
+
+  static async deleteVenue(id) {
+    const venue = await knex("venues")
+      .where("id", id)
+      .del()
+
+    return venue
+  }
+
+  static async updateVenue(id, reqBody) {
+    const {name, address, phone_number, geo} = reqBody;
+    const venue = await knex("venues")
+      .where("id", id)
+      .update({
+        name,
+        address,
+        phone_number,
+        geo
+      })
+      .returning("*");
+
+      return venue
+  }
+
   async save() {
     const {name, address, phone_number, geo} = this;
     const newVenue = await knex("venues")

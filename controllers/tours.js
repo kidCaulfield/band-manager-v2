@@ -84,9 +84,9 @@ module.exports = {
         const { id } = req.params;
         const authorized = await Tour.authorize(id, req.session.userId)
         if (authorized) {
-        const deleted = await Tour.deleteTour(id);
+          const deleted = await Tour.deleteTour(id);
 
-        res.status(200).send(`Tour at id: ${id} has been deleted`)
+          res.status(200).send(`Tour at id: ${id} has been deleted`)
         } else (
           res.status(401).json({error: "You are unauthorized"})
         )
