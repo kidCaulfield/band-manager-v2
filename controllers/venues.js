@@ -25,6 +25,8 @@ const validateVenue = (requestBody, response) => {
   return result
 }
 
+// refactor this more later
+
 module.exports = {
   async index(req, res) {
   

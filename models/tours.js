@@ -18,6 +18,15 @@ module.exports = class Tour {
     return tour;
   }
 
+  static async authorize(id, uid) {
+    let key;
+    const tour = await knex("tours")
+      .where("id", id)
+      .first()
+    tour.user_id == uid ? key = true : key = false;
+    return key;
+  }
+
   static async findUsersTours(id) {
     const tours = await knex("tours")
       .where("user_id", id)
@@ -26,9 +35,16 @@ module.exports = class Tour {
     return tours;
   }
 
+  static async deleteTour(id) {
+    const tour = await knex("tours")
+      .where("id", id)
+      .del()
+
+    return tour;
+  }
+
   static async updateTour(id, request) {
     const {title, band} = request;
-    console.log('title: ', title);
     const tour = await knex("tours")
       .where("id", id)
       .update({
