@@ -31,7 +31,7 @@ module.exports = {
   async index(req, res) {
     try {
     const venues = await Venue.allVenues();
-    console.log(`${venues}`); // find out how to log the IP of the computer requesting later
+    // find out how to log the IP of the computer requesting later
     res.status(200).json({ venues });
     } catch (error) {
       throw error;

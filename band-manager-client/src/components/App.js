@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
+import { Venue } from '../requests'
 
 class App extends Component {
   constructor(props) {
@@ -11,34 +12,12 @@ class App extends Component {
       currentUser: null
     };
 }
-  componentDidMount() {
-    // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
-      .catch(err => console.log(err));
-    this.getVenues()
-      .then(res => this.setState({ venues: res.venues }))
-      .catch(err => console.log(err));     
-  }
 
-  callBackendAPI = async () => {
-    const response = await fetch('/express_backend');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body;
-  };
-
-  getVenues = async () => {
-    const response = await fetch('/venues');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-    return body
+  // if "regeneratorRuntime is not defined" while using async/await in new prject
+  // "yarn add babel-preset-env" should fix this error
+  async componentDidMount() { 
+    const venues = await Venue.all()
+    this.setState({venues: venues})
   }
   
   createSession = async (params) => {
@@ -74,23 +53,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">    
-        <div className="Venue-form-box">
-          <h1 className="Title Blue">Sign In</h1>
-          <form className="Venue-form" onSubmit={this.signIn}>
-            <div>
-              <label htmlFor="email">email</label><br/>
-              <input type="text" name="email" value="jh@job.com"></input>
-            </div>
-            <div>
-              <label htmlFor="password">password</label><br/>
-              <input type="text" name="password" value="p1234"></input>
-            </div>
-            <input className="Button-form" type="submit" value="Sign In" />
-          </form>
-        </div>
+      <div className="Website">
 
-        <button className="Button-form" onClick={this.destroy}>Sign Out</button>
       </div>
     );
   }
