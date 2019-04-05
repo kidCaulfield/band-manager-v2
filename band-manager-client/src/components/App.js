@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; 
+import { BrowserRouter } from 'react-router-dom'
 import '../styles/App.css';
-import { Venue } from '../requests'
+import { Venue, Session } from '../requests'
+import Website from "./Website"
 
 class App extends Component {
   constructor(props) {
@@ -16,20 +18,12 @@ class App extends Component {
   // if "regeneratorRuntime is not defined" while using async/await in new prject
   // "yarn add babel-preset-env" should fix this error
   async componentDidMount() { 
-    const venues = await Venue.all()
-    this.setState({venues: venues})
+    const venues = await Venue.all();
+    this.setState({venues: venues});
   }
   
   createSession = async (params) => {
-    const response = await fetch('/session', {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(params)
-    });
-    const session = await response.json();
+    const session = await Session.create(params);
     this.setState({currentUser: session})
   }
 
@@ -53,9 +47,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="Website">
-
-      </div>
+      <BrowserRouter>
+        <div className="AppBox">
+          <Website />
+        </div>
+      </BrowserRouter>
     );
   }
 }
