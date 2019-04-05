@@ -64,11 +64,10 @@ module.exports = {
       if (authorized) {
         const deleted = await User.deleteUser();
 
-        res.status(200).json({`User at id: ${id} has been deleted`})
+        res.status(200).send(`User at id: ${id} has been deleted`)
       } else {
         res.status(401).json({error: "You are unauthorized"});
       }
-      const 
     } catch (error) {
       next(error)
     };

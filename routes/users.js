@@ -16,7 +16,7 @@ router.get('/users', (req, res) => {
 router.get('/users/:id', authenticateUser, usersController.show);
 router.post('/users', usersController.create);
 router.delete('/users/:id', authenticateUser, usersController.destroy);
-router.get('/users/:id', authenticateUser, usersController.edit);
-router.patch('/users/:id', authenticateUser, usersController.update);
+router.get('/user/:id', authenticateUser, usersController.edit);
+router.patch('/user/:id', authenticateUser, usersController.update);
 
 module.exports = router;

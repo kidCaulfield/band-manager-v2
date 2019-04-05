@@ -11,6 +11,14 @@ module.exports = class Venue {
     this.updated_at = updated_at
   };
 
+  static async find(params) {
+    const venue = await knex("venues")
+      .select()
+      .where(params); // note: .where can take and object
+
+      return venue;
+  };
+
   static async findByName(name) {
     const venue = await knex("venues")
       .select()
@@ -30,7 +38,7 @@ module.exports = class Venue {
   static async allVenues() {
     const venues = await knex("venues").orderBy("id", "asc");
 
-    return venues
+    return venues;
   }
 
   static async authorize(id, uid) {

@@ -15,7 +15,7 @@ router.get('/tours', authenticateUser, toursController.index);
 router.get('/tours/:id', authenticateUser, toursController.show);
 router.post('/tours', authenticateUser, toursController.create);
 router.delete('/tours/:id', authenticateUser, toursController.destroy);
-router.patch('/tours/:id', authenticateUser, toursController.update);
+router.patch('/tour/:id', authenticateUser, toursController.update);
 
 
 module.exports = router;

@@ -21,8 +21,9 @@ module.exports = class User {
 
   static async findById(id) {
     const user = await knex("users")
-      .select()
+      .select("id", "username", "email") // choose's which columns you want returned
       .where('id', id)
+      .first()
 
       return user
   };

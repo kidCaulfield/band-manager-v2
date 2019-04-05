@@ -56,9 +56,8 @@ module.exports = {
 
       if (valid === null) {
         try {
-          verify = await Venue.findByName(name) // **this may become a memory issue come back later**
-          const sameNameDifferentTown = (location) => location.address != address;
-          if (verify.length === 0 || verify.every(sameNameDifferentTown)) {
+          const verify = await Venue.find({name, address})
+          if (verify.length === 0) {
             const venue = new Venue({name, address, phone_number, geo});
             const id = await venue.save()
             res.status(200).json({id});

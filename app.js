@@ -68,6 +68,9 @@ app.use("/", venuesRouter);
 const toursRouter = require("./routes/tours");
 app.use("/", toursRouter);
 
+const eventsRouter = require("./routes/events");
+app.use("/", eventsRouter);
+
 const usersRouter = require("./routes/users");
 app.use("/", usersRouter);
 
