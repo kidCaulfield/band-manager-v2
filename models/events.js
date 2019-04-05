@@ -19,6 +19,46 @@ module.exports = class Event {
     return event;
   }
 
+  static async findAll(params) {
+    const events = await knex("events")
+      .select()
+      .where(params)
+
+    return events;
+  }
+
+   static async authorize(id, uid) {
+    let key;
+    const event = await knex("events")
+      .where("id", id)
+      .first()
+    event.user_id == uid ? key = true : key = false;
+    return key;
+  }
+
+  static async deleteEvent(id) {
+    const event = await knex("events")
+      .where("id", id)
+      .del()
+
+    return event
+  }
+
+  static async updateEvent(id, reqBody) {
+    const {name, address, contact, date_time} = reqBody;
+    const event = await knex("events")
+      .where("id", id)
+      .update({
+        name,
+        address,
+        contact,
+        date_time
+      })
+      .returning("*");
+
+      return event
+  }
+
   async save(uid, tourId, venueId) {
     const {name, address, contact, date_time} = this;
     const event = await knex("events")
