@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import SignInPage from './SignInPage';
 
 const Website = (props) => {
-  const [currentUser, setUser] = useState(0);
-
+  console.log('props.signIn: ', props.signIn);
   return(
     <div className="Website">
-      <SignInPage />
+      <SignInPage
+        signIn={props.signIn}
+        destroy={props.destroy}  
+      />
     </div>
   )
 }

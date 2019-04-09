@@ -1,59 +1,63 @@
-import React, { Component } from 'react'; 
+import React, { useState, useEffect } from 'react'; 
 import { BrowserRouter } from 'react-router-dom'
 import '../styles/App.css';
 import { Venue, Session } from '../requests'
 import Website from "./Website"
 
-class App extends Component {
-  constructor(props) {
-    super(props)
 
-  this.state = {
-      data: null,
-      venues: null,
-      currentUser: null
-    };
-}
+const App = (props) => {
+  const [venues, setVenues] = useState(null);
+  const [currentUser, setUser] = useState(null);
+
+  //data: null,
 
   // if "regeneratorRuntime is not defined" while using async/await in new prject
   // "yarn add babel-preset-env" should fix this error
-  async componentDidMount() { 
-    const venues = await Venue.all();
-    this.setState({venues: venues});
-  }
   
-  createSession = async (params) => {
-    const session = await Session.create(params);
-    this.setState({currentUser: session})
+  const getVenues = async () => { 
+    const venues = await Venue.all();
+    setVenues(venues);
   }
 
-  destroy() {
+  const createSession = async (params) => {
+    const session = await Session.create(params);
+    setUser(session)
+  }
+
+  const destroy = () => {
+    // ES6  callback hell
     return fetch(`/session`, {
       method: "DELETE",
       credentials: "include"
     }).then(res => res.json());
   }
 
-  signIn = (event) => {
+  const signIn = (event) => {
     event.preventDefault();
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
 
-    this.createSession({
+    createSession({
       email: formData.get("email"),
       password: formData.get("password")
     })
   }
 
-  render() {
+ useEffect(() => {
+    getVenues()
+  });
+
+
     return (
       <BrowserRouter>
         <div className="AppBox">
-          <Website />
+          <Website
+            signIn={signIn}
+            destroy={destroy}  
+          />
         </div>
       </BrowserRouter>
     );
-  }
 }
 
 export default App;
