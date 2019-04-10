@@ -9,7 +9,7 @@ const SignInPage = (props) => {
         <form className="Venue-form" onSubmit={props.signIn}>
           <div>
             <label htmlFor="email">email</label><br/>
-            <input type="text" name="email" defaultValue="jh@job.com"></input>
+            <input type="text" name="email" defaultValue="j@job.com"></input>
           </div>
           <div>
             <label htmlFor="password">password</label><br/>

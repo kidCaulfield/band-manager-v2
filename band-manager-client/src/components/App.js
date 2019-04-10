@@ -5,8 +5,9 @@ import { Venue, Session } from '../requests'
 import Website from "./Website"
 
 
+
 const App = (props) => {
-  const [venues, setVenues] = useState(null);
+  const [venues, setVenues] = useState([]);
   const [currentUser, setUser] = useState(null);
 
   //data: null,
@@ -21,6 +22,7 @@ const App = (props) => {
 
   const createSession = async (params) => {
     const session = await Session.create(params);
+    console.log('session: ', session);
     setUser(session)
   }
 
@@ -43,21 +45,33 @@ const App = (props) => {
     })
   }
 
- useEffect(() => {
-    getVenues()
-  });
+  useEffect(() => { getVenues()}, []);
 
-
+  if (venues.length === 0) {
     return (
-      <BrowserRouter>
-        <div className="AppBox">
-          <Website
-            signIn={signIn}
-            destroy={destroy}  
-          />
+      <div>
+        <p>Loading...</p>
+      </div>
+    )
+  }
+  return (
+    <BrowserRouter>
+      <div className="AppBox">
+        <Website
+          signIn={signIn}
+          destroy={destroy}  
+        />
+        <div className="VenueList">
+          {/* comeback and find a better way to map this later or name it */}
+          {venues.venues.map(venue => ( 
+            <div className="List" key={venue.id}>
+             <p>{venue.name}</p>
+            </div>
+          ))}
         </div>
-      </BrowserRouter>
-    );
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;
