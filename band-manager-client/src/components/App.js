@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react'; 
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 import '../styles/App.css';
-import { Venue, Session } from '../requests'
-import Website from "./Website"
+import { Venue, Session } from '../requests';
+import Website from "./Website";
 
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
+import { updateUser, apiRequest } from '../actions/userActions'
 
+import { createSelector } from 'reselect'
 
 const App = (props) => {
   const [venues, setVenues] = useState([]);
   const [currentUser, setUser] = useState(null);
+
+
+  const onUpdateUser = (event) => {
+    props.onUpdateUser(event.target.value)
+  }
 
   //data: null,
 
@@ -45,7 +54,12 @@ const App = (props) => {
     })
   }
 
-  useEffect(() => { getVenues()}, []);
+  useEffect(() => {
+    setTimeout(() => {
+    props.onApiRequest()
+    }, 1500);
+    getVenues();
+  }, []);
 
   if (venues.length === 0) {
     return (
@@ -61,6 +75,9 @@ const App = (props) => {
           signIn={signIn}
           destroy={destroy}  
         />
+        <input onChange={onUpdateUser} />
+          {props.user} <br/>
+          {currentUser}
         <div className="VenueList">
           {/* comeback and find a better way to map this later or name it */}
           {venues.venues.map(venue => ( 
@@ -74,4 +91,28 @@ const App = (props) => {
   );
 }
 
-export default App;
+const venuesSelector = createSelector(
+  state => state.venues,
+  venues => venues
+);
+
+const userSelector = createSelector(
+  state => state.user,
+  user => user
+);
+
+const mapStateToProps = createSelector(
+  venuesSelector,
+  userSelector,
+  (venues, user) => ({
+    venues,
+    user
+  })
+);
+
+const mapActionsToProps = {
+    onUpdateUser: updateUser,
+    onApiRequest: apiRequest
+  }
+
+export default connect(mapStateToProps, mapActionsToProps)(App);
