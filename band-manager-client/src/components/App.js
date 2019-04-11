@@ -7,36 +7,38 @@ import Website from "./Website";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { updateUser, apiRequest } from '../actions/userActions'
+import { getVenues } from '../actions/venueActions'
 
 import { createSelector } from 'reselect'
 
 const App = (props) => {
-  const [venues, setVenues] = useState([]);
-  const [currentUser, setUser] = useState(null);
+  console.log('App props: ', props);
 
+  /*============== hooks example ==============*/
+  // const [venues, setVenues] = useState([]);
+  // const [currentUser, setUser] = useState(null);
 
-  const onUpdateUser = (event) => {
-    props.onUpdateUser(event.target.value)
-  }
-
-  //data: null,
-
+  // const onUpdateUser = (event) => {
+  //   props.onUpdateUser(event.target.value)
+  // }
+  
   // if "regeneratorRuntime is not defined" while using async/await in new prject
   // "yarn add babel-preset-env" should fix this error
   
   const getVenues = async () => { 
     const venues = await Venue.all();
-    setVenues(venues);
+    //setVenues(venues);
+    props.onGetVenues(venues);
   }
 
   const createSession = async (params) => {
     const session = await Session.create(params);
-    console.log('session: ', session);
-    setUser(session)
+    //setUser(session)
+    props.onUpdateUser(session)
   }
 
   const destroy = () => {
-    // ES6  callback hell
+    // ES6  callback hell, this is kept and a reminder :^•
     return fetch(`/session`, {
       method: "DELETE",
       credentials: "include"
@@ -55,13 +57,10 @@ const App = (props) => {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-    props.onApiRequest()
-    }, 1500);
     getVenues();
   }, []);
 
-  if (venues.length === 0) {
+  if (props.venues.length === 0) {
     return (
       <div>
         <p>Loading...</p>
@@ -75,12 +74,11 @@ const App = (props) => {
           signIn={signIn}
           destroy={destroy}  
         />
-        <input onChange={onUpdateUser} />
+        {/* <input onChange={onUpdateUser} /> */}
           {props.user} <br/>
-          {currentUser}
         <div className="VenueList">
           {/* comeback and find a better way to map this later or name it */}
-          {venues.venues.map(venue => ( 
+          {props.venues.venues.map(venue => ( 
             <div className="List" key={venue.id}>
              <p>{venue.name}</p>
             </div>
@@ -112,7 +110,7 @@ const mapStateToProps = createSelector(
 
 const mapActionsToProps = {
     onUpdateUser: updateUser,
-    onApiRequest: apiRequest
+    onGetVenues: getVenues
   }
 
 export default connect(mapStateToProps, mapActionsToProps)(App);
