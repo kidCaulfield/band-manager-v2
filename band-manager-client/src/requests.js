@@ -23,5 +23,13 @@ export const Session = {
     const session = await response.json();
 
     return session
+  },
+  async destroy() {
+    const response = await fetch(`/session`, {
+      method: "DELETE",
+      credentials: "include"
+    })
+    const sessionOver = await response.json();
+    return sessionOver
   }
 }

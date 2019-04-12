@@ -1,8 +1,87 @@
-.Nav-box {
+.NavBox {
   display: flex;
   padding: 0px;
   margin: 0px;
   z-index: 1;
   width: 100%;
   position: relative;
+  background-color: black;
+}
+
+.Brand {
+  margin: 5px 0px 0px 3px;
+}
+
+nav {
+  background-color: black;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+  max-height: 50px;
+}
+
+nav > * {
+  padding: 10px;
+}
+
+nav a {
+  color: rgb(0, 200, 255);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+nav a.Fancy:hover {
+  background-color: rgb(0, 200, 255);
+  color: black;
+}
+
+.NavbarLinkToggle {
+  display:none;
+}
+
+@media only screen and (max-width: 768px) {
+  .NavBox {
+    flex-direction: column
+  }
+
+  .NavbarItems{
+    display: flex;
+    flex-direction: column;
+    display:none;
+    margin-left: auto;
+    min-width: 150px;
+  }
+
+  .NavbarToggleShow {
+    display: flex;
+  }
+
+  .NavbarLinkToggle {
+    align-self: flex-end;
+    display: initial;
+    position: absolute;
+    cursor: pointer;
+    padding: 15px;
+  }
+
+  nav {
+    background-color: black;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 20px;
+    display: flex;
+    align-items: center;
+    max-height: 100%;
+  }
+
+  .NavbarLink {
+    width: 100%;
+    text-align: right;
+    margin-right: 25px;
+  }
+
+  span {
+    display: none;
+  }
 }

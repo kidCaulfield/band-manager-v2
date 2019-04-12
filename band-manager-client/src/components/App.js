@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useEffect } from 'react'; 
 import { BrowserRouter } from 'react-router-dom';
 import '../styles/App.css';
-import { Venue, Session } from '../requests';
-import Website from "./Website";
+import { Venue } from '../requests';
+import Container from "./Container";
 
+/*=================== Redux ===================*/
 import { connect } from 'react-redux';
 import { updateUser, apiRequest } from '../actions/userActions'
 import { getVenues } from '../actions/venueActions'
 
 import { createSelector } from 'reselect'
 
+/*=============== Font Awesome ================*/
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEnvelope, faKey, faBars } from '@fortawesome/free-solid-svg-icons';
+library.add(faEnvelope, faKey, faBars);
+
+
 const App = (props) => {
-  console.log('App props: ', props);
 
   /*============== hooks example ==============*/
   // const [venues, setVenues] = useState([]);
@@ -21,6 +27,7 @@ const App = (props) => {
   //   props.onUpdateUser(event.target.value)
   // }
   
+  /*============== Error Solved ===============*/
   // if "regeneratorRuntime is not defined" while using async/await in new prject
   // "yarn add babel-preset-env" should fix this error
   
@@ -37,6 +44,8 @@ const App = (props) => {
 
   const destroy = () => {
     // ES6 callback hell, this is kept and a reminder :^•
+
+    props.onUpdateUser(null)
     return fetch(`/session`, {
       method: "DELETE",
       credentials: "include"
@@ -79,12 +88,12 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <div className="AppBox">
-        <Website
+        <Container
           signIn={signIn}
           destroy={destroy}  
         />
         {/* <input onChange={onUpdateUser} /> */}
-          {props.user} <br/>
+          {props.currentUser} <br/>
         {/* <div className="VenueList"> */}
           {/* comeback and find a better way to map this later or name it */}
           {/* {props.venues.venues.map(venue => ( 
@@ -104,16 +113,16 @@ const venuesSelector = createSelector(
 );
 
 const userSelector = createSelector(
-  state => state.user,
-  user => user
+  state => state.currentUser,
+  currentUser => currentUser
 );
 
 const mapStateToProps = createSelector(
   venuesSelector,
   userSelector,
-  (venues, user) => ({
+  (venues, currentUser) => ({
     venues,
-    user
+    currentUser
   })
 );
 

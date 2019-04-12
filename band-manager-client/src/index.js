@@ -12,7 +12,7 @@ import userReducer from './reducers/userReducer';
 
 const allReducers = combineReducers({
   venues: venueReducer,
-  user: userReducer
+  currentUser: userReducer
 })
 
 const allStoreEnhancers = compose(
@@ -22,7 +22,7 @@ const allStoreEnhancers = compose(
 
 const store = createStore(allReducers, {
   venues: [],
-  user: null
+  currentUser: null
   },
   allStoreEnhancers
 );
