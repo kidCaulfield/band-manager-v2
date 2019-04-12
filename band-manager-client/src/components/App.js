@@ -4,7 +4,6 @@ import '../styles/App.css';
 import { Venue, Session } from '../requests';
 import Website from "./Website";
 
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { updateUser, apiRequest } from '../actions/userActions'
 import { getVenues } from '../actions/venueActions'
@@ -31,14 +30,13 @@ const App = (props) => {
     props.onGetVenues(venues);
   }
 
-  const createSession = async (params) => {
-    const session = await Session.create(params);
+  const createSession = (params) => {
     //setUser(session)
-    props.onUpdateUser(session)
+    props.onApiRequest(params)
   }
 
   const destroy = () => {
-    // ES6  callback hell, this is kept and a reminder :^•
+    // ES6 callback hell, this is kept and a reminder :^•
     return fetch(`/session`, {
       method: "DELETE",
       credentials: "include"
@@ -62,8 +60,19 @@ const App = (props) => {
 
   if (props.venues.length === 0) {
     return (
-      <div>
-        <p>Loading...</p>
+      <div className="sk-circle">
+        <div className="sk-circle1 sk-child"></div>
+        <div className="sk-circle2 sk-child"></div>
+        <div className="sk-circle3 sk-child"></div>
+        <div className="sk-circle4 sk-child"></div>
+        <div className="sk-circle5 sk-child"></div>
+        <div className="sk-circle6 sk-child"></div>
+        <div className="sk-circle7 sk-child"></div>
+        <div className="sk-circle8 sk-child"></div>
+        <div className="sk-circle9 sk-child"></div>
+        <div className="sk-circle10 sk-child"></div>
+        <div className="sk-circle11 sk-child"></div>
+        <div className="sk-circle12 sk-child"></div>
       </div>
     )
   }
@@ -76,14 +85,14 @@ const App = (props) => {
         />
         {/* <input onChange={onUpdateUser} /> */}
           {props.user} <br/>
-        <div className="VenueList">
+        {/* <div className="VenueList"> */}
           {/* comeback and find a better way to map this later or name it */}
-          {props.venues.venues.map(venue => ( 
+          {/* {props.venues.venues.map(venue => ( 
             <div className="List" key={venue.id}>
-             <p>{venue.name}</p>
+              <p>{venue.name}</p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </BrowserRouter>
   );
@@ -110,7 +119,8 @@ const mapStateToProps = createSelector(
 
 const mapActionsToProps = {
     onUpdateUser: updateUser,
-    onGetVenues: getVenues
+    onGetVenues: getVenues,
+    onApiRequest: apiRequest
   }
 
 export default connect(mapStateToProps, mapActionsToProps)(App);

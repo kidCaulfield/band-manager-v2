@@ -1,8 +1,9 @@
-import $ from 'jquery';
+import { Session } from '../requests'
 
 export const API_REQUEST_SUCCESS = 'user:updateUser';
 export const API_REQUEST_ERROR = 'user:showError';
 export const API_REQUEST_REQUEST = 'user:onRequest';
+export const API_REQUEST_COOKIE = 'user:onRequest';
 
 export const updateUser = (newUser) => {
   return {
@@ -28,21 +29,14 @@ export const onRequest = () => {
   }
 }
 
-export const apiRequest = () => {
-  return dispatch => {
-    // dispatch(requestMade())
-    // $.ajax({
-    //   url: 'http://google.com',
-    //   success(response) {
-    //     console.log("SUCCESS");
-
-    //     dispatch(updateUser(response.newUser));
-    //   },
-    //   error() {
-    //     console.log('error');
-
-    //     dispatch(showError());
-    //   }
-    // });
-  }
+export const apiRequest = (params) => async dispatch => {
+  console.log('I Want COOOOKIEESS!!!!!');
+    
+    const session = await Session.create(params);
+    return dispatch({
+      type: API_REQUEST_COOKIE,
+      payload: {
+        user: session
+      }
+      })
 }
