@@ -3,7 +3,7 @@ import { Session } from '../requests'
 export const API_REQUEST_SUCCESS = 'user:updateUser';
 export const API_REQUEST_ERROR = 'user:showError';
 export const API_REQUEST_REQUEST = 'user:onRequest';
-export const API_REQUEST_COOKIE = 'user:apiRequest';
+export const API_REQUEST_COOKIE = 'user:login';
 
 export const updateUser = (newUser) => {
   return {
@@ -37,7 +37,7 @@ export const login = (params, props) => async dispatch => {
   return dispatch({
     type: API_REQUEST_COOKIE,
     payload: {
-      currentUser: session.user
+      currentUser: session.id
     }
   })
 }

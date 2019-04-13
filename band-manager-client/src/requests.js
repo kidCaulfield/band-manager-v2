@@ -31,5 +31,10 @@ export const Session = {
     })
     const sessionOver = await response.json();
     return sessionOver
+  },
+  async getCurrentSession() {
+     const response = await fetch(`/session`);
+     const json = await response.json();
+     return json;
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { connect } from 'react-redux';
-import { updateUser, login } from '../actions/userActions'
+import { login } from '../actions/userActions'
 import { createSelector } from 'reselect'
 
 const SignInPage = (props) => {

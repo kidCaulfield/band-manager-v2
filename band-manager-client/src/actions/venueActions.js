@@ -1,4 +1,4 @@
-export const FETCH_VENUES = 'venes:getVenuees';
+export const FETCH_VENUES = 'venes:getVenues';
 
 export const getVenues = (venues) => {
   return {

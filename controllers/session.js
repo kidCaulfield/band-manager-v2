@@ -12,9 +12,9 @@ module.exports = {
         .first();
       if (user && (await bcrypt.compare(password, user.password_digest))) {
         req.session.userId = user.id;
-        req.currentUser = user.username;
+        req.currentUser = {id: user.id, username: user.username};
 
-      res.status(200).json({id: req.session.userId, user: req.currentUser});
+      res.status(200).json(req.currentUser);
       }
     } catch (err) {
       throw err
@@ -25,5 +25,12 @@ module.exports = {
       res.clearCookie('COOOKIE!!!!', { path: '/' }).status(200).json({});
       req.currentUser = undefined;
     });
+  },
+  async sessionInProgress(req, res) {
+    if (typeof req.session.userId === "number") {
+      res.status(200).json(req.session.userId);
+    } else {
+      res.status(200).json(null);
+    }
   }
 };

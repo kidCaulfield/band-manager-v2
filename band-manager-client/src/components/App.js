@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'; 
 import { BrowserRouter } from 'react-router-dom';
 import '../styles/App.css';
-import { Venue } from '../requests';
+import { Venue, Session } from '../requests';
 import Container from "./Container";
 
 /*=================== Redux ===================*/
 import { connect } from 'react-redux';
-import { updateUser, login } from '../actions/userActions'
 import { getVenues } from '../actions/venueActions'
+import { updateUser } from '../actions/userActions'
 import { createSelector } from 'reselect'
 
 /*=============== Font Awesome ================*/
@@ -36,7 +36,14 @@ const App = (props) => {
     props.onGetVenues(venues);
   }
 
+  const getCurrentUser = async () => {
+    const session = await Session.getCurrentSession();
+
+    props.onUpdateUser(session)
+  }
+
   useEffect(() => {
+    getCurrentUser()
     getVenues();
   }, []);
 
@@ -96,8 +103,8 @@ const mapStateToProps = createSelector(
 );
 
 const mapDispatchToProps = {
-  onUpdateUser: updateUser,
   onGetVenues: getVenues,
+  onUpdateUser: updateUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
