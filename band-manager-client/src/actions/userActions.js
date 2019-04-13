@@ -30,16 +30,19 @@ export const onRequest = () => {
 }
 
 export const login = (params, props) => async dispatch => {
+  try {
   const session = await Session.create(params);
-  console.log('session: ', session);
+  
   if (typeof session.id === "number") {
         props.history.push("/");
   }
   return dispatch({
     type: API_REQUEST_COOKIE,
     payload: {
-      // store object as currentUser
       currentUser: session
     }
   })
+  } catch {
+    throw "error"
+  }
 }

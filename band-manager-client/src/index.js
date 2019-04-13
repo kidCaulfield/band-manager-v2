@@ -24,7 +24,7 @@ const allStoreEnhancers = compose(
 
 const store = createStore(allReducers, {
   venues: [],
-  currentUser: {},
+  currentUser: null,
   loading: true
   },
   allStoreEnhancers

@@ -92,7 +92,6 @@ const Navbar = (props) => {
   )
 }
 
-
 const userSelector = createSelector(
   state => state.currentUser,
   currentUser => currentUser
