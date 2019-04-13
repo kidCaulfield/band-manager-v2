@@ -5,7 +5,7 @@ export const API_REQUEST_ERROR = 'user:showError';
 export const API_REQUEST_REQUEST = 'user:onRequest';
 export const API_REQUEST_COOKIE = 'user:login';
 
-export const updateUser = (newUser) => {
+export const updateCurrentUser = (newUser) => {
   return {
     type: API_REQUEST_SUCCESS,
     payload: {
@@ -31,13 +31,15 @@ export const onRequest = () => {
 
 export const login = (params, props) => async dispatch => {
   const session = await Session.create(params);
+  console.log('session: ', session);
   if (typeof session.id === "number") {
         props.history.push("/");
   }
   return dispatch({
     type: API_REQUEST_COOKIE,
     payload: {
-      currentUser: session.id
+      // store object as currentUser
+      currentUser: session
     }
   })
 }

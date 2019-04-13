@@ -9,10 +9,12 @@ import { applyMiddleware, compose, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import venueReducer from './reducers/venueReducer';
 import userReducer from './reducers/userReducer';
+import appReducer from './reducers/appReducer';
 
 const allReducers = combineReducers({
   venues: venueReducer,
-  currentUser: userReducer
+  currentUser: userReducer,
+  loading: appReducer
 })
 
 const allStoreEnhancers = compose(
@@ -22,7 +24,8 @@ const allStoreEnhancers = compose(
 
 const store = createStore(allReducers, {
   venues: [],
-  currentUser: null
+  currentUser: {},
+  loading: true
   },
   allStoreEnhancers
 );

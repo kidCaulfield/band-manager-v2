@@ -6,8 +6,9 @@ import Container from "./Container";
 
 /*=================== Redux ===================*/
 import { connect } from 'react-redux';
+import { loadingApp } from '../actions/appActions'
 import { getVenues } from '../actions/venueActions'
-import { updateUser } from '../actions/userActions'
+import { updateCurrentUser } from '../actions/userActions'
 import { createSelector } from 'reselect'
 
 /*=============== Font Awesome ================*/
@@ -39,15 +40,14 @@ const App = (props) => {
   const getCurrentUser = async () => {
     const session = await Session.getCurrentSession();
 
-    props.onUpdateUser(session)
+    props.onUpdateCurrentUser(session)
   }
 
   useEffect(() => {
-    getCurrentUser()
-    getVenues();
+    getCurrentUser();
   }, []);
 
-  if (props.venues.length === 0) {
+  if (props.onLoading === true) {
     return (
       <div className="sk-circle">
         <div className="sk-circle1 sk-child"></div>
@@ -83,6 +83,11 @@ const App = (props) => {
   );
 }
 
+const appSelector = createSelector(
+  state => state.loading,
+  loading => loading
+);
+
 const venuesSelector = createSelector(
   state => state.venues,
   venues => venues
@@ -94,9 +99,11 @@ const userSelector = createSelector(
 );
 
 const mapStateToProps = createSelector(
+  appSelector,
   venuesSelector,
   userSelector,
-  (venues, currentUser) => ({
+  (loading, venues, currentUser) => ({
+    loading,
     venues,
     currentUser
   })
@@ -104,7 +111,8 @@ const mapStateToProps = createSelector(
 
 const mapDispatchToProps = {
   onGetVenues: getVenues,
-  onUpdateUser: updateUser
+  onUpdateCurrentUser: updateCurrentUser,
+  onLoading: loadingApp
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

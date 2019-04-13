@@ -10,6 +10,22 @@ export const Venue = {
   },
 };
 
+export const User = {
+  async create(params) {
+    const response = await fetch('/users', {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    });
+    const newUser = await response.json();
+
+    return newUser
+  }
+}
+
 export const Session = {
   async create(params) {
     const response = await fetch('/session', {

@@ -28,7 +28,13 @@ module.exports = {
   },
   async sessionInProgress(req, res) {
     if (typeof req.session.userId === "number") {
-      res.status(200).json(req.session.userId);
+       const user = await knex("users")
+        .select("id", "username")
+        .where("id", req.session.userId)
+        .first();
+
+      const { id, username } = user
+      res.status(200).json({id, username});
     } else {
       res.status(200).json(null);
     }

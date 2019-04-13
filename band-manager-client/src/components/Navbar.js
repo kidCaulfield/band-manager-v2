@@ -6,14 +6,15 @@ import { Session } from '../requests'
 
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
-import { updateUser } from '../actions/userActions'
+import { updateCurrentUser } from '../actions/userActions'
 
 
 const Navbar = (props) => {
   const { currentUser } =  props;
+  console.log('currentUser: ', currentUser);
 
   const destroy = async () => {
-    props.onUpdateUser(null)
+    props.onUpdateCurrentUser(null)
 
     const signOut = await Session.destroy()
     return signOut
@@ -74,7 +75,7 @@ const Navbar = (props) => {
       }
       { currentUser ? (
         <>
-          <span className="NavbarLink" role="img" aria-label="TourBus"> 🚌 {currentUser.first_name}</span>
+          <span className="NavbarLink" role="img" aria-label="TourBus"> 🚌 {currentUser.username}</span>
           <NavLink to={`${process.env.PUBLIC_URL}/`} className="Fancy NavbarLink" onClick={destroy}>
             Sign Out
           </NavLink>
@@ -105,7 +106,7 @@ const mapStateToProps = createSelector(
 );
 
 const mapActionsToProps = {
-  onUpdateUser: updateUser
+  onUpdateCurrentUser: updateCurrentUser
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(Navbar);
