@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'; 
 import { BrowserRouter } from 'react-router-dom';
 import '../styles/App.css';
-import { Venue, Session } from '../requests';
+import { Session } from '../requests';
 import Container from "./Container";
 
 /*=================== Redux ===================*/
 import { connect } from 'react-redux';
 import { loadingApp } from '../actions/appActions'
-import { getVenues } from '../actions/venueActions'
 import { updateCurrentUser } from '../actions/userActions'
 import { createSelector } from 'reselect'
 
@@ -31,11 +30,6 @@ const App = (props) => {
   // if "regeneratorRuntime is not defined" while using async/await in new prject
   // "yarn add babel-preset-env" should fix this error
   
-  const getVenues = async () => { 
-    const venues = await Venue.all();
-    //setVenues(venues);
-    props.onGetVenues(venues);
-  }
 
   const getCurrentUser = async () => {
     const session = await Session.getCurrentSession();
@@ -88,11 +82,6 @@ const appSelector = createSelector(
   loading => loading
 );
 
-const venuesSelector = createSelector(
-  state => state.venues,
-  venues => venues
-);
-
 const userSelector = createSelector(
   state => state.currentUser,
   currentUser => currentUser
@@ -100,17 +89,14 @@ const userSelector = createSelector(
 
 const mapStateToProps = createSelector(
   appSelector,
-  venuesSelector,
   userSelector,
-  (loading, venues, currentUser) => ({
+  (loading, currentUser) => ({
     loading,
-    venues,
     currentUser
   })
 );
 
 const mapDispatchToProps = {
-  onGetVenues: getVenues,
   onUpdateCurrentUser: updateCurrentUser,
   onLoading: loadingApp
 }

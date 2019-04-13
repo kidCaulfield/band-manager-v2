@@ -30,7 +30,6 @@ export const onRequest = () => {
 }
 
 export const login = (params, props) => async dispatch => {
-  try {
   const session = await Session.create(params);
   
   if (typeof session.id === "number") {
@@ -42,7 +41,4 @@ export const login = (params, props) => async dispatch => {
       currentUser: session
     }
   })
-  } catch {
-    throw "error"
-  }
 }
