@@ -1,18 +1,31 @@
 import React from 'react';
 import SignInPage from './SignInPage';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './Navbar';
+import HomePage from './HomePage';
 
 const Container = (props) => {
-  console.log('props.signIn: ', props.signIn);
   return(
     <main className="Container">
-      <Navbar />
-      <div className="Website">
-        <SignInPage
-          signIn={props.signIn}
-          destroy={props.destroy}  
-        />
-      </div>
+      <BrowserRouter>
+        <Navbar />
+        <div className="Website">
+          <Switch>
+            <Route path={`${process.env.PUBLIC_URL}/`} exact component={HomePage} />
+            <Route path={`${process.env.PUBLIC_URL}/sign_in`}
+                render={routeProps => (
+                  <SignInPage
+                    {...routeProps}
+                  />
+                )}
+              />
+            <SignInPage
+              signIn={props.signIn}
+              destroy={props.destroy}  
+            />
+          </Switch>
+        </div>
+      </BrowserRouter>
     </main>
   )
 }

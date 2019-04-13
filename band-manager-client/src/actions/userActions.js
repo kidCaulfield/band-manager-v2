@@ -29,13 +29,15 @@ export const onRequest = () => {
   }
 }
 
-export const apiRequest = (params) => async dispatch => {
-  console.log('I Want COOOOKIEESS!!!!!');
+export const login = (params, props) => async dispatch => {
   const session = await Session.create(params);
+  if (typeof session.id === "number") {
+        props.history.push("/");
+  }
   return dispatch({
     type: API_REQUEST_COOKIE,
     payload: {
-      currentUser: session
+      currentUser: session.user
     }
   })
 }

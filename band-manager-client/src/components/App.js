@@ -6,9 +6,8 @@ import Container from "./Container";
 
 /*=================== Redux ===================*/
 import { connect } from 'react-redux';
-import { updateUser, apiRequest } from '../actions/userActions'
+import { updateUser, login } from '../actions/userActions'
 import { getVenues } from '../actions/venueActions'
-
 import { createSelector } from 'reselect'
 
 /*=============== Font Awesome ================*/
@@ -37,32 +36,6 @@ const App = (props) => {
     props.onGetVenues(venues);
   }
 
-  const createSession = (params) => {
-    //setUser(session)
-    props.onApiRequest(params)
-  }
-
-  const destroy = () => {
-    // ES6 callback hell, this is kept and a reminder :^•
-
-    props.onUpdateUser(null)
-    return fetch(`/session`, {
-      method: "DELETE",
-      credentials: "include"
-    }).then(res => res.json());
-  }
-
-  const signIn = (event) => {
-    event.preventDefault();
-    const { currentTarget } = event;
-    const formData = new FormData(currentTarget);
-
-    createSession({
-      email: formData.get("email"),
-      password: formData.get("password")
-    })
-  }
-
   useEffect(() => {
     getVenues();
   }, []);
@@ -88,12 +61,8 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <div className="AppBox">
-        <Container
-          signIn={signIn}
-          destroy={destroy}  
-        />
+        <Container/>
         {/* <input onChange={onUpdateUser} /> */}
-          {props.currentUser} <br/>
         {/* <div className="VenueList"> */}
           {/* comeback and find a better way to map this later or name it */}
           {/* {props.venues.venues.map(venue => ( 
@@ -126,10 +95,9 @@ const mapStateToProps = createSelector(
   })
 );
 
-const mapActionsToProps = {
-    onUpdateUser: updateUser,
-    onGetVenues: getVenues,
-    onApiRequest: apiRequest
-  }
+const mapDispatchToProps = {
+  onUpdateUser: updateUser,
+  onGetVenues: getVenues,
+}
 
-export default connect(mapStateToProps, mapActionsToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

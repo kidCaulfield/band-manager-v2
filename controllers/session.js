@@ -14,7 +14,7 @@ module.exports = {
         req.session.userId = user.id;
         req.currentUser = user.username;
 
-      res.status(200).json(req.currentUser);
+      res.status(200).json({id: req.session.userId, user: req.currentUser});
       }
     } catch (err) {
       throw err
