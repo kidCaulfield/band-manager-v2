@@ -11,7 +11,6 @@ import { updateCurrentUser } from '../actions/userActions'
 
 const Navbar = (props) => {
   const { currentUser } =  props;
-  console.log('currentUser: ', currentUser);
 
   const destroy = async () => {
     props.onUpdateCurrentUser(null)
@@ -75,7 +74,7 @@ const Navbar = (props) => {
       }
       { currentUser ? (
         <>
-          <span className="NavbarLink" role="img" aria-label="TourBus"> 🚌 {currentUser.username}</span>
+          <span className="NavbarLink" role="img" aria-label="TourBus"> 🚌</span><p className="White">{currentUser.username}</p>
           <NavLink to={`${process.env.PUBLIC_URL}/`} className="Fancy NavbarLink" onClick={destroy}>
             Sign Out
           </NavLink>

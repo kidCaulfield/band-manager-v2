@@ -60,12 +60,12 @@ module.exports = class User {
   async save() {
     const { email, username, password } = this;
     const newUser = await knex("users")
-      .insert({
+    .insert({
       username,
       email,
       password_digest: await bcrypt.hash(password, saltRounds)
-      }).returning('*');
-
+    }).returning('*');
+    
     return newUser
   };
 };

@@ -47,11 +47,11 @@ module.exports = {
         let user;
         if (verify.length === 0) {
           user = new User({username, email, password, password_digest})
-          user.save()
+          const newUser = await user.save()
+          res.status(200).json(newUser);
         } else {
           throw "duplicate user found"
         }
-        res.status(200).json(user);
       } catch (error) {
         next(error);
       }

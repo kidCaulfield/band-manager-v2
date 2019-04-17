@@ -6,6 +6,7 @@
   width: 100%;
   position: relative;
   background-color: black;
+  max-height: 50px;
 }
 
 .Brand {

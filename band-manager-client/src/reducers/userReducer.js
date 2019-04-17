@@ -1,4 +1,9 @@
-import { API_REQUEST_SUCCESS, API_REQUEST_ERROR, API_REQUEST_COOKIE } from '../actions/userActions';
+import {
+  API_REQUEST_SUCCESS,
+  API_REQUEST_ERROR,
+  API_REQUEST_COOKIE,
+  CREATE_USER
+} from '../actions/userActions';
 
 const userReducer = (state = '', {type, payload}) => {
   switch (type) {
@@ -6,9 +11,11 @@ const userReducer = (state = '', {type, payload}) => {
       return payload.currentUser;
     case API_REQUEST_ERROR:
       return payload.currentUser;
-    case API_REQUEST_COOKIE:
-      return payload.currentUser;
-    default:
+      case API_REQUEST_COOKIE:
+        return payload.currentUser;
+      case CREATE_USER:
+        return payload.currentUser;
+      default:
       return state;
   }
 };
