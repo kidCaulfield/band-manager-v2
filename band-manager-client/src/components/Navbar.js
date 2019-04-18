@@ -52,7 +52,7 @@ const Navbar = (props) => {
           Tours
       </NavLink>
       ) : 
-      <div className="None"></div>
+      <div className="none"></div>
       }
       { currentUser ? (
         <NavLink

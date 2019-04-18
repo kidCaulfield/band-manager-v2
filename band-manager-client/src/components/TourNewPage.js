@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { loadingApp } from '../actions/appActions'
 
-// Add redux persist later to persist current User value
+// Add redux persist later to persist currentUser value
+// to fix AuthRoute redirecting to SignInPage
 
 const TourNewPage = (props) => {
 
