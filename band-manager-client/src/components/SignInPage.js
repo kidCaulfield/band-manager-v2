@@ -22,9 +22,9 @@ const SignInPage = (props) => {
   }
 
   return(
-    <div className="Venue-form-box">
-      <h1 className="Title Blue">Sign In</h1>
-      <form className="Venue-form" onSubmit={signIn}>
+    <div className="form-box">
+      <h1 className="title blue">Sign In</h1>
+      <form className="form" onSubmit={signIn}>
         <div>
           <label htmlFor="email">email</label><br/>
           <input type="text" name="email" defaultValue="j@job.com"></input>
@@ -33,7 +33,7 @@ const SignInPage = (props) => {
           <label htmlFor="password">password</label><br/>
           <input type="text" name="password" defaultValue="p1234"></input>
         </div>
-        <input className="Button-form" type="submit" value="Sign In" />
+        <input className="button" type="submit" value="Sign In" />
       </form>
     </div>
   )

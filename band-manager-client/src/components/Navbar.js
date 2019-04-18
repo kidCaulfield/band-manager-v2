@@ -39,14 +39,14 @@ const Navbar = (props) => {
     </NavLink>
     
       <FontAwesomeIcon
-      className="NavbarLinkToggle Blue Fancy"
+      className="NavbarLinkToggle blue fancy"
       onClick={handleClick}
       icon="bars"
       />
     <nav className="NavBar NavbarItems">
       { currentUser ? (
       <NavLink
-        className="Fancy NavbarLink"
+        className="fancy NavbarLink"
         exact
         to={`${process.env.PUBLIC_URL}/tours`}>
           Tours
@@ -56,7 +56,7 @@ const Navbar = (props) => {
       }
       { currentUser ? (
         <NavLink
-        className="Fancy NavbarLink"
+        className="fancy NavbarLink"
         to={`${process.env.PUBLIC_URL}/tours/new`}>
           New Tour
         </NavLink>
@@ -65,23 +65,23 @@ const Navbar = (props) => {
     <nav className="Navbar Right NavbarItems">
       { !currentUser ? (
       <NavLink
-        className="Fancy NavbarLink"
+        className="fancy NavbarLink"
         exact to={`${process.env.PUBLIC_URL}/sign_up`}>
           Sign Up
       </NavLink>
       ) : 
-      <div className="None"></div>
+      <div className="none"></div>
       }
       { currentUser ? (
         <>
-          <span className="NavbarLink" role="img" aria-label="TourBus"> 🚌</span><p className="White">{currentUser.username}</p>
-          <NavLink to={`${process.env.PUBLIC_URL}/`} className="Fancy NavbarLink" onClick={destroy}>
+          <span className="NavbarLink" role="img" aria-label="TourBus"> 🚌</span><h4 className="white">{currentUser.username}</h4>
+          <NavLink to={`${process.env.PUBLIC_URL}/`} className="fancy NavbarLink" onClick={destroy}>
             Sign Out
           </NavLink>
         </>
       ) : (
         <NavLink
-          className="Fancy NavbarLink"
+          className="fancy NavbarLink"
           exact to={`${process.env.PUBLIC_URL}/sign_in`}>
             Sign In
         </NavLink>

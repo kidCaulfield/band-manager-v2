@@ -61,7 +61,7 @@ const App = (props) => {
   }
   return (
     <BrowserRouter>
-      <div className="AppBox">
+      <div className="App-box">
         <Container/>
         {/* <input onChange={onUpdateUser} /> */}
         {/* <div className="VenueList"> */}

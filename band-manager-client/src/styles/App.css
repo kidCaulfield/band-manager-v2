@@ -25,23 +25,39 @@
 
 /*========================= Wes's Costum Framework ==========================*/
 
-.Blue {
+.title {
+
+}
+
+.blue {
   color: rgb(0, 200, 255)
 }
 
-.White {
+.white {
   color: white
 }
 
+h1 {
+  font-size:10vw;
+}
+
+button {
+
+}
+
+.none {
+  display: none;
+}
+
 /*===========================================================================*/
-.Venue-form-box {
+.form-box {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.Venue-form {
+.form {
   display: flex;
   flex-direction: column;
   flex-grow: 1;

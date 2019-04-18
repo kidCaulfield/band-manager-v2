@@ -26,9 +26,9 @@ const SignUpPage = (props) => {
   }
 
   return (
-    <div className="Venue-form-box">
-      <h1 className="Title Blue">Make an account</h1>
-      <form className="Venue-form" onSubmit={signUp}>
+    <div className="form-box">
+      <h1 className="title blue">Make an account</h1>
+      <form className="form" onSubmit={signUp}>
         <div>
           <label htmlFor="username">username</label><br/>
           <input type="text" name="username"></input>
@@ -45,7 +45,7 @@ const SignUpPage = (props) => {
           <label htmlFor="password_digest">password_confirmation</label><br/>
           <input type="password" name="password_digest"></input>
         </div>
-        <input className="Button-form" type="submit" value="Sign Up" />
+        <input className="button" type="submit" value="Sign Up" />
       </form>
     </div>
   )
