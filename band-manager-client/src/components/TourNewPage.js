@@ -2,16 +2,31 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { loadingApp } from '../actions/appActions'
+import { loadingApp  } from '../actions/appActions'
+import { createTour } from '../actions/tourActions'
 
 // Add redux persist later to persist currentUser value
 // to fix AuthRoute redirecting to SignInPage
 
 const TourNewPage = (props) => {
 
-  const createTour = (params) => {
-
+  const createTourOnSubmit = (params) => {
+    props.onCreateTour(params, props)
   }
+
+  const submitTour = (event) => {
+    event.preventDefault();
+    const { currentTarget } = event;
+    const formData = new FormData(currentTarget);
+
+    createTourOnSubmit({
+      tours: {
+        title: formData.get("title"),
+        band: formData.get("band")
+      }
+    })
+  }
+
   if (props.onLoading === true) {
     return (
       <div className="sk-circle">
@@ -34,14 +49,14 @@ const TourNewPage = (props) => {
   return (
     <div className="form-box">
       <h1 className="title blue">Create Tour</h1>
-      <form className="form" onSubmit={createTour}>
+      <form className="form" onSubmit={submitTour}>
         <div>
-          <label htmlFor="email">email</label><br/>
-          <input type="text" name="email"></input>
+          <label htmlFor="title">Title</label><br/>
+          <input type="text" name="title"></input>
         </div>
         <div>
-          <label htmlFor="password">password</label><br/>
-          <input type="text" name="password"></input>
+          <label htmlFor="band">Band</label><br/>
+          <input type="text" name="band"></input>
         </div>
         <input className="button" type="submit" value="Create" />
       </form>
@@ -49,20 +64,27 @@ const TourNewPage = (props) => {
   )
 };
 
+const tourSelector = createSelector(
+  state => state.tours,
+  tours => tours
+)
+
 const appSelector = createSelector(
   state => state.loading,
   loading => loading
 );
 
 const mapStateToProps = createSelector(
-  appSelector,
-  (loading) => ({
+  appSelector, tourSelector,
+  (loading, tours) => ({
     loading,
+    tours
   })
 );
 
 const mapDispatchToProps = {
-  onLoading: loadingApp
+  onLoading: loadingApp,
+  onCreateTour: createTour
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TourNewPage);

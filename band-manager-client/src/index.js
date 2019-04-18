@@ -8,11 +8,13 @@ import thunk from 'redux-thunk';
 import { applyMiddleware, compose, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import venueReducer from './reducers/venueReducer';
+import tourReducer from './reducers/tourReducer';
 import userReducer from './reducers/userReducer';
 import appReducer from './reducers/appReducer';
 
 const allReducers = combineReducers({
   venues: venueReducer,
+  tours: tourReducer,
   currentUser: userReducer,
   loading: appReducer
 })
@@ -24,6 +26,7 @@ const allStoreEnhancers = compose(
 
 const store = createStore(allReducers, {
   venues: [],
+  tours: [],
   currentUser: null,
   loading: true
   },
@@ -32,7 +35,7 @@ const store = createStore(allReducers, {
 
 console.log('store: ', store.getState());
 
-ReactDOM.render(<Provider store={store}><App aRandomProps="whatever"/></Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
 
 serviceWorker.unregister();

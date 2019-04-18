@@ -43,6 +43,13 @@ export const createAccount = (params, props) => async dispatch => {
   const { users } = params
   const user = await User.create(params);
   
+  if (user.error) {
+    props.history.push("/");
+    return showError(user)
+  }
+
+  // refactor API to send users object without array
+  
   if (typeof user[0].id === "number") {
     const session = await Session.create({email: user[0].email, password: users.password});
     if (typeof session.id === "number") {
@@ -54,8 +61,5 @@ export const createAccount = (params, props) => async dispatch => {
         }
       })
     }
-  } else {
-    props.history.push("/");
-    showError(user)
   }
 }

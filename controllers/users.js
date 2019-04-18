@@ -50,7 +50,7 @@ module.exports = {
           const newUser = await user.save()
           res.status(200).json(newUser);
         } else {
-          throw "duplicate user found"
+          res.status(422).json({error: "email already in use"})
         }
       } catch (error) {
         next(error);

@@ -60,10 +60,10 @@ module.exports = {
       try {
         const {userId} = req.session
         const {title, band} = req.body.tours
-        const tour = new Tour({title, band});
-        const id = await tour.save(userId);
+        const newTour = new Tour({title, band});
+        const tour = await newTour.save(userId);
 
-        res.status(200).json({id})
+        res.status(200).json({tour})
       } catch (err) {
         next(err)
       }

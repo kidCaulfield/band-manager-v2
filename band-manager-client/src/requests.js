@@ -1,15 +1,3 @@
-export const Venue = {
-  async all() {
-    const response = await fetch('/venues');
-    const json = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(json.error)
-    }
-    return json
-  },
-};
-
 export const User = {
   async create(params) {
     const response = await fetch('/users', {
@@ -52,5 +40,29 @@ export const Session = {
      const response = await fetch(`/session`);
      const json = await response.json();
      return json;
+  }
+}
+
+export const Venue = {
+  async all() {
+    const response = await fetch('/venues');
+    const json = await response.json();
+
+    return json
+  },
+};
+
+export const Tour = {
+  async create(params) {
+    const response = await fetch('/tours', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    });
+    const json = await response.json();
+    return json
   }
 }

@@ -31,7 +31,7 @@ const SignInPage = (props) => {
         </div>
         <div>
           <label htmlFor="password">password</label><br/>
-          <input type="text" name="password" defaultValue="p1234"></input>
+          <input type="password" name="password" defaultValue="p1234"></input>
         </div>
         <input className="button" type="submit" value="Sign In" />
       </form>

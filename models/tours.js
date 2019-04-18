@@ -62,7 +62,7 @@ module.exports = class Tour {
         title,
         band,
         user_id: uid
-      }).returning("id");
+      }).returning("*");
 
     return tour;
   }
