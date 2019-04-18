@@ -1,31 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { loadingApp  } from '../actions/appActions'
-import { createTour } from '../actions/tourActions'
+import { getTours } from '../actions/tourActions'
 
-// Add redux persist later to persist currentUser value
-// to fix AuthRoute redirecting to SignInPage
+const TourIndexPage = (props) => {
 
-const TourNewPage = (props) => {
-
-  const createTourOnSubmit = (params) => {
-    props.onCreateTour(params, props)
-  }
-
-  const submitTour = (event) => {
-    event.preventDefault();
-    const { currentTarget } = event;
-    const formData = new FormData(currentTarget);
-
-    createTourOnSubmit({
-      tours: {
-        title: formData.get("title"),
-        band: formData.get("band")
-      }
-    })
-  }
+  useEffect(() => {
+    props.onLoading();
+    props.onGetTours();
+  }, []);
 
   if (props.loading === true) {
     return (
@@ -47,22 +32,18 @@ const TourNewPage = (props) => {
   }
 
   return (
-    <div className="form-box">
-      <h1 className="title blue">Create Tour</h1>
-      <form className="form" onSubmit={submitTour}>
-        <div>
-          <label htmlFor="title">Title</label><br/>
-          <input type="text" name="title"></input>
+    <div className="TourIndexPage-box">
+      <h1 className="title underline blue">Your Tours</h1>
+      <div className="Tour-list">
+          {props.tours.map(tour => ( 
+            <div className="List" key={tour.id}>
+              <p>{tour.title}</p>
+            </div>
+          ))}
         </div>
-        <div>
-          <label htmlFor="band">Band</label><br/>
-          <input type="text" name="band"></input>
-        </div>
-        <input className="button" type="submit" value="Create" />
-      </form>
     </div>
   )
-};
+}
 
 const tourSelector = createSelector(
   state => state.tours,
@@ -84,7 +65,7 @@ const mapStateToProps = createSelector(
 
 const mapDispatchToProps = {
   onLoading: loadingApp,
-  onCreateTour: createTour
+  onGetTours: getTours
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TourNewPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TourIndexPage);

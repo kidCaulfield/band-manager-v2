@@ -22,6 +22,8 @@ const App = (props) => {
   // const [venues, setVenues] = useState([]);
   // const [currentUser, setUser] = useState(null);
 
+
+  /*======= Select: Event Usage Example =======*/
   // const onUpdateUser = (event) => {
   //   props.onUpdateUser(event.target.value)
   // }
@@ -64,14 +66,6 @@ const App = (props) => {
       <div className="App-box">
         <Container/>
         {/* <input onChange={onUpdateUser} /> */}
-        {/* <div className="VenueList"> */}
-          {/* comeback and find a better way to map this later or name it */}
-          {/* {props.venues.venues.map(venue => ( 
-            <div className="List" key={venue.id}>
-              <p>{venue.name}</p>
-            </div>
-          ))}
-        </div> */}
       </div>
     </BrowserRouter>
   );

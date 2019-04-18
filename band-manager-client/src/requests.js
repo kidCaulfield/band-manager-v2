@@ -64,5 +64,11 @@ export const Tour = {
     });
     const json = await response.json();
     return json
-  }
+  },
+  async all() {
+    const response = await fetch('/tours');
+    const json = await response.json();
+
+    return json
+  },
 }
