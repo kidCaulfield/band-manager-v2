@@ -14,7 +14,7 @@ export const User = {
   }
 }
 
-export const Session = {
+export const Session = { // sparatic bug here may lead to backend
   async create(params) {
     const response = await fetch('/session', {
       method: "POST",
@@ -71,4 +71,10 @@ export const Tour = {
 
     return json
   },
+  async one(id) {
+    const response = await fetch(`/tours/${id}`);
+    const json = await response.json();
+    console.log('json: ', json);
+    return json
+  }
 }

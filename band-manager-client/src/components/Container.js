@@ -7,6 +7,7 @@ import SignUpPage from './SignUpPage';
 import AuthRoute from './AuthRoute';
 import TourNewPage from './TourNewPage';
 import TourIndexPage from './TourIndexPage';
+import TourPlanner from './TourPlanner';
 
 const Container = (props) => {
   return(
@@ -37,6 +38,10 @@ const Container = (props) => {
             <AuthRoute
               path={`${process.env.PUBLIC_URL}/tours`} exact
               component={TourIndexPage}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/tours/:id`} exact
+              component={TourPlanner}
             />
           </Switch>
         </div>

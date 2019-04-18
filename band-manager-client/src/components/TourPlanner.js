@@ -1,17 +1,21 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-import { getTours } from '../actions/tourActions'
+import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
+import { getTour } from '../actions/tourActions'
 
-const TourIndexPage = (props) => {
+const TourPlanner = (props) => {
+  const id = props.match.params.id;
+  
+  const showTour = (id) => {
+    props.onGetTour(id);
+  }
 
   useEffect(() => {
-    props.onGetTours();
-  }, []);
+    showTour(id);
+  }, [])
 
-  if (props.tours.length === 0) {
+  if (props.tours.length === 0 || props.tours.length > 1) {   
     return (
       <div className="sk-circle">
         <div className="sk-circle1 sk-child"></div>
@@ -31,17 +35,8 @@ const TourIndexPage = (props) => {
   }
 
   return (
-    <div className="TourIndexPage-box">
-      <h1 className="title underline blue">Your Tours</h1>
-      <div className="Tour-list">
-          {props.tours.map(tour => ( 
-            <div className="List" key={tour.id}>
-                <h3 className="TourLink" key={tour.id}>
-                    <Link  to={`${process.env.PUBLIC_URL}/tours/${tour.id}`}>{tour.title}</Link>
-                </h3>
-            </div>
-          ))}
-        </div>
+    <div className="TourPlanner">
+      <h1>{props.tours.title}</h1>
     </div>
   )
 }
@@ -58,8 +53,8 @@ tourSelector,
   })
 );
 
-const mapDispatchToProps = {
-  onGetTours: getTours
+const mapDispatchtoProps = {
+  onGetTour: getTour
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TourIndexPage);
+export default connect(mapStateToProps, mapDispatchtoProps)(TourPlanner);

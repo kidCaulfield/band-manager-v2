@@ -37,6 +37,9 @@ const App = (props) => {
     const session = await Session.getCurrentSession();
 
     props.onUpdateCurrentUser(session)
+
+    // this may have to be refactored
+    props.onLoading()
   }
 
   useEffect(() => {

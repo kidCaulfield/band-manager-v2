@@ -25,9 +25,10 @@ const TourNewPage = (props) => {
         band: formData.get("band")
       }
     })
-  }
+  }   
 
   if (props.loading === true) {
+    console.log('props.loading: ', props.loading);
     return (
       <div className="sk-circle">
         <div className="sk-circle1 sk-child"></div>

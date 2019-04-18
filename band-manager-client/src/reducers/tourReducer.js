@@ -1,10 +1,12 @@
-import { CREATE_TOUR, GET_TOURS } from '../actions/tourActions'
+import { CREATE_TOUR, GET_TOURS, GET_TOUR } from '../actions/tourActions'
 
 const tourReducer = (state = '', {type, payload}) => {
   switch (type) {
     case CREATE_TOUR:
       return payload.tours
     case GET_TOURS:
+      return payload.tours
+    case GET_TOUR:
       return payload.tours
     default:
       return state;

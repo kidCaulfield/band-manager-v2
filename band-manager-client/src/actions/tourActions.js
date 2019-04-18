@@ -2,6 +2,7 @@ import { Tour } from '../requests'
 
 export const CREATE_TOUR = 'tour:createTour';
 export const GET_TOURS = 'tour:getTours';
+export const GET_TOUR = 'tour:getTour';
 
 export const showError = (err) => {
   console.log('error: ', err.error);
@@ -14,12 +15,23 @@ export const showError = (err) => {
 
 export const getTours = () => async dispatch => {
   const response = await Tour.all()
-  console.log('response: ', response);
+
 
   return dispatch({
     type: GET_TOURS,
     payload: {
       tours: response.tours
+    }
+  })
+}
+
+export const getTour = (id) => async dispatch => {
+  const response = await Tour.one(id)
+
+  return dispatch({
+    type: GET_TOUR,
+    payload: {
+      tours: response.tour
     }
   })
 }
