@@ -47,8 +47,7 @@ const Navbar = (props) => {
       { currentUser ? (
       <NavLink
         className="fancy NavbarLink"
-        exact
-        to={`${process.env.PUBLIC_URL}/tours`}>
+        exact to={`${process.env.PUBLIC_URL}/tours`}>
           Tours
       </NavLink>
       ) : 
@@ -103,8 +102,8 @@ const mapStateToProps = createSelector(
   })
 );
 
-const mapActionsToProps = {
-  onUpdateCurrentUser: updateCurrentUser
+const mapDispatchToProps = {
+  onUpdateCurrentUser: updateCurrentUser,
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

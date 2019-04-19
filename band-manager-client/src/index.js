@@ -8,13 +8,15 @@ import thunk from 'redux-thunk';
 import { applyMiddleware, compose, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import venueReducer from './reducers/venueReducer';
+import toursReducer from './reducers/toursReducer';
 import tourReducer from './reducers/tourReducer';
 import userReducer from './reducers/userReducer';
 import appReducer from './reducers/appReducer';
 
 const allReducers = combineReducers({
   venues: venueReducer,
-  tours: tourReducer,
+  tours: toursReducer,
+  tour: tourReducer,
   currentUser: userReducer,
   loading: appReducer
 })
@@ -27,6 +29,7 @@ const allStoreEnhancers = compose(
 const store = createStore(allReducers, {
   venues: [],
   tours: [],
+  tour: {},
   currentUser: null,
   loading: true
   },

@@ -5,7 +5,7 @@ import {
   CREATE_USER
 } from '../actions/userActions';
 
-const userReducer = (state = '', {type, payload}) => {
+const userReducer = (state = null, {type, payload}) => {
   switch (type) {
     case API_REQUEST_SUCCESS:
       return payload.currentUser;

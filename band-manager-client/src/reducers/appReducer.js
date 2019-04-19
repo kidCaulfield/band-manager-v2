@@ -1,12 +1,12 @@
-import { APP_LOADING } from '../actions/appActions';
+import { APP_LOADED } from '../actions/appActions';
 
-const userReducer = (state = '', {type, payload}) => {
+const appReducer = (state = null, {type, payload}) => {
   switch (type) {
-    case APP_LOADING:
+    case APP_LOADED:
       return payload.loading;
     default:
       return state;
   }
 };
 
-export default userReducer
+export default appReducer

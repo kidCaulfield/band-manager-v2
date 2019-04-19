@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import TourDetails from './TourDetails';
 
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -15,7 +16,7 @@ const TourPlanner = (props) => {
     showTour(id);
   }, [])
 
-  if (props.tours.length === 0 || props.tours.length > 1) {   
+  if (props.tour.length === 0) {   
     return (
       <div className="sk-circle">
         <div className="sk-circle1 sk-child"></div>
@@ -36,20 +37,20 @@ const TourPlanner = (props) => {
 
   return (
     <div className="TourPlanner">
-      <h1>{props.tours.title}</h1>
+      <TourDetails tour={props.tour} />
     </div>
   )
 }
 
 const tourSelector = createSelector(
-  state => state.tours,
-  tours => tours
+  state => state.tour,
+  tour => tour
 )
 
 const mapStateToProps = createSelector(
 tourSelector,
-  (tours) => ({
-    tours
+  (tour) => ({
+    tour
   })
 );
 

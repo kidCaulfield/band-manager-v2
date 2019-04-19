@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { getTours } from '../actions/tourActions'
+import { getTours } from '../actions/toursActions'
 
 const TourIndexPage = (props) => {
-
+  
   useEffect(() => {
     props.onGetTours();
   }, []);
@@ -34,10 +34,11 @@ const TourIndexPage = (props) => {
     <div className="TourIndexPage-box">
       <h1 className="title underline blue">Your Tours</h1>
       <div className="Tour-list">
+          {console.log('tour.id: ', props.tours)}
           {props.tours.map(tour => ( 
             <div className="List" key={tour.id}>
                 <h3 className="TourLink" key={tour.id}>
-                    <Link  to={`${process.env.PUBLIC_URL}/tours/${tour.id}`}>{tour.title}</Link>
+                    <Link to={`${process.env.PUBLIC_URL}/tours/${tour.id}`}>{tour.title}</Link>
                 </h3>
             </div>
           ))}
