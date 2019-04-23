@@ -34,7 +34,6 @@ const TourIndexPage = (props) => {
     <div className="TourIndexPage-box">
       <h1 className="title underline blue">Your Tours</h1>
       <div className="Tour-list">
-          {console.log('tour.id: ', props.tours)}
           {props.tours.map(tour => ( 
             <div className="List" key={tour.id}>
                 <h3 className="TourLink" key={tour.id}>

@@ -28,7 +28,6 @@ const TourNewPage = (props) => {
   }   
 
   if (props.loading === true) {
-    console.log('props.loading: ', props.loading);
     return (
       <div className="sk-circle">
         <div className="sk-circle1 sk-child"></div>

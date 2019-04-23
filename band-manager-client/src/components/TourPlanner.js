@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import TourDetails from './TourDetails';
+import Map from './Map';
 
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -37,7 +38,25 @@ const TourPlanner = (props) => {
 
   return (
     <div className="TourPlanner">
-      <TourDetails tour={props.tour} />
+      <div className="Map-box">
+        <Map
+          id="myMap"
+          options={{
+            center: { lat: 41.0082, lng: 28.9784 },
+            zoom: 8
+          }}
+          onMapLoad={map => {
+            var marker = new window.google.maps.Marker({
+              position: { lat: 41.0082, lng: 28.9784 },
+              map: map,
+              title: 'Hello Istanbul!'
+            });
+          }}
+        />
+      </div>
+      <div className="TourDetails-box">
+        <TourDetails tour={props.tour} />
+      </div>
     </div>
   )
 }

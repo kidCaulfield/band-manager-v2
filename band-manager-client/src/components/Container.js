@@ -17,6 +17,18 @@ const Container = (props) => {
         <div className="Website">
           <Switch>
             <Route path={`${process.env.PUBLIC_URL}/`} exact component={HomePage} />
+            <AuthRoute
+              path={`${process.env.PUBLIC_URL}/tours/new`} exact
+              component={TourNewPage}
+            />
+            <AuthRoute
+              path={`${process.env.PUBLIC_URL}/tours`} exact
+              component={TourIndexPage}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/tours/:id`} exact
+              component={TourPlanner}
+            />
             <Route path={`${process.env.PUBLIC_URL}/sign_in`} exact
               render={routeProps => (
                 <SignInPage
@@ -30,18 +42,6 @@ const Container = (props) => {
                 {...routeProps}
                 />
               )}
-            />
-            <AuthRoute
-              path={`${process.env.PUBLIC_URL}/tours/new`} exact
-              component={TourNewPage}
-            />
-            <AuthRoute
-              path={`${process.env.PUBLIC_URL}/tours`} exact
-              component={TourIndexPage}
-            />
-            <Route
-              path={`${process.env.PUBLIC_URL}/tours/:id`} exact
-              component={TourPlanner}
             />
           </Switch>
         </div>

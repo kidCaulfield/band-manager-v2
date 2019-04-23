@@ -63,6 +63,7 @@ export const Tour = {
       body: JSON.stringify(params)
     });
     const json = await response.json();
+    
     return json
   },
   async all() {
@@ -74,7 +75,7 @@ export const Tour = {
   async one(id) {
     const response = await fetch(`/tours/${id}`);
     const json = await response.json();
-    console.log('json: ', json);
+
     return json
   }
 }
