@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import TourDetails from './TourDetails';
 import Map from './Map';
+import InfoWindow from './InfoWindow';
 
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -11,6 +12,17 @@ const TourPlanner = (props) => {
   
   const showTour = (id) => {
     props.onGetTour(id);
+  }
+
+  const createInfoWindow = (e, map) => {
+    const infoWindow = new window.google.maps.InfoWindow({
+        content: `<div id="infoWindow"></div>`,
+        position: { lat: e.latLng.lat(), lng: e.latLng.lng() }
+    })
+    infoWindow.addListener('domready', e => {
+      return (<InfoWindow />, document.getElementById('infoWindow'))
+    })
+    infoWindow.open(map)
   }
 
   useEffect(() => {
@@ -42,15 +54,18 @@ const TourPlanner = (props) => {
         <Map
           id="myMap"
           options={{
-            center: { lat: 41.0082, lng: 28.9784 },
+            center: { lat: 49.2827, lng: -123.1207 },
             zoom: 8
           }}
           onMapLoad={map => {
             var marker = new window.google.maps.Marker({
-              position: { lat: 41.0082, lng: 28.9784 },
+              position: { lat: 49.2827, lng: -123.1207 },
               map: map,
               title: 'Hello Istanbul!'
             });
+            marker.addListener('click', e => {
+            createInfoWindow(e, map)
+            })
           }}
         />
       </div>

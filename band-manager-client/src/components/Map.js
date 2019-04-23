@@ -18,7 +18,7 @@ const Map = (props) => {
       var x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
       // Below is important. 
-      //We cannot access google.maps until it's finished loading
+      // We cannot access google.maps until it's finished loading
       s.addEventListener('load', e => {
         onScriptLoad()
       })
@@ -32,7 +32,7 @@ const Map = (props) => {
   }, []) 
 
   return (
-    <div style={{ width: 500, height: 500 }} id={props.id} />
+    <div id={props.id} />
   )
 }
 
