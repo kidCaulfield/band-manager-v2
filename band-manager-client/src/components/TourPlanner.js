@@ -20,7 +20,7 @@ const TourPlanner = (props) => {
 
   const makeMarker = (marks, map) => {
     return marks.forEach(mark => {
-      if (mark.geo != null) {
+      if (mark.geo != null && typeof mark.geo.latitude === "number") {
       var marker = new window.google.maps.Marker({
               position: { lat: mark.geo.latitude, lng: mark.geo.longitude },
               map: map,
@@ -50,7 +50,6 @@ const TourPlanner = (props) => {
     showTour(id);
   }, [])
   
-  console.log('venues: ', props.venues);
   if (props.tour.length === 0 || props.venues.length === 0) {   
     return (
       <div className="sk-circle">

@@ -49,17 +49,32 @@ button {
   max-width: 300px;
 }
 
+/*=========== TourPlanner ==============*/
+
+.TourPlanner {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  width: 100%;
+  flex-direction: row;
+}
+
+.TourDetails-box {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
 /*============= MAP =============*/
 
-#myMap {
+div#myMap {
   border-radius: 5px;
-  width: 90vw;
-  height: 40vw;
+  height:500px;
+  width: 100%;
 }
 
 .Map-box {
   display: flex;
-  width: 100%;
+  flex-grow: 5;
 }
 
 /*===========================================================================*/
@@ -217,9 +232,39 @@ input {
             transform: scale(1);
   }
 }
+
 @media only screen and (max-width: 768px) {
 
   .title {
     font-size:11vw;
+  }
+
+
+  /*=========== TourPlanner ==============*/
+
+  .TourPlanner {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .TourDetails-box {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+  }
+
+  /*============= MAP =============*/
+
+  div#myMap {
+    border-radius: 0px 0px 5px 5px;
+    height: 320px;
+    width: 100%;
+  }
+
+  .Map-box {
+    display: flex;
+    flex-grow: 5;
   }
 }
