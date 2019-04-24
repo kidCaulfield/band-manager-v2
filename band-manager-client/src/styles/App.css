@@ -52,13 +52,14 @@ button {
 /*============= MAP =============*/
 
 #myMap {
-  width: 100vw;
-  height: 50vw;
+  border-radius: 5px;
+  width: 90vw;
+  height: 40vw;
 }
 
 .Map-box {
-  width:
-  100%
+  display: flex;
+  width: 100%;
 }
 
 /*===========================================================================*/
