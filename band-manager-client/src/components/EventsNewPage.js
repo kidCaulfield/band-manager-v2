@@ -28,14 +28,14 @@ const EventsNewPage = (props) => {
 
   return (
     <div className="EventsNewPage">
-       <form className="form" onSubmit={handleSubmit}>
+       <form className="form"onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Event Title</label> <br/>
-          <input name="name" id="name" />
+          <label className="label" htmlFor="name">Event Title</label> <br/>
+          <input className="input" name="name" id="name" />
         </div>
         <div>
-          <label htmlFor="date_time">Date</label> <br/>
-          <input type="date" name="date_time" />
+          <label className="label" htmlFor="date_time">Date</label> <br/>
+          <input className="input" type="date" name="date_time" />
         </div>
         <div>
           <input className="button" type="submit" value="Submit" />

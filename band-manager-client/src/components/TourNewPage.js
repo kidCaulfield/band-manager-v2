@@ -51,12 +51,12 @@ const TourNewPage = (props) => {
       <h1 className="title blue">Create Tour</h1>
       <form className="form" onSubmit={submitTour}>
         <div>
-          <label htmlFor="title">Title</label><br/>
-          <input type="text" name="title"></input>
+          <label className="label" htmlFor="title">Title</label><br/>
+          <input className="input" type="text" name="title"></input>
         </div>
         <div>
-          <label htmlFor="band">Band</label><br/>
-          <input type="text" name="band"></input>
+          <label className="label" htmlFor="band">Band</label><br/>
+          <input className="input" type="text" name="band"></input>
         </div>
         <input className="button" type="submit" value="Create" />
       </form>

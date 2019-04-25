@@ -61,7 +61,7 @@ const Navbar = (props) => {
         </NavLink>
       ) : null }
     </nav>
-    <nav className="Navbar Right NavbarItems">
+    <nav className="Navbar right NavbarItems">
       { !currentUser ? (
       <NavLink
         className="fancy NavbarLink"

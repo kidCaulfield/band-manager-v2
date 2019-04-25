@@ -9,7 +9,7 @@ import { getTour } from '../actions/tourActions'
 import { getVenues } from '../actions/venueActions'
 
 const TourPlanner = (props) => {
-  const [selectedVenue, setSelectedVenue] = useState({})
+  const [selectedVenue, setSelectedVenue] = useState({name: 'Click on Marker'})
   const id = props.match.params.id;
   
   const showVenues = () => {
@@ -99,6 +99,7 @@ const TourPlanner = (props) => {
           <div className="SelectedVenue">
             <div>
               <h4>{selectedVenue.name}</h4>
+              <p>{selectedVenue.address}</p>
             </div>
           </div>
         </div>

@@ -26,12 +26,12 @@ const SignInPage = (props) => {
       <h1 className="title blue">Sign In</h1>
       <form className="form" onSubmit={signIn}>
         <div>
-          <label htmlFor="email">email</label><br/>
-          <input type="text" name="email" defaultValue="j@job.com"></input>
+          <label className="label" htmlFor="email">email</label><br/>
+          <input className="input" type="text" name="email" defaultValue="j@job.com"></input>
         </div>
         <div>
-          <label htmlFor="password">password</label><br/>
-          <input type="password" name="password" defaultValue="p1234"></input>
+          <label className="label" htmlFor="password">password</label><br/>
+          <input className="input" type="password" name="password" defaultValue="p1234"></input>
         </div>
         <input className="button" type="submit" value="Sign In" />
       </form>

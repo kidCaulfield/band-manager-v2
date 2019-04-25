@@ -32,7 +32,9 @@ const TourIndexPage = (props) => {
 
   return (
     <div className="TourIndexPage-box">
-      <h1 className="title underline blue">Your Tours</h1>
+      <div className="underline">
+        <h1 className="title blue">Your Tours</h1>
+      </div>
       <div className="Tour-list">
           {props.tours.map(tour => ( 
             <div className="List" key={tour.id}>

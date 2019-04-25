@@ -5,8 +5,11 @@ const TourDetails = (props) => {
    
   return (
     <div className="TourDetails">
-       <h3>{props.tour.title}</h3>
-      <small>Band: {props.tour.band}</small>
+      <div className="underline">
+        <h1 className="blue">Tour Planner</h1>
+        <h3>{props.tour.title}</h3>
+        <small>Band: {props.tour.band}</small>
+      </div>
       <EventDetails id={props.tour.id} />
     </div>
   )

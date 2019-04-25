@@ -30,20 +30,20 @@ const SignUpPage = (props) => {
       <h1 className="title blue">Make an account</h1>
       <form className="form" onSubmit={signUp}>
         <div>
-          <label htmlFor="username">username</label><br/>
-          <input type="text" name="username"></input>
+          <label className="label" htmlFor="username">username</label><br/>
+          <input className="input" type="text" name="username"></input>
         </div>
         <div>
-          <label htmlFor="email">email</label><br/>
-          <input type="email" name="email"></input>
+          <label className="label" htmlFor="email">email</label><br/>
+          <input className="input" type="email" name="email"></input>
         </div>
         <div>
-          <label htmlFor="password">password</label><br/>
-          <input type="password" name="password"></input>
+          <label className="label" htmlFor="password">password</label><br/>
+          <input className="input" type="password" name="password"></input>
         </div>
         <div>
-          <label htmlFor="password_digest">password_confirmation</label><br/>
-          <input type="password" name="password_digest"></input>
+          <label className="label" htmlFor="password_digest">password_confirmation</label><br/>
+          <input className="input" type="password" name="password_digest"></input>
         </div>
         <input className="button" type="submit" value="Sign Up" />
       </form>

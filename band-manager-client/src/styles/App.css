@@ -23,10 +23,23 @@
   color: #61dafb;
 }
 
+.Container {
+  background-color: black;
+  min-height: 100vh;
+}
+
 /*========================= Wes's Costum Framework ==========================*/
 
+h1 {
+  margin: 0px 0px 0px 0px;
+}
+
+h3 {
+  margin: 0px 0px 0px 0px;
+}
+
 .title {
-  font-size: 80px;
+  margin: 0px 0px 0px 0px;
 }
 
 .blue {
@@ -37,16 +50,67 @@
   color: white
 }
 
-button {
-
-}
-
 .none {
   display: none;
 }
 .underline {
   border-bottom: 2px solid currentColor;
   max-width: 300px;
+  color: white;
+}
+
+.right {
+  margin-left:auto;
+}
+
+.button {
+  background-color: black;
+  color: white;
+  height: 30px;
+  width:100px;
+  font-weight: bold;
+  font-family: helvetica neue;
+  font-size: 18px;
+  border-radius: 5px;
+  border-color: white;
+  margin: 10px auto 5px 0px;
+}
+
+
+.label {
+  font-family: "Helvetica Neue";
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.input {
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 2px;
+  width: 90vw;
+  max-width: 250px;
+  height: 25px;
+  border-radius: 5px !important;
+  border-style: inset !important;
+  border-width: 2px !important;
+  border-color: lightgray !important;
+  padding-left: 5px;
+}
+
+/*============= Tour Index =============*/
+
+.TourLink{
+  margin: 5px 0px 5px 0px;
+}
+
+.TourLink a {
+  text-decoration: none;
+  color: white;  
+}
+
+.TourLink a:hover {
+  text-decoration: none;
+  color: rgb(0, 200, 255);  
 }
 
 /*=========== TourPlanner ==============*/
@@ -61,18 +125,27 @@ button {
 .TourDetails-box {
   display: flex;
   flex-grow: 1;
+  padding: 0px 5px 0px 0px;
+}
+
+.TourDetails {
+  width: 100%;
 }
 
 .EventsNewPage-box {
   display: flex;
+  flex-wrap: wrap-reverse;
   flex-direction: row;
 }
 
 .SelectedVenue {
   display: flex;
+  min-height: 50px;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  flex-grow: 1;
+  border-width: 1px;
+  padding: 5px;
 }
 
 /* ===================EventPages======================== */
@@ -115,6 +188,10 @@ div#myMap {
   flex-direction: column;
   flex-grow: 5;
   margin: 10px;
+}
+
+#infoWindow {
+  color: black;
 }
 
 /*===========================================================================*/
@@ -275,8 +352,8 @@ input {
 
 @media only screen and (max-width: 768px) {
 
-  .title {
-    font-size:11vw;
+  h4 {
+    display: block !important;
   }
 
   /*=========== TourPlanner ==============*/
@@ -291,7 +368,7 @@ input {
 
   .TourDetails-box {
     display: flex;
-    justify-content: center;
+    padding: 0px 5px 5px 5px;
     flex-grow: 1;
   }
 
@@ -300,6 +377,10 @@ input {
     flex-direction: row;
   }
 
+  .EventsNewPage {
+    margin: 5px;
+  }
+  
 /* ===================EventPages======================== */
 
 .EventTitle {
