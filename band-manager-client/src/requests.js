@@ -79,3 +79,19 @@ export const Tour = {
     return json
   }
 }
+
+export const Event = {
+  async create(params, id) {
+    const response = await fetch(`/tours/${id}/events`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    });
+    const json = await response.json();
+
+    return json
+  }
+}

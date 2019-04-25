@@ -12,8 +12,10 @@ import toursReducer from './reducers/toursReducer';
 import tourReducer from './reducers/tourReducer';
 import userReducer from './reducers/userReducer';
 import appReducer from './reducers/appReducer';
+import eventReducer from './reducers/eventReducer';
 
 const allReducers = combineReducers({
+  events: eventReducer,
   venues: venueReducer,
   tours: toursReducer,
   tour: tourReducer,
@@ -27,6 +29,7 @@ const allStoreEnhancers = compose(
 )
 
 const store = createStore(allReducers, {
+  events: [],
   venues: [],
   tours: [],
   tour: {},

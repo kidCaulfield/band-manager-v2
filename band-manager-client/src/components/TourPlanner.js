@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import TourDetails from './TourDetails';
+import EventsNewPage from './EventsNewPage';
 import Map from './Map';
 
 import { connect } from 'react-redux'
@@ -82,6 +83,7 @@ const TourPlanner = (props) => {
             makeMarker(props.venues, map)
           }}
         />
+        <EventsNewPage id={id} />
       </div>
       <div className="TourDetails-box">
         <TourDetails tour={props.tour} />
