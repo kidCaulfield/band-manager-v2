@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { connect } from 'react-redux';
+import { getEvents } from '../actions/eventActions';
+import { createSelector } from 'reselect';
 
 const EventDetails = (props) => {
-  console.log('props.events: ', props.events);
+
+  useEffect(() => {
+    props.onGetEvents(props.id)
+  }, []);
 
   if (props.events.length === 0) {
     return (
@@ -16,13 +23,29 @@ const EventDetails = (props) => {
       {props.events.map(event => (
         <div key={event.id}>
           <strong className="EventTitle">{event.name}</strong>
-          <p className="EventVenue"><strong>Venue:</strong></p>
+          <p className="EventVenue"><strong>Venue: {event.venue}</strong></p>
           <p className="EventAddress">{event.address}</p>
-          <p className="EventDate">{event.date}</p>
+          <p className="EventDate">{event.date_time}</p>
         </div>
       ))}
     </div>
   );
 };
 
-export default EventDetails;
+const eventSelector = createSelector(
+  state => state.events,
+  events => events
+);
+
+const mapStateToProps = createSelector(
+  eventSelector,
+  (events) => ({
+    events
+  })
+);
+
+const mapDispatchToProps = {
+  onGetEvents: getEvents
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventDetails);

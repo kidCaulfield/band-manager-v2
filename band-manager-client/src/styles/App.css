@@ -60,8 +60,19 @@ button {
 
 .TourDetails-box {
   display: flex;
-  justify-content: center;
   flex-grow: 1;
+}
+
+.EventsNewPage-box {
+  display: flex;
+  flex-direction: row;
+}
+
+.SelectedVenue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 /* ===================EventPages======================== */
@@ -103,6 +114,7 @@ div#myMap {
   display: flex;
   flex-direction: column;
   flex-grow: 5;
+  margin: 10px;
 }
 
 /*===========================================================================*/
@@ -267,11 +279,6 @@ input {
     font-size:11vw;
   }
 
-  h4 {
-    display: block;
-  }
-
-
   /*=========== TourPlanner ==============*/
 
   .TourPlanner {
@@ -288,13 +295,9 @@ input {
     flex-grow: 1;
   }
 
-  .EventDetails {
-    position: relative;
-    display: block;
-  }
-
-  .Event {
-    display: block;
+  .EventsNewPage-box {
+    display: flex;
+    flex-direction: row;
   }
 
 /* ===================EventPages======================== */
@@ -334,6 +337,7 @@ input {
 
   .Map-box {
     display: flex;
+    margin: 0px;
     flex-direction: column;
     flex-grow: 5;
   }

@@ -89,10 +89,19 @@ const TourPlanner = (props) => {
             makeMarker(props.venues, map)
           }}
         />
-        <EventsNewPage
-          id={id}
-          selected={selectedVenue}
-        />
+        <div className="EventsNewPage-box">
+        <div>
+          <EventsNewPage
+            id={id}
+            selected={selectedVenue}
+          />
+        </div>
+          <div className="SelectedVenue">
+            <div>
+              <h4>{selectedVenue.name}</h4>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="TourDetails-box">
         <TourDetails tour={props.tour} />

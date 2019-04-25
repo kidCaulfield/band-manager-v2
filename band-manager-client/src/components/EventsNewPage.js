@@ -5,7 +5,6 @@ import { createEvent } from '../actions/eventActions';
 import { createSelector } from 'reselect';
 
 const EventsNewPage = (props) => {
-  console.log('props: ', props);
 
   const createEventOnSubmit = (params) => {
     props.onCreateEvent(params, props.id)
@@ -31,7 +30,7 @@ const EventsNewPage = (props) => {
     <div className="EventsNewPage">
        <form className="form" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Event name</label> <br/>
+          <label htmlFor="name">Event Title</label> <br/>
           <input name="name" id="name" />
         </div>
         <div>
