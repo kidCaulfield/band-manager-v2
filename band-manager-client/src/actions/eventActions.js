@@ -32,17 +32,19 @@ export const createEvent = (params, id) => async dispatch => {
 }
 
 export const getEvents = (id) => async dispatch => {
-  const response = await Event.all(id);
-  console.log('response: ', response);
-
-  if (response.error) {
-    return showError(response.error)
-  }
-
-  return dispatch({
-    type: GET_EVENTS,
-    payload: {
-      events: response.events
+  if (id !== undefined) {
+    const response = await Event.all(id);
+    console.log('response: ', response);
+    
+    if (response.error) {
+      return showError(response.error)
     }
-  })
+
+    return dispatch({
+      type: GET_EVENTS,
+      payload: {
+        events: response.events
+      }
+    })
+  }
 }

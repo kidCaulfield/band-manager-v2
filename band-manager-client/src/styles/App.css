@@ -64,6 +64,33 @@ button {
   flex-grow: 1;
 }
 
+/* ===================EventPages======================== */
+
+.EventTitle {
+  color: rgb(0, 200, 255);
+  margin: 0px 0px 5px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+.EventVenue {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 16px;
+}
+
+.EventAddress {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 14px;
+}
+
+.EventDate {
+  margin: 0px 0px 10px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 12px;
+}
+
+
 /*============= MAP =============*/
 
 div#myMap {
@@ -240,6 +267,10 @@ input {
     font-size:11vw;
   }
 
+  h4 {
+    display: block;
+  }
+
 
   /*=========== TourPlanner ==============*/
 
@@ -256,6 +287,42 @@ input {
     justify-content: center;
     flex-grow: 1;
   }
+
+  .EventDetails {
+    position: relative;
+    display: block;
+  }
+
+  .Event {
+    display: block;
+  }
+
+/* ===================EventPages======================== */
+
+.EventTitle {
+  color: rgb(0, 200, 255);
+  margin: 0px 0px 5px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+.EventVenue {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 16px;
+}
+
+.EventAddress {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 14px;
+}
+
+.EventDate {
+  margin: 0px 0px 10px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 12px;
+}
+
 
   /*============= MAP =============*/
 

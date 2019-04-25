@@ -15,9 +15,7 @@ const TourDetails = (props) => {
     <div className="TourDetails">
        <h3>{props.tour.title}</h3>
       <small>Band: {props.tour.band}</small>
-      <div className="EventDetails-box">
-        <EventDetails events={props.events} />
-      </div>
+      <EventDetails events={props.events} />
     </div>
   )
 }

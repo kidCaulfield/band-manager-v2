@@ -2,21 +2,27 @@ import React from 'react';
 
 const EventDetails = (props) => {
   console.log('props.events: ', props.events);
+
+  if (props.events.length === 0) {
+    return (
+      <div>
+        <h4>No Current Events</h4>
+      </div>
+    );
+  };
+
   return (
     <div className="EventDetails">
-      {
-        (props.events.length > 0) ? (
-          props.events.map(event => (
-            <div className="Event" key={event.id}>
-              <h4 className="blue">{event.name}</h4>
-            </div>
-        ))):
-          <div>
-            <h4>No Current Events</h4>
-          </div>
-      }
+      {props.events.map(event => (
+        <div key={event.id}>
+          <strong className="EventTitle">{event.name}</strong>
+          <p className="EventVenue"><strong>Venue:</strong></p>
+          <p className="EventAddress">{event.address}</p>
+          <p className="EventDate">{event.date}</p>
+        </div>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default EventDetails
+export default EventDetails;
