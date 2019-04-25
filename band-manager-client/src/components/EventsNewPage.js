@@ -5,10 +5,9 @@ import { createEvent } from '../actions/eventActions';
 import { createSelector } from 'reselect';
 
 const EventsNewPage = (props) => {
-  console.log('event props: ', props);
+  console.log('props: ', props);
 
   const createEventOnSubmit = (params) => {
-    console.log('event props again: ', props);
     props.onCreateEvent(params, props.id)
   }
 
@@ -20,7 +19,10 @@ const EventsNewPage = (props) => {
     createEventOnSubmit({
       event: {
         name: formData.get("name"),
-        date_time: formData.get("date_time")
+        date_time: formData.get("date_time"),
+        address: props.selected.address,
+        venue_id: props.selected.id,
+        contact: 'bob'
       }
     })
   }

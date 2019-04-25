@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import TourDetails from './TourDetails';
 import EventsNewPage from './EventsNewPage';
 import Map from './Map';
@@ -9,6 +9,7 @@ import { getTour } from '../actions/tourActions'
 import { getVenues } from '../actions/venueActions'
 
 const TourPlanner = (props) => {
+  const [selectedVenue, setSelectedVenue] = useState({})
   const id = props.match.params.id;
   
   const showVenues = () => {
@@ -22,16 +23,17 @@ const TourPlanner = (props) => {
   const makeMarker = (marks, map) => {
     return marks.forEach(mark => {
       if (mark.geo != null && typeof mark.geo.latitude === "number") {
-      var marker = new window.google.maps.Marker({
-              position: { lat: mark.geo.latitude, lng: mark.geo.longitude },
-              map: map,
-              title: mark.name
-            });
-            marker.addListener('click', e => {
-            createInfoWindow(e, map, mark)
-            })
-    return marker;
-    }
+        var marker = new window.google.maps.Marker({
+          position: { lat: mark.geo.latitude, lng: mark.geo.longitude },
+          map: map,
+          title: mark.name
+        });
+        marker.addListener('click', e => {
+          createInfoWindow(e, map, mark);
+          selectVenue(mark)
+        })
+      return marker;
+      }
     });
   }
 
@@ -44,6 +46,10 @@ const TourPlanner = (props) => {
       return (document.getElementById('infoWindow'))
     })
     infoWindow.open(map)
+  }
+
+  const selectVenue = (venue) => {
+    setSelectedVenue(venue);
   }
 
   useEffect(() => {
@@ -83,7 +89,10 @@ const TourPlanner = (props) => {
             makeMarker(props.venues, map)
           }}
         />
-        <EventsNewPage id={id} />
+        <EventsNewPage
+          id={id}
+          selected={selectedVenue}
+        />
       </div>
       <div className="TourDetails-box">
         <TourDetails tour={props.tour} />
