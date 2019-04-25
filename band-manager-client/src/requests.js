@@ -93,5 +93,11 @@ export const Event = {
     const json = await response.json();
 
     return json
+  },
+  async all(id) {
+    const response = await fetch(`/tours/${id}/events`);
+    const json = await response.json();
+
+    return json
   }
 }

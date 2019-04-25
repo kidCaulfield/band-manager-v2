@@ -22,7 +22,7 @@ const EventsNewPage = (props) => {
         date_time: formData.get("date_time"),
         address: props.selected.address,
         venue_id: props.selected.id,
-        contact: 'bob'
+        contact: 'bob' // Development place holder
       }
     })
   }

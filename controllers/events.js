@@ -9,7 +9,7 @@ const schema = Joi.object().keys({
       // refined this schema durring frontend development
       name: Joi.string().required(),
       address: Joi.string().required(),
-      contact: Joi.string().required(),
+      contact: Joi.string().allow(null),
       date_time: Joi.string(),
       confirmed: Joi.boolean(),
       cancelled: Joi.boolean(),
