@@ -23,6 +23,8 @@
   color: #61dafb;
 }
 
+/* F R O N T  P A G E */
+
 .Container {
   background-color: black;
   min-height: 100vh;
@@ -125,7 +127,7 @@ h3 {
 
 .TourPlanner {
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   width: 100%;
   flex-direction: row;
 }
