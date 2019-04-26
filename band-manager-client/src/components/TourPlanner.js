@@ -13,15 +13,13 @@ import { getVenues } from '../actions/venueActions'
 
   * nearby places query to return phone numbers
   * Show Error Messages on forms
-
+  * update knex.js events query to include venues
+  * fix Event loading bug (events don't load with out refreshing TourPlanner)
 
 */
 
-// https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.2599155,-123.0964901&radius=50&type=biltmore_cabaret&keyword=biltmore_cabaret&key=AIzaSyCSbAOYHghGtm0iqrQ2PxPEMT7GiMfgqF8
-
 const TourPlanner = (props) => {
-  const [selectedVenue, setSelectedVenue] = useState({name: 'Click on Marker'})
-  console.log('selectedVenue: ', selectedVenue);
+  const [selectedVenue, setSelectedVenue] = useState({name: 'Click on a marker to add venue to your event'})
   const id = props.match.params.id;
   
   const showVenues = () => {
