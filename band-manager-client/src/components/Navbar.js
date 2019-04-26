@@ -73,7 +73,7 @@ const Navbar = (props) => {
       }
       { currentUser ? (
         <>
-          <span className="NavbarLink" role="img" aria-label="TourBus"> 🚌</span><h4 className="white">{currentUser.username}</h4>
+          <span className="NavbarLink" role="img" aria-label="TourBus"> 🚌</span><h4 id="username">{currentUser.username}</h4>
           <NavLink to={`${process.env.PUBLIC_URL}/`} className="fancy NavbarLink" onClick={destroy}>
             Sign Out
           </NavLink>

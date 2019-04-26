@@ -89,7 +89,7 @@ nav a.fancy:hover {
     display: none;
   }
 
-  h4 {
+  #username {
     display: none;
   }
 }

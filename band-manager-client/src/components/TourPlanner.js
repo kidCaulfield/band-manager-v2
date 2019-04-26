@@ -8,8 +8,20 @@ import { createSelector } from 'reselect'
 import { getTour } from '../actions/tourActions'
 import { getVenues } from '../actions/venueActions'
 
+
+/* CHECK LIST
+
+  * nearby places query to return phone numbers
+  * Show Error Messages on forms
+
+
+*/
+
+// https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.2599155,-123.0964901&radius=50&type=biltmore_cabaret&keyword=biltmore_cabaret&key=AIzaSyCSbAOYHghGtm0iqrQ2PxPEMT7GiMfgqF8
+
 const TourPlanner = (props) => {
   const [selectedVenue, setSelectedVenue] = useState({name: 'Click on Marker'})
+  console.log('selectedVenue: ', selectedVenue);
   const id = props.match.params.id;
   
   const showVenues = () => {
@@ -98,8 +110,8 @@ const TourPlanner = (props) => {
         </div>
           <div className="SelectedVenue">
             <div>
-              <h4>{selectedVenue.name}</h4>
-              <p>{selectedVenue.address}</p>
+              <strong className="SelectedVenue-text">{selectedVenue.name}</strong>
+              <p className="SelectedVenue-text">{selectedVenue.address}</p>
             </div>
           </div>
         </div>

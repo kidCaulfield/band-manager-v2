@@ -28,6 +28,14 @@
   min-height: 100vh;
 }
 
+.HomePage {
+  line-height: 80vh;
+}
+
+#homepage {
+  font-size: 10vw
+}
+
 /*========================= Wes's Costum Framework ==========================*/
 
 h1 {
@@ -146,6 +154,10 @@ h3 {
   flex-grow: 1;
   border-width: 1px;
   padding: 5px;
+}
+
+.SelectedVenue-text {
+  margin: 0px;
 }
 
 /* ===================EventPages======================== */
@@ -351,10 +363,6 @@ input {
 }
 
 @media only screen and (max-width: 768px) {
-
-  h4 {
-    display: block !important;
-  }
 
   /*=========== TourPlanner ==============*/
 

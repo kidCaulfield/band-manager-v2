@@ -3,7 +3,9 @@ import React from 'react';
 const HomePage = (props) => {
   return(
     <div className=" HomePage">
-      <h1 className="title blue">Band Manager</h1>
+      <div>
+        <h1 id="homepage" className="title blue">Band Manager</h1>
+      </div>
     </div>
   )
 }

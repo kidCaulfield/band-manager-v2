@@ -27,7 +27,6 @@ module.exports = {
 
   async index(req, res, next) {
     const { userId } = req.session;
-    if (userId) {
       try {
         const tours = await Tour.findUsersTours(userId);
 
@@ -35,9 +34,6 @@ module.exports = {
       } catch (err) {
         next(err);
       }
-    } else {
-      res.status(401).json({error: "you must be signed in"});
-    }
   },
 
   async show(req, res, next) {
