@@ -14,7 +14,6 @@ export const showError = (err) => {
 
 export const createEvent = (params, id) => async dispatch => {
   const response = await Event.create(params, id);
-  console.log('response: ', response);
 
   if (response.error) {
     return showError(response.error)
@@ -22,7 +21,6 @@ export const createEvent = (params, id) => async dispatch => {
 
   if (typeof response.event.id === "number") {
     const all = await Event.all(id);
-    console.log('all: ', all);
     return dispatch({
       type: CREATE_EVENT,
       payload: {
@@ -35,7 +33,6 @@ export const createEvent = (params, id) => async dispatch => {
 export const getEvents = (id) => async dispatch => {
   if (id !== undefined) {
     const response = await Event.all(id);
-    console.log('response: ', response);
     
     if (response.error) {
       return showError(response.error)

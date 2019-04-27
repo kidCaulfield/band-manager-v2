@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { connect } from 'react-redux';
-import { getEvents } from '../actions/eventActions';
 import { createSelector } from 'reselect';
+
 var hdate = require('human-date')
 
 const EventDetails = (props) => {

@@ -101,3 +101,19 @@ export const Event = {
     return json
   }
 }
+
+export const Google = {
+  async placesDetails(place) {
+    const response = await fetch(`/google-places`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(place)
+    });
+  const json = await response.json();
+
+  return json
+  }
+}

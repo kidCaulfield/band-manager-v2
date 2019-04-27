@@ -11,7 +11,7 @@ module.exports = {
                           {headers: {'Content-Type': 'aplication.json'}})
  
     console.log('response2: ', placeDetails.data);
-    res.status(200).json(placeDetails.data);
+    res.status(200).json(placeDetails.data.result);
   }
 };
 

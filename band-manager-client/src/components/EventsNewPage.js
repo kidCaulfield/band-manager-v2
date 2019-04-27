@@ -1,4 +1,5 @@
 import React from 'react';
+import { Google } from '../requests';
 
 import { connect } from 'react-redux';
 import { createEvent } from '../actions/eventActions';
@@ -10,10 +11,14 @@ const EventsNewPage = (props) => {
     props.onCreateEvent(params, props.id)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
+
+    console.log('props.selected: ', props.selected);
+    const details = await Google.placesDetails(props.selected);
+    console.log('details: ', details);
 
     createEventOnSubmit({
       event: {
@@ -21,7 +26,7 @@ const EventsNewPage = (props) => {
         date_time: formData.get("date_time"),
         address: props.selected.address,
         venue_id: props.selected.id,
-        contact: 'bob' // Development place holder
+        contact: details.international_phone_number
       }
     })
   }
