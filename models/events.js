@@ -20,9 +20,21 @@ module.exports = class Event {
   }
 
   static async findAll(params) {
+
     const events = await knex("events")
       .select()
       .where(params)
+
+    const addVenuesToEvents = async (e) => {
+      const rebuild = await Promise.all(e.map(async (event) => {
+        const venue = await knex("venues").select().where("id", event.venue_id).first();
+        event["venue"] = venue;
+        return event;
+      }))
+      return rebuild
+    } 
+
+    const fire = await addVenuesToEvents(events)
 
     return events;
   }

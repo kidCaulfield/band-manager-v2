@@ -6,6 +6,7 @@ import { createSelector } from 'reselect';
 var hdate = require('human-date')
 
 const EventDetails = (props) => {
+  console.log('props: ', props);
 
   useEffect(() => {
     props.onGetEvents(props.id)
@@ -25,7 +26,7 @@ const EventDetails = (props) => {
       {props.events.map(event => (
         <div key={event.id}>
           <strong className="EventTitle">{event.name}</strong>
-          <p className="EventVenue"><strong>Venue: {event.venue}</strong></p>
+          <p className="EventVenue"><strong>Venue: {event.venue.name}</strong></p>
           <p className="EventAddress">{event.address}</p>
           <p className="EventDate">{hdate.prettyPrint(event.date_time)}</p>
         </div>
