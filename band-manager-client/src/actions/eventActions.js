@@ -22,6 +22,7 @@ export const createEvent = (params, id) => async dispatch => {
 
   if (typeof response.event.id === "number") {
     const all = await Event.all(id);
+    console.log('all: ', all);
     return dispatch({
       type: CREATE_EVENT,
       payload: {

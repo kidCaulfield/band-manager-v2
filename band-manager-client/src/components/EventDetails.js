@@ -6,11 +6,6 @@ import { createSelector } from 'reselect';
 var hdate = require('human-date')
 
 const EventDetails = (props) => {
-  console.log('props: ', props);
-
-  useEffect(() => {
-    props.onGetEvents(props.id)
-  }, []);
 
   if (props.events.length === 0) {
     return (
@@ -47,8 +42,4 @@ const mapStateToProps = createSelector(
   })
 );
 
-const mapDispatchToProps = {
-  onGetEvents: getEvents
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EventDetails);
+export default connect(mapStateToProps)(EventDetails);

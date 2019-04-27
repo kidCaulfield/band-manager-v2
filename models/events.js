@@ -84,6 +84,6 @@ module.exports = class Event {
         venue_id: venueId
       }).returning("*")
 
-    return event;
+    return event[0];
   }
 }

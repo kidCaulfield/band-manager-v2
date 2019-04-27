@@ -65,7 +65,6 @@ h3 {
 }
 .underline {
   border-bottom: 2px solid currentColor;
-  max-width: 300px;
   color: white;
 }
 

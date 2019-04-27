@@ -7,13 +7,13 @@ import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
 import { getTour } from '../actions/tourActions'
 import { getVenues } from '../actions/venueActions'
+import { getEvents } from '../actions/eventActions'
 
 
 /* CHECK LIST
 
   * nearby places query to return phone numbers
   * Show Error Messages on forms
-  * update knex.js events query to include venues
   * fix Event loading bug (events don't load with out refreshing TourPlanner)
 
 */
@@ -65,6 +65,7 @@ const TourPlanner = (props) => {
   useEffect(() => {
     showVenues();
     showTour(id);
+    props.onGetEvents(id)
   }, [])
   
   if (props.tour.length === 0 || props.venues.length === 0) {   
@@ -121,6 +122,11 @@ const TourPlanner = (props) => {
   )
 }
 
+const eventsSelector = createSelector(
+  state => state.events,
+  events => events
+)
+
 const venuesSelector = createSelector(
   state => state.venues,
   venues => venues
@@ -132,16 +138,18 @@ const tourSelector = createSelector(
 )
 
 const mapStateToProps = createSelector(
-tourSelector, venuesSelector,
-  (tour, venues) => ({
+tourSelector, venuesSelector, eventsSelector,
+  (tour, venues, events) => ({
     tour,
-    venues
+    venues,
+    events
   })
 );
 
 const mapDispatchtoProps = {
   onGetVenues: getVenues,
-  onGetTour: getTour
+  onGetTour: getTour,
+  onGetEvents: getEvents
 }
 
 export default connect(mapStateToProps, mapDispatchtoProps)(TourPlanner);

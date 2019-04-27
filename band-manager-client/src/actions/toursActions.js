@@ -44,7 +44,7 @@ export const createTour = (params, props) => async dispatch => {
     return showError(response.error)
   }
   if (typeof response.tour[0].id === "number") {
-    // props.history.push("/tours")
+    props.history.push("/tours")
     return dispatch({
       type: CREATE_TOUR,
       payload: {
