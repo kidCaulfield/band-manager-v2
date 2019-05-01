@@ -58,28 +58,21 @@ module.exports = class Venue {
     return venue
   }
 
-  static async updateVenue(id, reqBody) {
-    const {name, address, phone_number, geo} = reqBody;
+  static async updateVenue(id, params) {
     const venue = await knex("venues")
       .where("id", id)
-      .update({
-        name,
-        address,
-        phone_number,
-        geo
-      })
+      .update(params)
       .returning("*");
 
       return venue
   }
 
   async save() {
-    const {name, address, phone_number, geo} = this;
+    const {name, address, geo} = this;
     const newVenue = await knex("venues")
       .insert({
         name,
         address,
-        phone_number,
         geo
       }).returning("id");
     

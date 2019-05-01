@@ -6,9 +6,6 @@ exports.up = function(knex, Promise) {
     t.string("address");
     t.string("contact");
     t.datetime("date_time", 6);
-    t.string("vicinity")defaultTo(null);
-    t.string("formatted_address").defaultTo(null);
-    t.string("website").defaultTo(null);
     t.boolean("confirmed").defaultTo(false);
     t.boolean("cancelled").defaultTo(false);
     t.integer("tour_id").references("tours.id");

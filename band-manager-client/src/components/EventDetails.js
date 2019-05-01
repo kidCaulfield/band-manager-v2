@@ -22,7 +22,12 @@ const EventDetails = (props) => {
         <div key={event.id}>
           <strong className="EventTitle">{event.name}</strong>
           <p className="EventVenue"><strong>Venue: {event.venue.name}</strong></p>
-          <p className="EventAddress">{event.address}</p>
+          { !event.venue.vicinity ?
+            <p className="EventAddress">{event.venue.address}</p>
+          : <p className="EventAddress">{event.venue.formatted_address}</p>
+          }
+          <p className="EventAddress">{event.venue.international_phone_number}</p>
+          <p className="EventAddress"><a href={`${event.venue.website}`}>{event.venue.website}</a></p>
           <p className="EventDate">{hdate.prettyPrint(event.date_time)}</p>
         </div>
       ))}

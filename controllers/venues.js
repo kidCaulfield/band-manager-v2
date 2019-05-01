@@ -7,9 +7,13 @@ const validateVenue = (requestBody, response) => {
   const schema = Joi.object().keys({
     venues: {
       name: Joi.string().trim().required(),
-      address: Joi.string().required(),
-      phone_number: Joi.any().allow(null),
-      geo: Joi.any().allow(null)
+      address: Joi.string(),
+      international_phone_number: Joi.string().allow(null),
+      geo: Joi.any().allow(null),
+      place_id: Joi.string().allow(null),
+      vicinity: Joi.string().allow(null),
+      formatted_address: Joi.string().allow(null),
+      website: Joi.string().allow(null)
     }
   });
 
@@ -52,13 +56,13 @@ module.exports = {
   create: [
     async (req, res, next) => {
       const valid = validateVenue(req.body, res)  
-      const { name, address, phone_number, geo } = req.body.venues;  
+      const { name, address, geo } = req.body.venues;  
 
       if (valid === null) {
         try {
           const verify = await Venue.find({name, address})
           if (verify.length === 0) {
-            const venue = new Venue({name, address, phone_number, geo});
+            const venue = new Venue({name, address, geo});
             const id = await venue.save()
             res.status(200).json({id});
           } else {
@@ -102,6 +106,7 @@ module.exports = {
   async update(req, res) {
     const valid = validateVenue(req.body, res);
     if (valid === null) {
+    console.log('req.body: ', req.body);
       try {
         const { id } = req.params;
         const venue = await Venue.updateVenue(id ,req.body.venues)

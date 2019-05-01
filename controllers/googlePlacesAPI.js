@@ -7,14 +7,14 @@ module.exports = {
     const searchName = name.split(" ").map(word => word.toLowerCase()).join("_").trim()
     const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geo.latitude},${geo.longitude}&radius=100&name=${searchName}&keyword=${searchName}&key=${key.googleAPIKey}`,
                           {headers: {'Content-Type': 'aplication.json'}})
-    if (response.data.results[0]) {
-      const placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${response.data.results[0].place_id}&fields=name,rating,website,formatted_address,vicinity,international_phone_number&key=${key.googleAPIKey}`,
+      console.log('response.data: ', response.data);
+    if (response.data.status === 'OK') {
+      const placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${response.data.results[0].place_id}&fields=name,place_id,website,formatted_address,vicinity,international_phone_number&key=${key.googleAPIKey}`,
                           {headers: {'Content-Type': 'aplication.json'}})
+      console.log('placeDetails.data.result: ', placeDetails.data.result);
       res.status(200).json(placeDetails.data.result);
     } else {
-      const venueInfo = req.body
-      venueInfo["international_phone_number"] = null
-      res.status(200).json(venueInfo);
+      res.status(200).json(null);
     }
   }
 };
