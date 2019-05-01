@@ -16,9 +16,7 @@ const EventsNewPage = (props) => {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
 
-    console.log('props.selected: ', props.selected);
     const details = await Google.placesDetails(props.selected);
-    console.log('details: ', details);
 
     createEventOnSubmit({
       event: {
