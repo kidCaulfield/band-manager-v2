@@ -12,7 +12,9 @@ import { getEvents } from '../actions/eventActions'
 
 /* CHECK LIST
 
-  * nearby places query to return phone numbers
+  * Make Tour Show Page separte from planner
+  * Bring Back fast Navingation
+  * Paginate Events List if it became large
   * Show Error Messages on forms
   * fix Event loading bug (events don't load with out refreshing TourPlanner)
 
