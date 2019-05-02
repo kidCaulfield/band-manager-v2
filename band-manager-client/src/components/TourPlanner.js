@@ -14,9 +14,8 @@ import { getEvents } from '../actions/eventActions'
 
   * Make Tour Show Page separte from planner
   * Bring Back fast Navingation
-  * Paginate Events List if it became large
-  * Show Error Messages on forms
-  * fix Event loading bug (events don't load with out refreshing TourPlanner)
+  * Show hot loading in paginated events
+  * Show form Error Messages
 
 */
 

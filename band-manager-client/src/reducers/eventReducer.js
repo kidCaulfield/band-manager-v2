@@ -9,6 +9,6 @@ const eventReducer = (state = [], {type, payload}) => {
     default:
       return state;
   }
-}
+};
 
-export default eventReducer
+export default eventReducer;

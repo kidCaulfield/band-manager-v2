@@ -6,7 +6,7 @@ const validateEvent = (requestBody, response) => {
 let { name, address, contact, date_time, confirmed, cancelled} = requestBody.event
 const schema = Joi.object().keys({
     event: {
-      // refined this schema durring frontend development
+      // change name to title when updating schema
       name: Joi.string().required(),
       address: Joi.string().required(),
       contact: Joi.string().allow(null),

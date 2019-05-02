@@ -18,14 +18,11 @@ const EventDetails = (props) => {
   ////// Costom Frontend Pagination Logic //////
 
   const [selectedEvents , setSelectedEvents] = useState([])
-  const [start] = useState(0)
-  const [end] = useState(4)
   const [howLong] = useState(props.events.length)
   const [loading, setLoading] = useState(true)
 
   const flick = (event) => {
-    document.querySelectorAll(".pagination")
-      .forEach(node => node.setAttribute("class", "pagination"));
+    document.querySelector(".On").setAttribute("class", "pagination");
     const page = parseInt(event.currentTarget.innerText);
     let first;
     let last;
@@ -42,33 +39,39 @@ const EventDetails = (props) => {
 
   const selectEvents = (first, last) => {
     setSelectedEvents(props.events.filter((event, index) => {
-    if (index >= first && index <= last) {
-      return event;
-    }}))
+      if (index >= first && index <= last) {
+        return event;
+      }
+      return null
+    }));
   };
   
   const createPaginationNav = () => {
     const paginationNav = [];
-    for(let i = 1; i <= Math.floor(howLong / 5); i++) {
-     paginationNav.push(<div className="pagination" onClick={flick} id={i} key={i}>{i}</div>)
-    }
-    return paginationNav
-  }
-
-  const createPaginationNav2 = () => {
-    const paginationNav = [];
-    for(let i = 1; i <= Math.ceil(howLong / 5); i++) {
+    if (Math.floor(howLong / 10) === (howLong / 10)) {
+      for(let i = 1; i <= Math.floor(howLong / 5); i++) {
       paginationNav.push(<div className="pagination" onClick={flick} id={i} key={i}>{i}</div>)
-    }
-    return paginationNav
+      };
+      return paginationNav
+    } else {
+      for(let i = 1; i <= Math.ceil(howLong / 5); i++) {
+        paginationNav.push(<div className="pagination" onClick={flick} id={i} key={i}>{i}</div>)
+      };
+      return paginationNav;
+    };
   }
 
   const initialize = () => {
     if (loading) {
-      document.querySelector(".pagination").setAttribute("class", "pagination On");
-    selectEvents(start, end)
-    }
-  }
+      const child = document.querySelector(".Paginate").lastChild
+      child.setAttribute("class", "pagination On");
+      const difference = howLong % 5;
+      const start = howLong - difference;
+      const end = howLong;
+    selectEvents(start, end);
+    };
+    return null
+  };
 
   useEffect(() => {
     initialize()
@@ -92,12 +95,7 @@ const EventDetails = (props) => {
         </div>
       ))}
       <div className="Paginate">
-        {
-          (Math.floor(howLong / 10) === (howLong / 10)) ?
-            createPaginationNav().map(node => (node))
-            
-          : createPaginationNav2().map(node => (node))
-        }
+        { createPaginationNav().map(node => (node)) }
       </div>
     </div>
   );
