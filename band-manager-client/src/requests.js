@@ -51,8 +51,6 @@ export const Venue = {
     return json
   },
   async update(id, params) {
-    console.log('id: ', id);
-    console.log('params: ', params);
     const response = await fetch(`/venue/${id}`, {
       method: 'PATCH',
       credentials: 'include',

@@ -42,6 +42,10 @@ const TourShowPage = (props) => {
       {props.events.map(event => (
         <div key={event.id}>
           <strong className="EventTitle">{event.name}</strong>
+          <p className="EventAddress">{
+            event.confirmed ? 
+            'show confirmed' :
+            'peneding confirmation'}</p>
           <p className="EventVenue"><strong>Venue: {event.venue.name}</strong></p>
           { !event.venue.formatted_address ?
             <p className="EventAddress">{event.venue.address}</p>

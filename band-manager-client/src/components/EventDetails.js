@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 var hdate = require('human-date')
 
 const EventDetails = (props) => {
-
+  console.log(props.events.length)
   if (props.events.length === 0) {
     return (
       <div>
@@ -15,13 +15,12 @@ const EventDetails = (props) => {
     );
   };
   
-  ////// Costom Frontend Pagination Logic //////
+  ////// First Costom Frontend Pagination Logic //////
 
   const [selectedEvents , setSelectedEvents] = useState([])
-  const [howLong] = useState(props.events.length)
   const [loading, setLoading] = useState(true)
-
-  const flick = (event) => {
+  
+  const click = (event) => {
     document.querySelector(".On").setAttribute("class", "pagination");
     const page = parseInt(event.currentTarget.innerText);
     let first;
@@ -48,35 +47,44 @@ const EventDetails = (props) => {
   
   const createPaginationNav = () => {
     const paginationNav = [];
-    if (Math.floor(howLong / 10) === (howLong / 10)) {
-      for(let i = 1; i <= Math.floor(howLong / 5); i++) {
-      paginationNav.push(<div className="pagination" onClick={flick} id={i} key={i}>{i}</div>)
+    if (Math.floor(props.events.length / 10) === (props.events.length / 10)) {
+      for(let i = 1; i <= Math.floor(props.events.length / 5); i++) {
+      paginationNav.push(<div className="pagination" onClick={click} id={i} key={i}>{i}</div>)
       };
       return paginationNav
     } else {
-      for(let i = 1; i <= Math.ceil(howLong / 5); i++) {
-        paginationNav.push(<div className="pagination" onClick={flick} id={i} key={i}>{i}</div>)
+      for(let i = 1; i <= Math.ceil(props.events.length / 5); i++) {
+        paginationNav.push(<div className="pagination" onClick={click} id={i} key={i}>{i}</div>)
       };
       return paginationNav;
     };
   }
 
-  const initialize = () => {
+  const initialize = (length) => {
     if (loading) {
       const child = document.querySelector(".Paginate").lastChild
       child.setAttribute("class", "pagination On");
-      const difference = howLong % 5;
-      const start = howLong - difference;
-      const end = howLong;
-    selectEvents(start, end);
     };
+    let difference = length % 5;
+    if (difference === 0) {
+      difference = 5;
+    }
+    if (difference === 1) {
+      document.querySelector(".On").setAttribute("class", "pagination");
+      const child = document.querySelector(".Paginate").lastChild;
+      child.setAttribute("class", "pagination On");
+    }
+    const start = length - difference;
+    const end = length;
+    selectEvents(start, end);
+
     return null
   };
 
   useEffect(() => {
-    initialize()
+    initialize(props.events.length)
     setLoading(false);
-  }, []);
+  }, [props.events.length]);
 
   return (
     <div className="EventDetails">
