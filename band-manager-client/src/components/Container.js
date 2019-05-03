@@ -8,6 +8,7 @@ import AuthRoute from './AuthRoute';
 import TourNewPage from './TourNewPage';
 import TourIndexPage from './TourIndexPage';
 import TourPlanner from './TourPlanner';
+import TourShowPage from './TourShowPage';
 
 const Container = (props) => {
   return(
@@ -28,6 +29,10 @@ const Container = (props) => {
             <Route
               path={`${process.env.PUBLIC_URL}/tours/:id`} exact
               component={TourPlanner}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/tour/:id`} exact
+              component={TourShowPage}
             />
             <Route path={`${process.env.PUBLIC_URL}/sign_in`} exact
               render={routeProps => (

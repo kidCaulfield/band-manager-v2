@@ -3,11 +3,11 @@ import TourDetails from './TourDetails';
 import EventsNewPage from './EventsNewPage';
 import Map from './Map';
 
-import { connect } from 'react-redux'
-import { createSelector } from 'reselect'
-import { getTour } from '../actions/tourActions'
-import { getVenues } from '../actions/venueActions'
-import { getEvents } from '../actions/eventActions'
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+import { getTour } from '../actions/tourActions';
+import { getVenues } from '../actions/venueActions';
+import { getEvents } from '../actions/eventActions';
 
 
 /* CHECK LIST

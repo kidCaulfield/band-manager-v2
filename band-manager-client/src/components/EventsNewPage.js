@@ -6,7 +6,6 @@ import { createEvent } from '../actions/eventActions';
 import { createSelector } from 'reselect';
 
 const EventsNewPage = (props) => {
-  console.log('props: ', props);
 
   const createEventOnSubmit = (params) => {
     props.onCreateEvent(params, props.id)
