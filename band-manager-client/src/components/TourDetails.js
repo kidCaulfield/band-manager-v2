@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import TourShowPage from './TourShowPage';
 import EventDetails from './EventDetails';
 
 const TourDetails = (props) => {

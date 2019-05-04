@@ -12,7 +12,7 @@ export const User = {
 
     return newUser
   }
-}
+};
 
 export const Session = { // sparatic bug here may lead to backend
   async create(params) {
@@ -26,13 +26,13 @@ export const Session = { // sparatic bug here may lead to backend
     });
     const session = await response.json();
 
-    return session
+    return session;
   },
   async destroy() {
     const response = await fetch(`/session`, {
       method: "DELETE",
       credentials: "include"
-    })
+    });
     const sessionOver = await response.json();
     return sessionOver
   },
@@ -112,6 +112,26 @@ export const Event = {
     const json = await response.json();
 
     return json
+  },
+  async update(tourId, eventId, params) {
+    const response = await fetch(`/tours/${tourId}/event/${eventId}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    });
+    const json = await response.json();
+
+    return json
+  },
+  async delete(tourId, eventId) {
+    const response = await fetch(`/tours/${tourId}/events/${eventId}`, {
+      method: 'DELETE'
+    });
+    
+    return response
   }
 }
 

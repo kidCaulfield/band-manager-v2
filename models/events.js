@@ -24,6 +24,7 @@ module.exports = class Event {
     const events = await knex("events")
       .select()
       .where(params)
+      .orderBy("date_time", "asc")
 
     const addVenuesToEvents = async (e) => {
       const rebuild = await Promise.all(e.map(async (event) => {
@@ -56,16 +57,10 @@ module.exports = class Event {
     return event
   }
 
-  static async updateEvent(id, reqBody) {
-    const {name, address, contact, date_time} = reqBody;
+  static async updateEvent(id, params) { 
     const event = await knex("events")
       .where("id", id)
-      .update({
-        name,
-        address,
-        contact,
-        date_time
-      })
+      .update(params)
       .returning("*");
 
       return event

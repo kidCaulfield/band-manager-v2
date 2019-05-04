@@ -63,8 +63,14 @@ h3 {
 .none {
   display: none;
 }
+
 .underline {
   border-bottom: 2px solid currentColor;
+  color: white;
+}
+
+.thin-underline {
+  border-bottom: 1px solid currentColor;
   color: white;
 }
 
@@ -171,7 +177,7 @@ a:hover {
   margin: 0px;
 }
 
-/* ===================EventPages======================== */
+/* =================== EventPages ======================== */
 
 .EventTitle {
   color: rgb(0, 200, 255);
@@ -197,6 +203,132 @@ a:hover {
   font-size: 12px;
 }
 
+/*=================== TourShowPage =======================*/
+
+.EventList {
+  margin: 0px 0px 10px 0px; 
+  display: flex;
+  flex-direction: column;
+}
+
+.EventList > div > .EventTitle {
+  color: rgb(0, 200, 255);
+  margin: 0px 0px 5px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 24px;
+}
+
+.EventList > div > .EventVenue {
+  margin: 0px 0px 3px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 18px;
+}
+
+.EventList > div > .EventAddress {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 16px;
+}
+
+.EventList > div > .EventEmail {
+  margin: 0px 0px 3px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 16px;
+}
+
+.EventList > div > .EventDate {
+  margin: 0px 0px 3px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 14px;
+}
+
+.EventList > div > .EventConfirmed {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 14px;
+  color: rgb(200, 255, 0);
+}
+
+.EventList > div > .EventUnconfirmed {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 14px;
+  color: rgb(255, 200, 0);
+}
+
+.Confirm {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 14px;
+  color: white;
+}
+
+.Confirm:hover {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 14px;
+  color: rgb(0, 200, 255);
+  cursor: pointer;
+}
+
+.Edit-button {
+  background-color: black;
+  color: white;
+  height: 30px;
+  width:100px;
+  font-weight: bold;
+  font-family: helvetica neue;
+  font-size: 18px;
+  border-radius: 5px;
+  margin: 0px 0px 5px 0px;
+  border-style: none;
+  transition: all .5s ease-in-out;
+}
+
+.Edit-button:hover {
+  background-color: rgb(200, 255, 0);
+  color: black;
+  height: 30px;
+  width:100px;
+  font-weight: bold;
+  font-family: helvetica neue;
+  font-size: 18px;
+  border-radius: 5px;
+  margin: 0px 0px 5px 0px;
+  transition: all .5s ease-in-out;
+}
+
+.Delete-button {
+  background-color: black;
+  color: white;
+  height: 30px;
+  width:100px;
+  font-weight: bold;
+  font-family: helvetica neue;
+  font-size: 18px;
+  border-radius: 5px;
+  margin: 0px 0px 5px 5px;
+  border-style: none;
+  transition: all .5s ease-in-out;
+}
+
+.Delete-button:hover {
+  background-color: rgb(255, 0, 100);
+  color: black;
+  height: 30px;
+  width:100px;
+  font-weight: bold;
+  font-family: helvetica neue;
+  font-size: 18px;
+  border-radius: 5px;
+  margin: 0px 0px 5px 5px;
+  transition: all .5s ease-in-out;
+}
+
+.Buttons {
+  display: flex;
+  /* flex-direction: column; */
+}
 
 /*============= MAP =============*/
 
@@ -217,7 +349,7 @@ div#myMap {
   color: black;
 }
 
-/*===========================================================================*/
+/*================================ Forms ====================================*/
 .form-box {
   display: flex;
   justify-content: center;
@@ -252,7 +384,11 @@ input {
 
 .Paginate {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
+  max-width: 250px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 .pagination {
