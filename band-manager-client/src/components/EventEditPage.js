@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Event } from '../requests';
 
 import { getEvent } from '../actions/eventActions';
 import { connect } from 'react-redux';
@@ -6,8 +7,23 @@ import { createSelector } from 'reselect';
 
 const EventEditPage = (props) => {
 
-  const update = () => {
-    return null
+  const updateEvent = async (params) => {
+    const updated = await Event.update(props.match.params.tourId, props.match.params.eventId, params);
+    props.history.push(`/tour/${props.match.params.tourId}`)
+    return updated
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { currentTarget } = event;
+    const formData = new FormData(currentTarget);
+
+    updateEvent({
+      event: {
+        name: formData.get("name"),
+        details: formData.get("details"),
+      }
+    })
   }
 
   useEffect(() => {
@@ -17,7 +33,7 @@ const EventEditPage = (props) => {
   return (
     <div className="EventEditPage">
       <h1 className="title blue">Make an account</h1>
-      <form className="form" onSubmit={update}>
+      <form className="form" onSubmit={handleSubmit}>
         <div>
           <label className="label" htmlFor="name">Title</label><br/>
           <input className="input" defaultValue={props.event.name} type="text" name="name"></input>
