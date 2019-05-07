@@ -6,8 +6,17 @@ const validateSearch = (requestBody, response) => {
 console.log('requestBody: ', requestBody);
 let { name, address } = requestBody
 const schema = Joi.object().keys({
+      id: Joi.number(),
       name: Joi.string().required(),
-      geo: Joi.any().required()
+      address: Joi.string(),
+      geo: Joi.any().required(),
+      place_id: Joi.any().allow(null),
+      international_phone_number: Joi.any().allow(null),
+      vicinity: Joi.any().allow(null),
+      formatted_address: Joi.any().allow(null),
+      website: Joi.any().allow(null),
+      created_at: Joi.any(),
+      updated_at: Joi.any()
   })
 
   const result = Joi.validate(requestBody, schema, (err) => {

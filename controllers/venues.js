@@ -105,8 +105,8 @@ module.exports = {
   },
   async update(req, res) {
     const valid = validateVenue(req.body, res);
-    if (valid === null) {
     console.log('req.body: ', req.body);
+    if (valid === null) {
       try {
         const { id } = req.params;
         const venue = await Venue.updateVenue(id ,req.body.venues)

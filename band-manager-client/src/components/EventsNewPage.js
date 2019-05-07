@@ -22,8 +22,6 @@ const EventsNewPage = (props) => {
       venue = await Venue.update(props.selected.id, {venues: details})
       venue = details
     } else {
-
-      console.log('props.selected: ', props.selected);
       venue = props.selected
     }
 

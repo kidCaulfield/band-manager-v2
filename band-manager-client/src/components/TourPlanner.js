@@ -16,11 +16,12 @@ import { getEvents } from '../actions/eventActions';
   * Bring Back fast Navingation
   * Show hot loading in paginated events
   * Show form Error Messages
+  * edit event page
 
 */
 
 const TourPlanner = (props) => {
-  const [selectedVenue, setSelectedVenue] = useState({name: 'Click on a marker to add venue to your event'})
+  let [selectedVenue, setSelectedVenue] = useState({name: 'Click on a marker to add venue to your event'})
   const id = props.match.params.id;
   
   const showVenues = () => {
