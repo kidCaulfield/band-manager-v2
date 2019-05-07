@@ -5,9 +5,6 @@ import { createSelector } from 'reselect';
 import { loadingApp  } from '../actions/appActions'
 import { createTour } from '../actions/toursActions'
 
-// Add redux persist later to persist currentUser value
-// to fix AuthRoute redirecting to SignInPage
-
 const TourNewPage = (props) => {
 
   const createTourOnSubmit = (params) => {

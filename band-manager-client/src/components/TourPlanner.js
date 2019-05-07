@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { getTour } from '../actions/tourActions';
 import { getVenues } from '../actions/venueActions';
-import { getEvents } from '../actions/eventActions';
+import { getEvents } from '../actions/eventsActions';
 
 
 /* CHECK LIST
@@ -18,6 +18,7 @@ import { getEvents } from '../actions/eventActions';
   * Show form Error Messages
   * edit event page
   * update models and controllers
+  * Add redux persist later to persist currentUser value to fix AuthRoute redirecting to SignInPage
 
 */
 

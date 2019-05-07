@@ -1,11 +1,9 @@
-import { CREATE_EVENT, GET_EVENTS } from '../actions/eventActions'
+import { GET_EVENT } from '../actions/eventActions'
 
-const eventReducer = (state = [], {type, payload}) => {
+const eventReducer = (state = {}, {type, payload}) => {
   switch (type) {
-    case CREATE_EVENT:
-      return payload.events;
-    case GET_EVENTS:
-      return payload.events;
+    case GET_EVENT:
+      return payload.event;
     default:
       return state;
   }

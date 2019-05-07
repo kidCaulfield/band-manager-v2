@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Event } from '../requests'
+import { Event } from '../requests';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { getTour } from '../actions/tourActions';
-import { getEvents } from '../actions/eventActions';
+import { getEvents } from '../actions/eventsActions';
 
 var hdate = require('human-date')
 
 const TourShowPage = (props) => {
+  console.log('props: ', props);
   let [trigger, setTrigger] = useState(true)
 
   const confirmShow = async (event) => {
     const confirm = await Event.update(props.match.params.id, event.currentTarget.id, {'event': {'confirmed': true}});
     setTrigger(!trigger)
-    
+    return confirm
+  }
+
+  const editEvent = (event) => {
+    props.history.push(`/tour/${props.match.params.id}/event/${event.currentTarget.id}`)
   }
 
   const deleteEvent = async (event) => {
     const destroy = await Event.delete(props.match.params.id, event.currentTarget.id)
     setTrigger(!trigger)
+    return destroy
   }
   
   useEffect(() => {
@@ -75,7 +81,7 @@ const TourShowPage = (props) => {
             }
           </div>
           <div className="Buttons">
-            <button className="Edit-button" id={event.id}>edit</button>
+            <button className="Edit-button" onClick={editEvent} id={event.id}>edit</button>
             <button className="Delete-button" onClick={deleteEvent} id={event.id}>delete</button>
           </div>
         </div>
@@ -96,7 +102,7 @@ const eventsSelector = createSelector(
 
 const mapStateToProps = createSelector(
 tourSelector, eventsSelector,
-  (tour, events) => ({
+  (tour, events, event) => ({
     tour,
     events
   })

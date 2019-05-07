@@ -2,7 +2,7 @@ import React from 'react';
 import { Google, Venue } from '../requests';
 
 import { connect } from 'react-redux';
-import { createEvent } from '../actions/eventActions';
+import { createEvent } from '../actions/eventsActions';
 import { createSelector } from 'reselect';
 
 const EventsNewPage = (props) => {

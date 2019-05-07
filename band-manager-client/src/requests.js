@@ -89,11 +89,16 @@ export const Tour = {
     const response = await fetch(`/tours/${id}`);
     const json = await response.json();
 
-    return json
+    return json;
   }
 }
 
 export const Event = {
+  async edit(tourId, eventId) {
+    const response = await fetch(`/tours/${tourId}/event/${eventId}`)
+    const json = await response.json();
+    return json;
+  },
   async create(params, id) {
     const response = await fetch(`/tours/${id}/events`, {
       method: 'POST',

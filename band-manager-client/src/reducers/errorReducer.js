@@ -1,4 +1,4 @@
-import { EVENTS_ERROR } from '../actions/eventActions';
+import { EVENTS_ERROR } from '../actions/eventsActions';
 
 const errorReducer = (state = [], {type, payload}) => {
   switch (type) {

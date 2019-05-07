@@ -12,11 +12,13 @@ import toursReducer from './reducers/toursReducer';
 import tourReducer from './reducers/tourReducer';
 import userReducer from './reducers/userReducer';
 import appReducer from './reducers/appReducer';
+import eventsReducer from './reducers/eventsReducer';
 import eventReducer from './reducers/eventReducer';
 import errorReducer from './reducers/errorReducer';
 
 const allReducers = combineReducers({
-  events: eventReducer,
+  event: eventReducer,
+  events: eventsReducer,
   venues: venueReducer,
   tours: toursReducer,
   tour: tourReducer,
