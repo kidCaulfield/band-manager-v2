@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     t.string("name");
     t.string("address");
     t.string("contact");
+    t.text("details").defaultTo(null);
     t.datetime("date_time", 6);
     t.boolean("confirmed").defaultTo(false);
     t.boolean("cancelled").defaultTo(false);

@@ -3,13 +3,14 @@ const Joi = require("joi");
 const Event = require("../models/events");
 
 const validateEvent = (requestBody, response) => {
-let { name, address, contact, date_time, confirmed, cancelled} = requestBody.event
+let { name, address, contact, details, date_time, confirmed, cancelled} = requestBody.event
 const schema = Joi.object().keys({
     event: {
       // change name to title when updating schema
       name: Joi.string().required(),
       address: Joi.string().required(),
       contact: Joi.string().allow(null),
+      details: Joi.string().allow(null),
       date_time: Joi.string(),
       confirmed: Joi.boolean(),
       cancelled: Joi.boolean(),

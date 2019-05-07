@@ -1,11 +1,12 @@
 const knex = require("../db/client");
 
 module.exports = class Event {
-  constructor({id, name, address, contact, date_time, confirmed, cancelled} = {}) {
+  constructor({id, name, address, contact, details, date_time, confirmed, cancelled} = {}) {
     this.id = id,
     this.name = name, 
     this.address = address,
-    this.address = contact,
+    this.contact = contact,
+    this.details = details,
     this.date_time = date_time,
     this.confirmed = confirmed,
     this.cancelled = cancelled

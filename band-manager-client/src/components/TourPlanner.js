@@ -17,6 +17,7 @@ import { getEvents } from '../actions/eventActions';
   * Show hot loading in paginated events
   * Show form Error Messages
   * edit event page
+  * update models and controllers
 
 */
 
