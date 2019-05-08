@@ -20,6 +20,12 @@ module.exports = class Location {
       return location;
   };
 
+  static async all() {
+    const locations = await knex("locations").orderBy("id", "asc");
+
+    return locations;
+  }
+
   async save() {
     const {city, country, iso2, region, capital, population, population_proper} = this;
     const location = await knex("locations")

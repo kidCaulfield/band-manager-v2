@@ -29,6 +29,15 @@ const validateLocation = (requestBody, response) => {
 }
 
 module.exports = {
+  async index(req, res) {
+    try {
+    const locations = await Location.all();
+    
+    res.status(200).json({ locations });
+    } catch (error) {
+      throw error;
+    }
+  },
   async create(req, res, next) {
     const valid = validateLocation(req.body, res)
     if (valid === null) {
