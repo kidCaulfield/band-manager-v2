@@ -20,6 +20,29 @@ module.exports = class Location {
       return location;
   };
 
+  static async findCountries() {
+    const countries = await knex("locations")
+      .distinct('country');
+
+      return countries;
+  };
+
+  static async findRegions(params) {
+    const regions = await knex("locations")
+      .distinct('region')
+      .where({country: 'Canada'});
+
+      return regions;
+  };
+
+  static async findCities(params) {
+    const cities = await knex("locations")
+      .select('*')
+      .where({country: 'Canada', region: "British Columbia"});
+
+      return cities;
+  };
+
   static async all() {
     const locations = await knex("locations").orderBy("id", "asc");
 

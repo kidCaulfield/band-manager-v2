@@ -38,6 +38,33 @@ module.exports = {
       throw error;
     }
   },
+  async indexCountries(req, res) {
+    try {
+    const countries = await Location.findCountries();
+    
+    res.status(200).json({ countries });
+    } catch (error) {
+      throw error;
+    }
+  },
+  async indexRegions(req, res) {
+    try {
+    const regions = await Location.findRegions();
+    
+    res.status(200).json({ regions });
+    } catch (error) {
+      throw error;
+    }
+  },
+  async indexCities(req, res) {
+    try {
+    const cities = await Location.findCities();
+    
+    res.status(200).json({ cities });
+    } catch (error) {
+      throw error;
+    }
+  },
   async create(req, res, next) {
     const valid = validateLocation(req.body, res)
     if (valid === null) {

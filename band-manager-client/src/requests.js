@@ -14,7 +14,7 @@ export const User = {
   }
 };
 
-export const Session = { // sparatic bug here may lead to backend
+export const Session = {
   async create(params) {
     const response = await fetch('/session', {
       method: "POST",
@@ -138,7 +138,16 @@ export const Event = {
     
     return response
   }
-}
+};
+
+export const Location = {
+  async all() {
+    const response = await fetch(`/locations`);
+    const json = await response.json();
+
+    return json;
+  }
+};
 
 export const Google = {
   async placesDetails(place) {
@@ -154,4 +163,4 @@ export const Google = {
 
   return json
   }
-}
+};

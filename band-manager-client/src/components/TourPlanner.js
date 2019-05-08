@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TourDetails from './TourDetails';
 import EventsNewPage from './EventsNewPage';
 import Map from './Map';
+import { Location } from '../requests';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -24,6 +25,8 @@ import { getEvents } from '../actions/eventsActions';
 
 const TourPlanner = (props) => {
   let [selectedVenue, setSelectedVenue] = useState({name: 'Click on a marker to add venue to your event'})
+  let [Regions, setRegions] = useState([])
+  console.log('Regions: ', Regions);
   const id = props.match.params.id;
   
   const showVenues = () => {
@@ -33,6 +36,18 @@ const TourPlanner = (props) => {
   const showTour = (id) => {
     props.onGetTour(id);
   }
+
+  const getLocations = async () => {
+    const res = await Location.all();
+    const regions = res.locations.map(location => location.region);
+    
+    setRegions(regions.filter(function(item, index){
+          return regions.indexOf(item) >= index}))
+  }
+
+  const handleChange = (event) => {
+    event.preventDefault();
+  } 
 
   const makeMarker = (marks, map) => {
     return marks.forEach(mark => {
@@ -69,6 +84,7 @@ const TourPlanner = (props) => {
   useEffect(() => {
     showVenues();
     showTour(id);
+    getLocations();
     props.onGetEvents(id)
   }, [])
   
@@ -136,13 +152,14 @@ const TourPlanner = (props) => {
             <option value="Japan" />
           </datalist> */}
 
-          <select className="custom-select" name="country" id="country" value="country">
+          <select className="custom-select" name="country" id="country" value="country" onChange={handleChange}>
             <option value="Choose">Select Country</option>
+            <option value="Choose">Canada</option>
           </select>
-          <select className="custom-select" name="region" id="region" value="Region">
+          <select className="custom-select" name="region" id="region" value="Region" onChange={handleChange}>
             <option value="Choose">Select Region</option>
           </select>
-          <select className="custom-select" name="cites" id="cities" value="city">
+          <select className="custom-select" name="cites" id="cities" value="city" onChange={handleChange}>
             <option value="Choose">Select City</option>
           </select>
         </div>
