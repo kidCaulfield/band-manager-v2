@@ -141,8 +141,34 @@ export const Event = {
 };
 
 export const Location = {
-  async all() {
-    const response = await fetch(`/locations`);
+  async countries() {
+    const response = await fetch(`/countries`);
+    const json = await response.json();
+
+    return json;
+  },
+  async regions(params) {
+    const response = await fetch(`/regions`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(params)
+    });
+    const json = await response.json();
+
+    return json;
+  },
+  async cities(params) {
+    const response = await fetch(`/cities`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(params)
+    });
     const json = await response.json();
 
     return json;

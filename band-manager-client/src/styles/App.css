@@ -220,7 +220,7 @@ a:hover {
   margin: 10px 5px 5px 0px;
 }
 
-.custom-select-box > input::-webkit-calendar-picker-indicator {
+input::-webkit-calendar-picker-indicator {
   opacity: 100;
 }
 

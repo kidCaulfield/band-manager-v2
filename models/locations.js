@@ -30,7 +30,7 @@ module.exports = class Location {
   static async findRegions(params) {
     const regions = await knex("locations")
       .distinct('region')
-      .where({country: 'Canada'});
+      .where(params);
 
       return regions;
   };
@@ -38,7 +38,7 @@ module.exports = class Location {
   static async findCities(params) {
     const cities = await knex("locations")
       .select('*')
-      .where({country: 'Canada', region: "British Columbia"});
+      .where(params);
 
       return cities;
   };

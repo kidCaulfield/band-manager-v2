@@ -4,8 +4,8 @@ const locationsController = require("../controllers/locations");
 
 router.get('/locations', locationsController.index);
 router.get('/countries', locationsController.indexCountries);
-router.get('/regions', locationsController.indexRegions);
-router.get('/cities', locationsController.indexCities);
+router.post('/regions', locationsController.indexRegions);
+router.post('/cities', locationsController.indexCities);
 router.post('/locations', locationsController.create);
 
 module.exports = router;

@@ -25,8 +25,12 @@ import { getEvents } from '../actions/eventsActions';
 
 const TourPlanner = (props) => {
   let [selectedVenue, setSelectedVenue] = useState({name: 'Click on a marker to add venue to your event'})
-  let [Regions, setRegions] = useState([])
-  console.log('Regions: ', Regions);
+  let [countries, setCountries] = useState([])
+  let [selectedCountry, setSelectedCountry] = useState([])
+  let [regions, setRegions] = useState([])
+  let [selectedRegion, setSelectedRegion] = useState([])
+  let [cities, setCities] = useState([])
+  let [selectedCity, setSelectedCity] = useState([])
   const id = props.match.params.id;
   
   const showVenues = () => {
@@ -37,16 +41,37 @@ const TourPlanner = (props) => {
     props.onGetTour(id);
   }
 
-  const getLocations = async () => {
-    const res = await Location.all();
-    const regions = res.locations.map(location => location.region);
-    
-    setRegions(regions.filter(function(item, index){
-          return regions.indexOf(item) >= index}))
+  const getCountries = async () => {
+    const res = await Location.countries();
+    setCountries(res.countries);
   }
 
-  const handleChange = (event) => {
-    event.preventDefault();
+  const getRegions = async (params) => {
+    const res = await Location.regions(params)
+    setRegions(res.regions)
+  }
+
+  const getCities = async (params) => {
+    const res = await Location.cities(params)
+    setCities(res.cities)
+  }
+
+  const handleChangeCountry = (event) => {
+    getRegions({country: event.target.value});
+    setSelectedCountry(event.target.value);
+  } 
+
+  const handleChangeRegion = (event) => {
+    getCities({country: selectedCountry, region: event.target.value});
+    setSelectedRegion(event.target.value);
+  } 
+  
+  const handleChangeCities = (event) => {
+    const childNode = document.getElementById(event.target.value)
+    const nodeIndex = childNode.getAttribute("class")
+    setSelectedCity(cities.find((element, index) => { if (index === parseInt(nodeIndex)) {
+      return element
+    }}));
   } 
 
   const makeMarker = (marks, map) => {
@@ -84,8 +109,8 @@ const TourPlanner = (props) => {
   useEffect(() => {
     showVenues();
     showTour(id);
-    getLocations();
-    props.onGetEvents(id)
+    getCountries();
+    props.onGetEvents(id);
   }, [])
   
   if (props.tour.length === 0 || props.venues.length === 0) {   
@@ -152,15 +177,23 @@ const TourPlanner = (props) => {
             <option value="Japan" />
           </datalist> */}
 
-          <select className="custom-select" name="country" id="country" value="country" onChange={handleChange}>
+          <select className="custom-select" name="country" id="country" value="country" onChange={handleChangeCountry}>
             <option value="Choose">Select Country</option>
-            <option value="Choose">Canada</option>
+            {countries.map((country, index) => (
+              <option value={country.country} key={index}>{country.country}</option>
+            ))}
           </select>
-          <select className="custom-select" name="region" id="region" value="Region" onChange={handleChange}>
+          <select className="custom-select" name="region" id="region" value="Region" onChange={handleChangeRegion}>
             <option value="Choose">Select Region</option>
+            {regions.map((region, index) => (
+              <option value={region.region} key={index}>{region.region}</option>
+            ))}
           </select>
-          <select className="custom-select" name="cites" id="cities" value="city" onChange={handleChange}>
+          <select className="custom-select" name="cites" id="cities" value="city" onChange={handleChangeCities}>
             <option value="Choose">Select City</option>
+            {cities.map((city, index) => (
+              <option className={index} value={city.city} key={index} id={city.city}>{city.city}</option>
+            ))}
           </select>
         </div>
         <div className="EventsNewPage-box">

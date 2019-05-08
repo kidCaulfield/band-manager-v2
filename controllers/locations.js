@@ -49,7 +49,7 @@ module.exports = {
   },
   async indexRegions(req, res) {
     try {
-    const regions = await Location.findRegions();
+    const regions = await Location.findRegions(req.body);
     
     res.status(200).json({ regions });
     } catch (error) {
@@ -58,7 +58,7 @@ module.exports = {
   },
   async indexCities(req, res) {
     try {
-    const cities = await Location.findCities();
+    const cities = await Location.findCities(req.body);
     
     res.status(200).json({ cities });
     } catch (error) {
