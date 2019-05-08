@@ -9,7 +9,6 @@ import { getEvents } from '../actions/eventsActions';
 var hdate = require('human-date')
 
 const TourShowPage = (props) => {
-  console.log('props: ', props);
   let [trigger, setTrigger] = useState(true)
 
   const confirmShow = async (event) => {

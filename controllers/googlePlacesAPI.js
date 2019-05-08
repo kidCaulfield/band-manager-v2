@@ -3,7 +3,6 @@ const Joi = require("joi");
 const key = require('../config');
 
 const validateSearch = (requestBody, response) => {
-console.log('requestBody: ', requestBody);
 let { name, address } = requestBody
 const schema = Joi.object().keys({
       id: Joi.number(),
@@ -49,6 +48,9 @@ module.exports = {
         res.status(200).json(null);
       };
     };
+  },
+  async locate(req, res, next) {
+    return null
   }
 };
 

@@ -6,7 +6,6 @@ import { createSelector } from 'reselect';
 var hdate = require('human-date')
 
 const EventDetails = (props) => {
-  console.log(props.events.length)
   if (props.events.length === 0) {
     return (
       <div>
@@ -15,7 +14,7 @@ const EventDetails = (props) => {
     );
   };
   
-  ////// First Costom Frontend Pagination Logic //////
+  ////// First Custom Frontend Pagination Logic //////
 
   const [selectedEvents , setSelectedEvents] = useState([])
   const [loading, setLoading] = useState(true)

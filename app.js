@@ -74,6 +74,9 @@ app.use("/", eventsRouter);
 const googleRouter = require("./routes/googleAPI");
 app.use("/", googleRouter);
 
+const locationsRouter = require("./routes/locations");
+app.use("/", locationsRouter);
+
 const usersRouter = require("./routes/users");
 app.use("/", usersRouter);
 

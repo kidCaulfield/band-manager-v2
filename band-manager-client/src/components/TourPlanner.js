@@ -12,13 +12,13 @@ import { getEvents } from '../actions/eventsActions';
 
 /* CHECK LIST
 
-  * Make Tour Show Page separte from planner
   * Bring Back fast Navingation
-  * Show hot loading in paginated events
   * Show form Error Messages
-  * edit event page
-  * update models and controllers
+  * TourShowPage with map of confirmed events with suggested route via google routes
   * Add redux persist later to persist currentUser value to fix AuthRoute redirecting to SignInPage
+  * User Create venues
+  * Confirm Tour
+  * Show confirmed other users confirmed tours
 
 */
 
@@ -104,6 +104,48 @@ const TourPlanner = (props) => {
             makeMarker(props.venues, map)
           }}
         />
+        <div className="custom-select-box">
+          {/* 
+          
+          ///////////////// I D E A ////////////////
+
+          for crowd sourced location data
+          
+          <input className="custom-datalist" list="countries" name="country" />
+          <datalist className="custom-select" id="countries">
+            <option value="USA" />
+            <option value="Canada" />
+            <option value="UK" />
+            <option value="Germany" />
+            <option value="Japan" />
+          </datalist>
+          <input className="custom-datalist" list="countries" name="region" />
+          <datalist className="custom-select" id="countries">
+            <option value="USA" />
+            <option value="Canada" />
+            <option value="UK" />
+            <option value="Germany" />
+            <option value="Japan" />
+          </datalist>
+          <input className="custom-datalist" list="countries" name="city" />
+          <datalist className="custom-select" id="countries">
+            <option value="USA" />
+            <option value="Canada" />
+            <option value="UK" />
+            <option value="Germany" />
+            <option value="Japan" />
+          </datalist> */}
+
+          <select className="custom-select" name="country" id="country" value="country">
+            <option value="Choose">Select Country</option>
+          </select>
+          <select className="custom-select" name="region" id="region" value="Region">
+            <option value="Choose">Select Region</option>
+          </select>
+          <select className="custom-select" name="cites" id="cities" value="city">
+            <option value="Choose">Select City</option>
+          </select>
+        </div>
         <div className="EventsNewPage-box">
         <div>
           <EventsNewPage
