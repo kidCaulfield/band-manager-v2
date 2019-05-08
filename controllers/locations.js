@@ -10,7 +10,7 @@ const validateLocation = (requestBody, response) => {
       country: Joi.string().required(),
       iso2: Joi.string().required(),
       region: Joi.string().allow(null),
-      capital: Joi.string().allow(null),
+      capital: Joi.string().allow(""),
       population: Joi.string().allow(null),
       population_proper: Joi.string().allow(null)
     }
@@ -33,10 +33,16 @@ module.exports = {
     const valid = validateLocation(req.body, res)
     if (valid === null) {
       try {
-        const newLocation = new Location(req.body);
-        const location = await newLocation.save();
-        
-        res.status(200).json(location);
+        const { city, region, country } = req.body; 
+        const verify = await Location.find({city, region, country})
+        if (verify.length === 0) {
+          const newLocation = new Location(req.body);
+          const location = await newLocation.save();
+          
+          res.status(200).json(location);
+        } else {
+          res.status(422).json({error: "duplicate venue found"})
+        }
       } catch (error) {
         next(error)
       }

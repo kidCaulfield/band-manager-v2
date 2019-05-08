@@ -12,13 +12,20 @@ module.exports = class Location {
     this. population_proper= population_proper
   }
 
+  static async find(params) {
+    const location = await knex("locations")
+      .select()
+      .where(params);
+
+      return location;
+  };
+
   async save() {
     const {city, country, iso2, region, capital, population, population_proper} = this;
     const location = await knex("locations")
       .insert({city, country, iso2, region, capital, population, population_proper})
       .returning("id");
-    console.log('location: ', location);
     
-    return location;
+    return location[0];
   }
 }

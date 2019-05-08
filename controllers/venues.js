@@ -66,7 +66,7 @@ module.exports = {
             const id = await venue.save()
             res.status(200).json({id});
           } else {
-            throw "duplicate venue found"
+            res.status(422).json({error: "duplicate venue found"})
           }
         } catch (error) {
         next(error);
@@ -105,7 +105,6 @@ module.exports = {
   },
   async update(req, res) {
     const valid = validateVenue(req.body, res);
-    console.log('req.body: ', req.body);
     if (valid === null) {
       try {
         const { id } = req.params;
