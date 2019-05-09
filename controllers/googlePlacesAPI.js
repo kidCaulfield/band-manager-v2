@@ -37,11 +37,11 @@ module.exports = {
       const { name, geo } = req.body;
       const searchName = name.split(" ").map(word => word.toLowerCase()).join("_").trim()
       const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geo.latitude},${geo.longitude}&radius=100&name=${searchName}&keyword=${searchName}&key=${key.googleAPIKey}`,
-                            {headers: {'Content-Type': 'aplication.json'}})
+        {headers: {'Content-Type': 'aplication.json'}})
         console.log('response.data: ', response.data);
       if (response.data.status === 'OK') {
         const placeDetails = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${response.data.results[0].place_id}&fields=name,place_id,website,formatted_address,vicinity,international_phone_number&key=${key.googleAPIKey}`,
-                            {headers: {'Content-Type': 'aplication.json'}})
+          {headers: {'Content-Type': 'aplication.json'}})
         console.log('placeDetails.data.result: ', placeDetails.data.result);
         res.status(200).json(placeDetails.data.result);
       } else {
@@ -49,8 +49,18 @@ module.exports = {
       };
     };
   },
-  async locate(req, res, next) {
-    return null
-  }
+  async locationData(req, res, next) {
+    const {country, region, city} = req.body;
+    const textSearch = `${city.trim().split(" ").join("%20")}%20${region.trim().split(" ").join("%20")}%20${country.trim().split(" ").join("%20")}`
+    console.log('textSearch: ', textSearch);
+    const response = await axios.get(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${textSearch}&inputtype=textquery&fields=geometry&key=${key.googleAPIKey}`,
+        {headers: {'Content-Type': 'aplication.json'}})
+    console.log('response: ', response.data);
+    if (response.data.status === 'OK') {
+      res.status(200).json(response.data.candidates[0].geometry.location)
+    } else {
+      res.status()
+    }
+  },
 };
 

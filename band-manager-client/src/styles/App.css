@@ -164,7 +164,7 @@ a:hover {
 .TourDetails-box {
   display: flex;
   flex-grow: 1;
-  padding: 0px 5px 0px 0px;
+  padding: 0px 5px 0px 5px;
 }
 
 .TourDetails {
@@ -198,6 +198,7 @@ a:hover {
 }
 
 .custom-select {
+  flex-grow: 1;
   background-color: black;
   color: white;
   height: 30px;
