@@ -19,6 +19,10 @@ export const getEvent = (tourId, eventId) => async dispatch => {
     showError(response.error)
   }
 
+  if (response === undefined) {
+    showError("response error")
+  }
+
   return dispatch({
     type: GET_EVENT,
     payload: {

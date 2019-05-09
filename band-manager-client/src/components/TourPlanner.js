@@ -13,7 +13,6 @@ import { getEvents } from '../actions/eventsActions';
 
 /* CHECK LIST
 
-  * update locations geo when text searching coordinates 
   * Show form Error Messages
   * Add redux persist later to persist currentUser value to fix AuthRoute redirecting to SignInPage
   * User Created venues
@@ -36,37 +35,41 @@ const TourPlanner = (props) => {
   
   const showVenues = () => {
     props.onGetVenues()
-  }
+  };
 
   const showTour = (id) => {
     props.onGetTour(id);
-  }
+  };
 
   const getCoordinates = async () => {
-    const locationData = await Google.locationGeo(
-      {
-        country: selectedCountry,
-        region: selectedRegion,
-        city: selectedCity.city
-      })
-    const updateLocationGeo = await Location.update({locationData}, selectedCity.id)
-    setCoorinates(locationData)
-  }
+    if (!selectedCity.geo) {
+      const locationData = await Google.locationGeo(
+        {
+          country: selectedCountry,
+          region: selectedRegion,
+          city: selectedCity.city
+        });
+      const updateLocationGeo = await Location.update({locationData}, selectedCity.id)
+      setCoorinates(updateLocationGeo.geo)
+    } else {
+      setCoorinates(selectedCity.geo)
+    }
+  };
 
   const getCountries = async () => {
     const res = await Location.countries();
     setCountries(res.countries);
-  }
+  };
 
   const getRegions = async (params) => {
     const res = await Location.regions(params)
     setRegions(res.regions)
-  }
+  };
 
   const getCities = async (params) => {
     const res = await Location.cities(params)
     setCities(res.cities)
-  }
+  };
 
   const handleChangeCountry = (event) => {
     getRegions({country: event.target.value});
@@ -75,14 +78,14 @@ const TourPlanner = (props) => {
     setSelectedCity({city: 'Select City'});
     setRegions([])
     setCities([])
-  } 
+  };
 
   const handleChangeRegion = (event) => {
     getCities({country: selectedCountry, region: event.target.value});
     setSelectedRegion(event.target.value);
     setSelectedCity({city: 'Select City'});
     setCities([])
-  } 
+  };
   
   const handleChangeCities = (event) => {
     const childNode = document.getElementById(event.target.value)

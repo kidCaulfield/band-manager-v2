@@ -85,7 +85,6 @@ module.exports = {
     }
   },
   async update(req, res, next) {
-    console.log('req: ', req);
     try {
       const { locationData } = req.body
       const { id } = req.params
