@@ -190,7 +190,6 @@ export const Google = {
   return json
   },
   async locationGeo(params) {
-    console.log('params: ', params);
     const response = await fetch(`/google-place`, {
       method: 'POST',
       credentials: 'include',
@@ -200,7 +199,6 @@ export const Google = {
       body: JSON.stringify(params)
     });
   const json = await response.json();
-  console.log('json: ', json);
 
   return json
   }

@@ -195,6 +195,7 @@ a:hover {
 .custom-select-box {
   display: flex;
   flex-wrap: wrap;
+  padding-left: 0px;
 }
 
 .custom-select {
@@ -219,6 +220,10 @@ a:hover {
   font-size: 14px;
   justify-content: center;
   margin: 10px 5px 5px 0px;
+}
+
+.map-nav {
+  margin: 5px 0px 0px 0px
 }
 
 input::-webkit-calendar-picker-indicator {
@@ -386,7 +391,7 @@ input::-webkit-calendar-picker-indicator {
 
 div#myMap {
   border-radius: 5px;
-  height:500px;
+  height: 55vh;
   width: 100%;
 }
 
@@ -609,6 +614,16 @@ input {
 
   .EventsNewPage {
     margin: 5px;
+  }
+
+  .map-nav {
+    margin: 5px 0px 0px 5px
+  }
+
+  .custom-select-box {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 5px;
   }
   
 /* ===================EventPages======================== */

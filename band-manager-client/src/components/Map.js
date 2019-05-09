@@ -29,7 +29,7 @@ const Map = (props) => {
 
   useEffect(() => {
     renderMap()
-  }, []) 
+  }, [props.options.center]) 
 
   return (
     <div id={props.id} />

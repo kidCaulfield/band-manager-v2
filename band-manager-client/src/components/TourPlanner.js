@@ -31,6 +31,7 @@ const TourPlanner = (props) => {
   let [selectedRegion, setSelectedRegion] = useState('Select Region')
   let [cities, setCities] = useState([])
   let [selectedCity, setSelectedCity] = useState({city: 'Select City'})
+  let [coorinates, setCoorinates] = useState({ lat: 49.2827, lng: -123.1207 })
   const id = props.match.params.id;
   
   const showVenues = () => {
@@ -48,7 +49,7 @@ const TourPlanner = (props) => {
         region: selectedRegion,
         city: selectedCity.city
       })
-    console.log('locationData: ', locationData);
+    setCoorinates(locationData)
   }
 
   const getCountries = async () => {
@@ -81,12 +82,14 @@ const TourPlanner = (props) => {
   
   const handleChangeCities = (event) => {
     const childNode = document.getElementById(event.target.value)
-    const nodeIndex = childNode.getAttribute("class")
+    const nodeIndex = childNode.getAttribute("class");
     setSelectedCity(cities.find((element, index) => { if (index === parseInt(nodeIndex)) {
-      return element
-    }}));
-    console.log('nodeIndex: ', nodeIndex);
-  } 
+        return element;
+      };
+      return null;
+    }));
+
+  };
 
   const makeMarker = (marks, map) => {
     return marks.forEach(mark => {
@@ -125,13 +128,13 @@ const TourPlanner = (props) => {
     showTour(id);
     getCountries();
     props.onGetEvents(id);
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (selectedCity.city !== 'Select City') {
        getCoordinates()
-    }
-  }, [selectedCity])
+    };
+  }, [selectedCity]);
   
   if (props.tour.length === 0 || props.venues.length === 0) {   
     return (
@@ -158,45 +161,15 @@ const TourPlanner = (props) => {
         <Map
           id="myMap"
           options={{
-            center: { lat: 49.2827, lng: -123.1207 },
-            zoom: 8
+            center: coorinates,
+            zoom: 9
           }}
           onMapLoad={map => {
             makeMarker(props.venues, map)
           }}
         />
+        <h3 className="blue map-nav">Map navagation</h3>
         <div className="custom-select-box">
-          {/* 
-          
-          ///////////////// I D E A ////////////////
-
-          for crowd sourced location data
-          
-          <input className="custom-datalist" list="countries" name="country" />
-          <datalist className="custom-select" id="countries">
-            <option value="USA" />
-            <option value="Canada" />
-            <option value="UK" />
-            <option value="Germany" />
-            <option value="Japan" />
-          </datalist>
-          <input className="custom-datalist" list="countries" name="region" />
-          <datalist className="custom-select" id="countries">
-            <option value="USA" />
-            <option value="Canada" />
-            <option value="UK" />
-            <option value="Germany" />
-            <option value="Japan" />
-          </datalist>
-          <input className="custom-datalist" list="countries" name="city" />
-          <datalist className="custom-select" id="countries">
-            <option value="USA" />
-            <option value="Canada" />
-            <option value="UK" />
-            <option value="Germany" />
-            <option value="Japan" />
-          </datalist> */}
-
           <select className="custom-select" name="country" id="country" value="country" onChange={handleChangeCountry}>
             <option value="Choose">{selectedCountry}</option>
             {countries.map((country, index) => (
@@ -216,6 +189,7 @@ const TourPlanner = (props) => {
             ))}
           </select>
         </div>
+        <h3 className="blue map-nav">Create Event</h3>
         <div className="EventsNewPage-box">
         <div>
           <EventsNewPage
