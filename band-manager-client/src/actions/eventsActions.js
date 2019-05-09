@@ -36,7 +36,7 @@ export const getEvents = (id) => async dispatch => {
     const response = await Event.all(id);
     
     if (response.error) {
-      return showError(response.error)
+      return dispatch(showError(response.error))
     }
 
     return dispatch({

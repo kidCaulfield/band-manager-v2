@@ -1,11 +1,11 @@
 import { Venue } from '../requests'
 
 export const FETCH_VENUES = 'venues:getVenues';
-export const EVENT_ERROR = 'showError';
+export const VENUE_ERROR = 'venue:showError';
 
 const showError = (error) => {
   return {
-    type: EVENT_ERROR,
+    type: VENUE_ERROR,
     payload: {
       errors: [error]
     }
@@ -16,11 +16,12 @@ const showError = (error) => {
 export const getVenues = () => async dispatch => {
   const response = await Venue.all()
   
-  if (response.error) {
-    showError(response.error)
-  }
   if (response === undefined) {
-    showError("response error")
+    return dispatch(showError("response error"));
+  }
+  
+  if (response.error) {
+    return dispatch(showError(response.error));
   }
 
   return dispatch({

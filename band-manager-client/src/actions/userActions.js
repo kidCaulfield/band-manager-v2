@@ -4,6 +4,7 @@ export const API_REQUEST_SUCCESS = 'user:updateUser';
 export const API_REQUEST_ERROR = 'user:showError';
 export const API_REQUEST_COOKIE = 'user:login';
 export const CREATE_USER = 'user:createUser';
+export const SESSION_ERROR = 'user:showError';
 
 export const updateCurrentUser = (newUser) => {
   return {
@@ -14,18 +15,22 @@ export const updateCurrentUser = (newUser) => {
   };
 };
 
-export const showError = (err) => {
-  console.log('error: ', err.error);
-  // return {
-  //   type: API_REQUEST_ERROR,
-  //   payload: {
-  //     error: error
-  //   }
+const showError = (error) => {
+  return {
+    type: SESSION_ERROR,
+    payload: {
+      errors: [error],
+      currentUser: null
+    }
+  }
 }
 
 
 export const login = (params, props) => async dispatch => {
   const session = await Session.create(params);
+  if (session.error) {
+    return dispatch(showError(session.error));
+  }
   
   if (typeof session.id === "number") {
     props.history.push("/");

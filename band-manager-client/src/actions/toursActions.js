@@ -16,6 +16,9 @@ export const showError = (err) => {
 export const getTours = () => async dispatch => {
   const response = await Tour.all()
 
+  if (response === undefined) {
+    return showError("response error")
+  }
 
   return dispatch({
     type: GET_TOURS,
@@ -38,7 +41,11 @@ export const getTours = () => async dispatch => {
 
 export const createTour = (params, props) => async dispatch => {
   const response = await Tour.create(params)
- 
+  
+  if (response === undefined) {
+    return showError("response error")
+  }
+
   if (response.error) {
     props.history.push("/");
     return showError(response.error)

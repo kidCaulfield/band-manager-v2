@@ -21,6 +21,7 @@ export const User = {
 export const Session = {
   async create(params) {
     try {
+    console.log('params3: ', params);
       const response = await fetch('/session', {
         method: "POST",
         credentials: "include",
@@ -29,6 +30,7 @@ export const Session = {
         },
         body: JSON.stringify(params)
       });
+      console.log('response2: ', response);
       const session = await response.json();
 
       return session;

@@ -25,6 +25,11 @@ const SignInPage = (props) => {
     <div className="form-box">
       <h1 className="title blue">Sign In</h1>
       <form className="form" onSubmit={signIn}>
+        {props.errors.length > 0 && (
+          <div className="FormErrors">
+            {props.errors.map(error => <div className="red error" key={error}>{error}</div>)}
+          </div>
+        )}
         <div>
           <label className="label" htmlFor="email">email</label><br/>
           <input className="input" type="text" name="email" defaultValue="j@job.com"></input>
@@ -39,15 +44,21 @@ const SignInPage = (props) => {
   )
 }
 
+const errorSelector = createSelector(
+  state => state.errors,
+  errors => errors
+);
+
 const userSelector = createSelector(
   state => state.currentUser,
   currentUser => currentUser
 );
 
 const mapStateToProps = createSelector(
-  userSelector,
-  (currentUser) => ({
-    currentUser
+  userSelector, errorSelector,
+  (currentUser, errors) => ({
+    currentUser,
+    errors
   })
 );
 

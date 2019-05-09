@@ -38,14 +38,15 @@ const EventsNewPage = (props) => {
     })
   }
 
+
   return (
     <div className="EventsNewPage">
-       <form className="form"onSubmit={handleSubmit}>
-        {props.errors.length > 0 ? (
+      <form className="form"onSubmit={handleSubmit}>
+        {props.errors.length > 0 && (
           <div className="FormErrors">
-            {props.errors.map(e => e.message).join(", ")}
+            {props.errors.map(error => <div className="red error" key={error}>{error}</div>)}
           </div>
-        ) : null }
+        )}
         <div>
           <label className="label" htmlFor="name">Event Title</label> <br/>
           <input className="input" name="name" id="name" />

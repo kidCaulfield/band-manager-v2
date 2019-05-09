@@ -13,11 +13,11 @@ import { getEvents } from '../actions/eventsActions';
 
 /* CHECK LIST
 
-  * Show form Error Messages
-  * Add redux persist later to persist currentUser value to fix AuthRoute redirecting to SignInPage
-  * User Created venues
   * Confirm Tour
   * Show other users confirmed tours
+  * Show form Error Messages
+  * User Created venues
+  * Add redux persist later to persist currentUser value to fix AuthRoute redirecting to SignInPage
   * TourShowPage with map of confirmed events with suggested route via google routes
 
 */

@@ -56,6 +56,15 @@ h3 {
   color: rgb(0, 200, 255)
 }
 
+.red {
+  color: rgb(255, 0, 100);
+  font-size: 15px;
+}
+
+.error {
+  max-width: 250px
+}
+
 .white {
   color: white
 }

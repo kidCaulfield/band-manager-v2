@@ -15,12 +15,12 @@ const showError = (error) => {
 export const getTour = (id) => async dispatch => {
   const response = await Tour.one(id)
 
-  if (response.error) {
-    showError(response.error)
+  if (response === undefined) {
+    return dispatch(showError("response error"));
   }
 
-  if (response === undefined) {
-    showError("response error")
+  if (response.error) {
+    return dispatch(showError(response.error));
   }
 
   return dispatch({

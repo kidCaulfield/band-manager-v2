@@ -15,12 +15,12 @@ const showError = (error) => {
 export const getEvent = (tourId, eventId) => async dispatch => {
   const response = await Event.edit(tourId, eventId);
   
-  if (response.error) {
-    showError(response.error)
+  if (response === undefined) {
+    return showError("response error")
   }
 
-  if (response === undefined) {
-    showError("response error")
+  if (response.error) {
+    return showError(response.error)
   }
 
   return dispatch({

@@ -14,7 +14,9 @@ module.exports = {
         req.session.userId = user.id;
         req.currentUser = {id: user.id, username: user.username};
 
-      res.status(200).json(req.currentUser);
+        res.status(200).json(req.currentUser);
+      } else {
+        res.status(200).json({error: 'username or password does not match'});
       }
     } catch (err) {
       throw err
