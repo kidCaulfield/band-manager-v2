@@ -83,5 +83,16 @@ module.exports = {
         next(error)
       }
     }
+  },
+  async update(req, res, next) {
+    console.log('req: ', req);
+    try {
+      const { locationData } = req.body
+      const { id } = req.params
+      const response = await Location.updateLocation(id, {geo: locationData})
+      res.status(200).json(response)
+    } catch (error) {
+      next(error)
+    }
   }
 };

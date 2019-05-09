@@ -50,9 +50,12 @@ module.exports = {
     };
   },
   async locationData(req, res, next) {
-    const {country, region, city} = req.body;
+    let {country, region, city} = req.body;
+    country = country.replace(/[^a-zA-Z ]/g, "")
+    region = region.replace(/[^a-zA-Z ]/g, "")
+    city = city.replace(/[^a-zA-Z ]/g, "")
     const textSearch = `${city.trim().split(" ").join("%20")}%20${region.trim().split(" ").join("%20")}%20${country.trim().split(" ").join("%20")}`
-    console.log('textSearch: ', textSearch);
+    
     const response = await axios.get(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${textSearch}&inputtype=textquery&fields=geometry&key=${key.googleAPIKey}`,
         {headers: {'Content-Type': 'aplication.json'}})
     console.log('response: ', response.data);

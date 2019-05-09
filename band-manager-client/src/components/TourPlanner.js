@@ -13,13 +13,13 @@ import { getEvents } from '../actions/eventsActions';
 
 /* CHECK LIST
 
-  * Bring Back fast Navingation
+  * update locations geo when text searching coordinates 
   * Show form Error Messages
-  * TourShowPage with map of confirmed events with suggested route via google routes
   * Add redux persist later to persist currentUser value to fix AuthRoute redirecting to SignInPage
-  * User Create venues
+  * User Created venues
   * Confirm Tour
-  * Show confirmed other users confirmed tours
+  * Show other users confirmed tours
+  * TourShowPage with map of confirmed events with suggested route via google routes
 
 */
 
@@ -49,6 +49,7 @@ const TourPlanner = (props) => {
         region: selectedRegion,
         city: selectedCity.city
       })
+    const updateLocationGeo = await Location.update({locationData}, selectedCity.id)
     setCoorinates(locationData)
   }
 
@@ -72,12 +73,15 @@ const TourPlanner = (props) => {
     setSelectedCountry(event.target.value);
     setSelectedRegion('Select Region');
     setSelectedCity({city: 'Select City'});
+    setRegions([])
+    setCities([])
   } 
 
   const handleChangeRegion = (event) => {
     getCities({country: selectedCountry, region: event.target.value});
     setSelectedRegion(event.target.value);
     setSelectedCity({city: 'Select City'});
+    setCities([])
   } 
   
   const handleChangeCities = (event) => {

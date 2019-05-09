@@ -49,6 +49,15 @@ module.exports = class Location {
     return locations;
   }
 
+  static async updateLocation(id, params) {
+    const location = await knex("locations")
+      .where("id", id)
+      .update(params)
+      .returning("*");
+
+    return location[0]
+  }
+
   async save() {
     const {city, country, iso2, region, capital, population, population_proper} = this;
     const location = await knex("locations")

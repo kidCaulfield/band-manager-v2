@@ -7,5 +7,6 @@ router.get('/countries', locationsController.indexCountries);
 router.post('/regions', locationsController.indexRegions);
 router.post('/cities', locationsController.indexCities);
 router.post('/locations', locationsController.create);
+router.patch('/location/:id', locationsController.update);
 
 module.exports = router;

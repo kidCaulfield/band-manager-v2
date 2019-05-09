@@ -152,7 +152,7 @@ export const Location = {
       method: 'POST',
       credentials: 'include',
       headers: {
-        "Content-type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(params)
     });
@@ -165,11 +165,27 @@ export const Location = {
       method: 'POST',
       credentials: 'include',
       headers: {
-        "Content-type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(params)
     });
     const json = await response.json();
+
+    return json;
+  },
+  async update(params, id) {
+    console.log('params: ', params);
+    const response = await fetch(`/location/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    });
+    console.log('response: ', response);
+    const json = await response.json();
+    console.log('json: ', json);
 
     return json;
   }

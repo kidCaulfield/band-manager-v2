@@ -78,7 +78,7 @@ module.exports = class Event {
         user_id: uid,
         tour_id: tourId,
         venue_id: venueId
-      }).returning("*")
+      }).returning("*");
 
     return event[0];
   }
