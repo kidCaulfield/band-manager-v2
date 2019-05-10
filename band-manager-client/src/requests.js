@@ -139,6 +139,14 @@ export const Tour = {
       body: JSON.stringify(params)
     })
     const json = await response.json();
+
+    return json;
+  },
+  async allConfirmed() {
+    const response = await fetch(`/confirmedtours`)
+    const json = await response.json();
+
+    return json;
   }
 };
 
