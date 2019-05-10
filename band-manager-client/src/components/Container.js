@@ -7,6 +7,7 @@ import SignUpPage from './SignUpPage';
 import AuthRoute from './AuthRoute';
 import TourNewPage from './TourNewPage';
 import TourIndexPage from './TourIndexPage';
+import TouringNetwork from './TouringNetwork';
 import TourPlanner from './TourPlanner';
 import TourShowPage from './TourShowPage';
 import EventEditPage from './EventEditPage';
@@ -26,6 +27,10 @@ const Container = (props) => {
             <AuthRoute
               path={`${process.env.PUBLIC_URL}/tours`} exact
               component={TourIndexPage}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/network`} exact
+              component={TouringNetwork}
             />
             <Route
               path={`${process.env.PUBLIC_URL}/tours/:id`} exact

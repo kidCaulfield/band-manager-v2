@@ -14,9 +14,12 @@ import { getEvents } from '../actions/eventsActions';
 /* CHECK LIST
 
   * Show other users confirmed tours
+  * Edit tours
+  * Tour area column
+  * user details json column
   * User Created venues
   * Add redux persist later to persist currentUser value to fix AuthRoute redirecting to SignInPage
-  * TourShowPage with map of confirmed events with suggested route via google routes
+  * TourShowPage with map of confirmed events with suggested route via google routes // after deployment
 
 */
 
@@ -167,7 +170,7 @@ const TourPlanner = (props) => {
           id="myMap"
           options={{
             center: coorinates,
-            zoom: 9
+            zoom: 8
           }}
           onMapLoad={map => {
             makeMarker(props.venues, map)

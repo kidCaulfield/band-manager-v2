@@ -35,7 +35,6 @@ const Navbar = (props) => {
         src={require("../images/sunGlassesBlue.png")}
         width="80px" height="45px" alt="sun glasses"
       />
-      
     </NavLink>
     
       <FontAwesomeIcon
@@ -60,6 +59,11 @@ const Navbar = (props) => {
           New Tour
         </NavLink>
       ) : null }
+      <NavLink
+        className="fancy NavbarLink"
+        to={`${process.env.PUBLIC_URL}/network`}>
+          Network
+      </NavLink>
     </nav>
     <nav className="Navbar right NavbarItems">
       { !currentUser ? (
