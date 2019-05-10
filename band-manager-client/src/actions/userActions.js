@@ -7,12 +7,20 @@ export const CREATE_USER = 'user:createUser';
 export const SESSION_ERROR = 'user:showError';
 
 export const updateCurrentUser = (newUser) => {
+  if (newUser) {
+    return {
+      type: API_REQUEST_SUCCESS,
+      payload: {
+        currentUser: newUser
+      }
+    };
+  }
   return {
-    type: API_REQUEST_SUCCESS,
-    payload: {
-      currentUser: newUser
-    }
-  };
+      type: API_REQUEST_SUCCESS,
+      payload: {
+        currentUser: null
+      }
+    };
 };
 
 const showError = (error) => {

@@ -130,17 +130,21 @@ export const Tour = {
     }
   },
   async update(params, id) {
-    const response = await fetch(`/tour/${id}`, {
-      method: 'PATCH',
-      credentials: 'include',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(params)
-    })
-    const json = await response.json();
+    try {
+      const response = await fetch(`/tour/${id}`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(params)
+      })
+      const json = await response.json();
 
-    return json;
+      return json;
+    } catch (error) {
+      console.error(error)
+    }
   },
   async allConfirmed() {
     try {

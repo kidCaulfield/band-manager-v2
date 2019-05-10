@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
     t.increments("id").primary();
     t.string("username");
     t.string("email");
+    t.json("details");
     t.string("password_digest"); // this stores salt + hashing of (salt + password)
     t.timestamps(true, true);
   });

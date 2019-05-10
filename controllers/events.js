@@ -3,10 +3,10 @@ const Joi = require("joi");
 const Event = require("../models/events");
 
 const validateEvent = (requestBody, response) => {
-let { name, address, contact, details, date_time, confirmed, cancelled} = requestBody.event
+let { title, address, contact, details, date_time, confirmed, cancelled} = requestBody.event
 const schema = Joi.object().keys({
     event: {
-      name: Joi.string().required(),
+      title: Joi.string().required(),
       address: Joi.string().required(),
       contact: Joi.string().allow(null),
       details: Joi.string().allow(null),
@@ -30,10 +30,10 @@ const schema = Joi.object().keys({
 };
 
 const validateEventUpdate = (requestBody, response) => {
-let { name, address, contact, details, date_time, confirmed, cancelled} = requestBody.event
+let { title, address, contact, details, date_time, confirmed, cancelled} = requestBody.event
 const schema = Joi.object().keys({
     event: {
-      name: Joi.string().required(),
+      title: Joi.string().required(),
       details: Joi.string().allow(null)
     }
   })
@@ -80,9 +80,9 @@ module.exports = {
     if (valid === null) {
       try {
       const { userId } = req.session;
-      const { name, address, contact, date_time, venue_id} = req.body.event;
+      const { title, address, contact, date_time, venue_id} = req.body.event;
       const { tourId } = req.params;
-      const newEvent = new Event({ name, address, contact, date_time });
+      const newEvent = new Event({ title, address, contact, date_time });
       const event = await newEvent.save(userId, tourId, venue_id);
 
       res.status(200).json({event});

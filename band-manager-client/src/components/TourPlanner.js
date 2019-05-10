@@ -13,7 +13,7 @@ import { getEvents } from '../actions/eventsActions';
 
 /* CHECK LIST
 
-  * Show other users confirmed tours
+  * changing name to title on events column
   * Edit tours
   * Tour area column
   * user details json column

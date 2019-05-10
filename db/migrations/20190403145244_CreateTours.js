@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     t.increments("id").primary();
     t.string("title");
     t.string("band");
+    t.string("area");
     t.boolean("confirmed").defaultTo(false);
     t.integer("user_id").references("users.id");
     t.timestamps(true, true);

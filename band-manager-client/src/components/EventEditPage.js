@@ -26,7 +26,7 @@ const EventEditPage = (props) => {
 
     updateEvent({
       event: {
-        name: formData.get("name"),
+        title: formData.get("title"),
         details: formData.get("details")
       }
     });
@@ -71,8 +71,8 @@ const EventEditPage = (props) => {
           </div>
         )}
         <div>
-          <label className="label" htmlFor="name">Title</label><br/>
-          <input className="input" defaultValue={event.name} type="text" name="name"></input>
+          <label className="label" htmlFor="tile">Title</label><br/>
+          <input className="input" defaultValue={event.title} type="text" name="title"></input>
         </div>
         <div>
           <label className="label" htmlFor="details">Details</label><br/>

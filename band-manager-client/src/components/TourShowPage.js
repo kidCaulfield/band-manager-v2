@@ -80,7 +80,7 @@ const TourShowPage = (props) => {
       {props.events.map(event => (
         <div className="EventList thin-underline" key={event.id}>
           <div>
-            <strong className="EventTitle">{event.name}</strong>
+            <strong className="EventTitle">{event.title}</strong>
             <p className="EventDate">{hdate.prettyPrint(event.date_time)}</p>
             <p className="EventVenue"><strong>Venue:</strong> {event.venue.name}</p>
             { !event.venue.formatted_address ?

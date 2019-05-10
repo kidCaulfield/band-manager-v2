@@ -30,7 +30,7 @@ const EventsNewPage = (props) => {
 
     createEventOnSubmit({
       event: {
-        name: formData.get("name"),
+        title: formData.get("title"),
         date_time: formData.get("date_time"),
         address: props.selected.address,
         venue_id: props.selected.id,
@@ -60,8 +60,8 @@ const EventsNewPage = (props) => {
           </div>
         )}
         <div>
-          <label className="label" htmlFor="name">Event Title</label> <br/>
-          <input className="input" name="name" id="name" />
+          <label className="label" htmlFor="title">Event Title</label> <br/>
+          <input className="input" name="title" id="title" />
         </div>
         <div>
           <label className="label" htmlFor="date_time">Date</label> <br/>

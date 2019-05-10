@@ -61,12 +61,14 @@ module.exports = {
   },
 
   async create(req, res, next) {
+    console.log('req.body: ', req.body);
     const valid = validateTour(req.body, res);
     if (valid === null) {
       try {
         const {userId} = req.session
-        const {title, band} = req.body.tours
+        const {title, band} = req.body.tour
         const newTour = new Tour({title, band});
+        console.log('newTour: ', newTour);
         const tour = await newTour.save(userId);
 
         res.status(200).json({tour})

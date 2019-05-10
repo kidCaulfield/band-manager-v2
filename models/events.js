@@ -1,9 +1,9 @@
 const knex = require("../db/client");
 
 module.exports = class Event {
-  constructor({id, name, address, contact, details, date_time, confirmed, cancelled} = {}) {
+  constructor({id, title, address, contact, details, date_time, confirmed, cancelled} = {}) {
     this.id = id,
-    this.name = name, 
+    this.title = title, 
     this.address = address,
     this.contact = contact,
     this.details = details,
@@ -68,10 +68,10 @@ module.exports = class Event {
   }
 
   async save(uid, tourId, venueId) {
-    const {name, address, contact, date_time} = this;
+    const {title, address, contact, date_time} = this;
     const event = await knex("events")
       .insert({
-        name,
+        title,
         address,
         date_time,
         contact,

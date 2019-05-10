@@ -90,7 +90,7 @@ const EventDetails = (props) => {
       <h2 className="blue">Events</h2>
       {selectedEvents.map(event => (
         <div key={event.id}>
-          <strong className="EventTitle">{event.name}</strong>
+          <strong className="EventTitle">{event.title}</strong>
           <p className="EventVenue"><strong>Venue: {event.venue.name}</strong></p>
           { !event.venue.formatted_address ?
             <p className="EventAddress">{event.venue.address}</p>

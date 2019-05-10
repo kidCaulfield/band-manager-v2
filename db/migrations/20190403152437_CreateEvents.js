@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable("events", t => {
     t.increments("id").primary();
-    t.string("name");
+    t.string("title");
     t.string("address");
     t.string("contact");
     t.text("details").defaultTo(null);
