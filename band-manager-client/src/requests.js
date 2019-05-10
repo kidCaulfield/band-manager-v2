@@ -143,10 +143,14 @@ export const Tour = {
     return json;
   },
   async allConfirmed() {
-    const response = await fetch(`/confirmedtours`)
-    const json = await response.json();
+    try {
+      const response = await fetch(`/confirmedtours`)
+      const json = await response.json();
 
-    return json;
+      return json;
+    } catch (error) {
+      console.error(error)
+    }
   }
 };
 

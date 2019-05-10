@@ -18,8 +18,9 @@ const TouringNetwork = (props) => {
       <h1 className="blue">Users Touring</h1>
       {
         tours.map((tour, index) => (
-          <div className="ConfirmedTour thin-underline" key={index}>
-            <h2 className="blue">{tour.title}</h2>
+          <div className="ConfirmedTour" key={index}>
+            <h2 className="blue fancy">{tour.title}</h2>
+            <p className="Band"><strong>Band: </strong>{tour.band}</p>
           </div>
         ))
       }

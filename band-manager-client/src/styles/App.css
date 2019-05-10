@@ -91,6 +91,11 @@ h3 {
   padding-bottom: 5px;
 }
 
+.fancy:hover {
+  background-color: rgb(0, 200, 255);
+  color: black;
+}
+
 .button {
   background-color: black;
   color: white;
@@ -241,6 +246,24 @@ a:hover {
 
 input::-webkit-calendar-picker-indicator {
   opacity: 100;
+}
+
+/*====================== TouringNetwork =====================*/
+
+.TouringNetwork {
+  margin: 10px 0px 0px 0px;
+}
+
+.ConfirmedTour {
+  padding: 5px 0px 5px 0px;
+}
+.ConfirmedTour > h2 {
+  margin: 0px 0px 0px 0px;
+  padding: 5px 5px 5px 5px;
+}
+
+.Band {
+  margin: 0px 0px 0px 0px;
 }
 
 /* =================== EventPages ======================== */
