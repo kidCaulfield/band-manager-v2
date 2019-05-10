@@ -128,8 +128,19 @@ export const Tour = {
     } catch (error) {
       console.error(error)
     }
+  },
+  async update(params, id) {
+    const response = await fetch(`/tour/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    })
+    const json = await response.json();
   }
-}
+};
 
 export const Event = {
   async edit(tourId, eventId) {

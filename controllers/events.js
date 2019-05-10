@@ -6,7 +6,6 @@ const validateEvent = (requestBody, response) => {
 let { name, address, contact, details, date_time, confirmed, cancelled} = requestBody.event
 const schema = Joi.object().keys({
     event: {
-      // change name to title when updating schema
       name: Joi.string().required(),
       address: Joi.string().required(),
       contact: Joi.string().allow(null),
@@ -34,7 +33,6 @@ const validateEventUpdate = (requestBody, response) => {
 let { name, address, contact, details, date_time, confirmed, cancelled} = requestBody.event
 const schema = Joi.object().keys({
     event: {
-      // change name to title when updating schema
       name: Joi.string().required(),
       details: Joi.string().allow(null)
     }
@@ -125,8 +123,8 @@ module.exports = {
     }
   },
   async update(req, res, next) {
-    const valid = validateEvent(req.body, res)
-    if (valid === null) {
+    // const valid = validateEvent(req.body, res)
+    // if (valid === null) {
       try {
         const { id } = req.params;
         const authorized = await Event.authorize(id, req.session.userId)
@@ -140,6 +138,6 @@ module.exports = {
       } catch (err) {
         next(err)
       }
-    };
+    // };
   }
 };

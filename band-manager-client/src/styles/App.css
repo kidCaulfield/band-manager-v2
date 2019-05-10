@@ -87,6 +87,10 @@ h3 {
   margin-left:auto;
 }
 
+.bp {
+  padding-bottom: 5px;
+}
+
 .button {
   background-color: black;
   color: white;
@@ -268,7 +272,7 @@ input::-webkit-calendar-picker-indicator {
 /*=================== TourShowPage =======================*/
 
 .TourShowPage {
-  padding: 0px 5px 0px 5px;
+  padding: 0px 5px 20px 5px;
 }
 
 .EventList {
@@ -308,14 +312,14 @@ input::-webkit-calendar-picker-indicator {
   font-size: 14px;
 }
 
-.EventList > div > .EventConfirmed {
+.EventConfirmed {
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   font-size: 14px;
   color: rgb(200, 255, 0);
 }
 
-.EventList > div > .EventUnconfirmed {
+.EventUnconfirmed {
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   font-size: 14px;
@@ -388,6 +392,19 @@ input::-webkit-calendar-picker-indicator {
   font-size: 18px;
   border-radius: 5px;
   margin: 0px 0px 5px 0px;
+  transition: all .2s ease-in-out;
+}
+
+.Confirm-button {
+  background-color: rgb(200, 255, 0);
+  color: black;
+  height: 30px;
+  font-weight: bold;
+  font-family: helvetica neue;
+  font-size: 18px;
+  border-radius: 5px;
+  margin: 0px 5px 5px 0px;
+  border-style: none;
   transition: all .2s ease-in-out;
 }
 

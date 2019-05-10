@@ -18,7 +18,7 @@ const TourNewPage = (props) => {
     const formData = new FormData(currentTarget);
 
     createTourOnSubmit({
-      tours: {
+      tour: {
         title: formData.get("title"),
         band: formData.get("band")
       }

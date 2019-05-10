@@ -43,14 +43,10 @@ module.exports = class Tour {
     return tour;
   }
 
-  static async updateTour(id, request) {
-    const {title, band} = request;
+  static async updateTour(id, params) {
     const tour = await knex("tours")
       .where("id", id)
-      .update({
-        title,
-        band
-      }).returning("*")
+      .update(params).returning("*")
 
     return tour
   }

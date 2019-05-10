@@ -3,11 +3,12 @@ const Joi = require('joi');
 const Tour = require('../models/tours')
 
 const validateTour = (requestBody, response) => {
-  const { title, band } = requestBody.tours;
+  const { title, band } = requestBody.tour;
   const schema = Joi.object().keys({
-    tours: {
+    tour: {
       title: Joi.string().trim().required(),
-      band: Joi.string().trim().required()
+      band: Joi.string().trim().required(),
+      confirmed: Joi.boolean()
     }
   });
 
@@ -24,7 +25,6 @@ const validateTour = (requestBody, response) => {
 }
 
 module.exports = {
-
   async index(req, res, next) {
     const { userId } = req.session;
       try {
@@ -51,7 +51,6 @@ module.exports = {
   },
 
   async create(req, res, next) {
-    console.log('req.body: ', req.body);
     const valid = validateTour(req.body, res);
     if (valid === null) {
       try {
@@ -84,13 +83,14 @@ module.exports = {
   },
 
   async update(req, res, next) {
+    console.log('req.body: ', req.body);
     const valid = validateTour(req.body, res);
     if (valid === null) {
       try{
         const { id } = req.params;
         const authorized = await Tour.authorize(id, req.session.userId)
         if (authorized) {
-        const tour = await Tour.updateTour(id, req.body.tours);
+        const tour = await Tour.updateTour(id, req.body.tour);
 
         res.status(200).json({tour})
         } else {

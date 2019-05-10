@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Event } from '../requests';
+import { Event, Tour } from '../requests';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -15,22 +15,33 @@ const TourShowPage = (props) => {
     const confirm = await Event.update(props.match.params.id, event.currentTarget.id, {'event': {'confirmed': true}});
     setTrigger(!trigger)
     return confirm
-  }
+  };
+
+  const confirmTour = async (event) => {
+    console.log('event.target.id: ', event.target.id);
+    const response = await Tour.update({tour: {title: props.tour.title, band: props.tour.band, confirmed: true}}, event.target.id)
+    setTrigger(!trigger)
+    return response
+  };
 
   const editEvent = (event) => {
     props.history.push(`/tour/${props.match.params.id}/event/${event.currentTarget.id}`)
-  }
+  };
 
   const deleteEvent = async (event) => {
     const destroy = await Event.delete(props.match.params.id, event.currentTarget.id)
     setTrigger(!trigger)
     return destroy
-  }
+  };
   
   useEffect(() => {
     props.onGetTour(props.match.params.id)
     props.onGetEvents(props.match.params.id)
   }, []);
+
+  useEffect(() => {
+    props.onGetTour(props.match.params.id)
+  }, [trigger])
 
   useEffect(() => {
     props.onGetEvents(props.match.params.id)
@@ -57,9 +68,13 @@ const TourShowPage = (props) => {
 
   return (
     <div className="TourShowPage">
-      <div className="underline">
+      <div className="underline bp">
         <h1 className="blue">{props.tour.title}</h1>
         <small>Band: {props.tour.band}</small>
+        { props.tour.confirmed ? 
+          <p className="EventConfirmed">Tour confirmed</p> :
+          <p className="EventUnconfirmed">pending confirmation</p>
+        }
       </div>
       <h2 className="blue">Events</h2>
       {props.events.map(event => (
@@ -85,6 +100,8 @@ const TourShowPage = (props) => {
           </div>
         </div>
       ))}
+      <button className="Confirm-button" onClick={confirmTour} id={props.tour.id}>Confirm Tour</button>
+      <button className="Delete-button" onClick={deleteEvent} id={props.tour.id}>delete</button>
     </div>
   )
 };
@@ -97,7 +114,7 @@ const tourSelector = createSelector(
 const eventsSelector = createSelector(
   state => state.events,
   events => events
-)
+);
 
 const mapStateToProps = createSelector(
 tourSelector, eventsSelector,
@@ -110,6 +127,6 @@ tourSelector, eventsSelector,
 const mapDispatchtoProps = {
   onGetEvents: getEvents,
   onGetTour: getTour,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchtoProps)(TourShowPage);
