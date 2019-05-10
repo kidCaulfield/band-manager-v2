@@ -36,6 +36,16 @@ module.exports = {
       }
   },
 
+  async indexConfirmedTours(req, res, next) {
+      try {
+        const tours = await Tour.findConfirmedTours();
+
+        res.status(200).json({tours});
+      } catch (err) {
+        next(err);
+      }
+  },
+
   async show(req, res, next) {
     try {
       const { id } = req.params;

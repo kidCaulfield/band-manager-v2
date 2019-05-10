@@ -35,6 +35,14 @@ module.exports = class Tour {
     return tours;
   }
 
+  static async findConfirmedTours() {
+    const tours = await knex("tours")
+      .where("confirmed", true)
+      .orderBy("created_at", "asc")
+
+    return tours;
+  }
+
   static async deleteTour(id) {
     const tour = await knex("tours")
       .where("id", id)

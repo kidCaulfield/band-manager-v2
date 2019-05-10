@@ -12,6 +12,7 @@ function authenticateUser(req, res, next) {
 }
 
 router.get('/tours', authenticateUser, toursController.index);
+router.get('/confirmedtours', toursController.indexConfirmedTours);
 router.get('/tours/:id', authenticateUser, toursController.show);
 router.post('/tours', authenticateUser, toursController.create);
 router.delete('/tours/:id', authenticateUser, toursController.destroy);
