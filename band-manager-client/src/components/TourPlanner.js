@@ -202,6 +202,7 @@ const TourPlanner = (props) => {
           <EventsNewPage
             id={id}
             selected={selectedVenue}
+            events={props.events.length}
           />
         </div>
           <div className="SelectedVenue">

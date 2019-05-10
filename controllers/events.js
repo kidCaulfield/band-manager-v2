@@ -28,8 +28,29 @@ const schema = Joi.object().keys({
     return err
   })
   return result;
-}
+};
 
+const validateEventUpdate = (requestBody, response) => {
+let { name, address, contact, details, date_time, confirmed, cancelled} = requestBody.event
+const schema = Joi.object().keys({
+    event: {
+      // change name to title when updating schema
+      name: Joi.string().required(),
+      details: Joi.string().allow(null)
+    }
+  })
+
+  const result = Joi.validate(requestBody, schema, (err) => {
+    if (err) {
+      console.log('err: ', err);
+      response.status(422).json({
+        error: `${err.details[0].message}`,
+      })
+    }
+    return err
+  })
+  return result;
+};
 
 module.exports = {
   async index(req, res, next) {
@@ -104,18 +125,21 @@ module.exports = {
     }
   },
   async update(req, res, next) {
-    try {
-      const { id } = req.params;
-      const authorized = await Event.authorize(id, req.session.userId)
-        if (authorized) {
-        const event = await Event.updateEvent(id, req.body.event);
+    const valid = validateEvent(req.body, res)
+    if (valid === null) {
+      try {
+        const { id } = req.params;
+        const authorized = await Event.authorize(id, req.session.userId)
+          if (authorized) {
+          const event = await Event.updateEvent(id, req.body.event);
 
-        res.status(200).json({event})
-        } else {
-          res.status(401).json({error: "You are unauthorized"})
-        }
-    } catch (err) {
-      next(err)
-    }
+          res.status(200).json({event})
+          } else {
+            res.status(401).json({error: "You are unauthorized"})
+          }
+      } catch (err) {
+        next(err)
+      }
+    };
   }
 };

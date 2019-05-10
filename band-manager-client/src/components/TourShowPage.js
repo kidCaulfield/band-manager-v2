@@ -9,7 +9,7 @@ import { getEvents } from '../actions/eventsActions';
 var hdate = require('human-date')
 
 const TourShowPage = (props) => {
-  let [trigger, setTrigger] = useState(true)
+  let [trigger, setTrigger] = useState(true);
 
   const confirmShow = async (event) => {
     const confirm = await Event.update(props.match.params.id, event.currentTarget.id, {'event': {'confirmed': true}});

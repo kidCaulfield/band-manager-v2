@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react'
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -6,6 +6,7 @@ import { loadingApp  } from '../actions/appActions'
 import { createTour } from '../actions/toursActions'
 
 const TourNewPage = (props) => {
+  let [errors, setErrors] = useState([]);
 
   const createTourOnSubmit = (params) => {
     props.onCreateTour(params, props)
@@ -22,7 +23,15 @@ const TourNewPage = (props) => {
         band: formData.get("band")
       }
     })
-  }   
+  }
+
+  useEffect(() => {
+    setErrors([props.errors])
+  }, [props.errors])
+
+  useEffect(() => {
+    setErrors([])
+  }, [])
 
   if (props.loading === true) {
     return (
@@ -47,6 +56,11 @@ const TourNewPage = (props) => {
     <div className="form-box">
       <h1 className="title blue">Create Tour</h1>
       <form className="form" onSubmit={submitTour}>
+        {errors.length > 0 && (
+          <div className="FormErrors">
+            {errors.map(error => <div className="red error" key={error}>{error}</div>)}
+          </div>
+        )}
         <div>
           <label className="label" htmlFor="title">Title</label><br/>
           <input className="input" type="text" name="title"></input>
@@ -61,6 +75,11 @@ const TourNewPage = (props) => {
   )
 };
 
+const errorSelector = createSelector(
+  state => state.errors,
+  errors => errors
+);
+
 const tourSelector = createSelector(
   state => state.tours,
   tours => tours
@@ -72,10 +91,11 @@ const appSelector = createSelector(
 );
 
 const mapStateToProps = createSelector(
-  appSelector, tourSelector,
-  (loading, tours) => ({
+  appSelector, tourSelector, errorSelector,
+  (loading, tours, errors) => ({
     loading,
-    tours
+    tours,
+    errors
   })
 );
 

@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 import { connect } from 'react-redux';
 import { login } from '../actions/userActions'
 import { createSelector } from 'reselect'
 
 const SignInPage = (props) => {
+  let [errors, setErrors] = useState([])
 
   const createSession = (params) => {
     props.onLogin(params, props)
@@ -21,13 +22,21 @@ const SignInPage = (props) => {
     })
   }
 
+  useEffect(() => {
+    setErrors([props.errors])
+  }, [props.errors])
+
+  useEffect(() => {
+    setErrors([])
+  }, [])
+
   return(
     <div className="form-box">
       <h1 className="title blue">Sign In</h1>
       <form className="form" onSubmit={signIn}>
-        {props.errors.length > 0 && (
+        {errors.length > 0 && (
           <div className="FormErrors">
-            {props.errors.map(error => <div className="red error" key={error}>{error}</div>)}
+            {errors.map(error => <div className="red error" key={error}>{error}</div>)}
           </div>
         )}
         <div>
@@ -36,7 +45,7 @@ const SignInPage = (props) => {
         </div>
         <div>
           <label className="label" htmlFor="password">password</label><br/>
-          <input className="input" type="password" name="password" defaultValue="p1234"></input>
+          <input className="input" type="password" name="password" defaultValue="p"></input>
         </div>
         <input className="button" type="submit" value="Sign In" />
       </form>

@@ -12,6 +12,15 @@ const showError = (error) => {
   }
 }
 
+// export const success = () => dispatch => {
+//   return dispatch({
+//     type: EVENT_ERROR,
+//     payload: {
+//       errors: []
+//     }
+//   })
+// }
+
 export const getEvent = (tourId, eventId) => async dispatch => {
   const response = await Event.edit(tourId, eventId);
   
@@ -26,7 +35,8 @@ export const getEvent = (tourId, eventId) => async dispatch => {
   return dispatch({
     type: GET_EVENT,
     payload: {
-      event: response.event
+      event: response.event,
+      errors: []
     }
   })
 }

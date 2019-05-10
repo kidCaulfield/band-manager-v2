@@ -2,14 +2,18 @@ import React, { useState ,useEffect } from 'react';
 import { Event } from '../requests';
 
 const EventEditPage = (props) => {
-  let [event, setEvent] = useState({})
-  console.log('event: ', event);
+  let [event, setEvent] = useState({});
+  let [errors, setErrors] = useState([])
 
   const updateEvent = async (params) => {
     const updated = await Event.update(props.match.params.tourId, props.match.params.eventId, params);
-    props.history.push(`/tour/${props.match.params.tourId}`);
-    return updated;
-  }
+    if (!updated.error) {
+      props.history.push(`/tour/${props.match.params.tourId}`);
+      return updated;
+    } else {
+      setErrors([updated.error]);
+    };
+  };
 
   const cancel = () => {
     props.history.push(`/tour/${props.match.params.tourId}`)
@@ -34,7 +38,8 @@ const EventEditPage = (props) => {
   };
 
   useEffect(() => {
-    getEvent()
+    getEvent();
+    setErrors([]);
   }, [])
 
   if (event.length === 0) {
@@ -56,18 +61,22 @@ const EventEditPage = (props) => {
     );
   };
 
-  console.log('event.details: ', event.details);
   return (
     <div className="EventEditPage">
       <h1 className="title blue">Make an account</h1>
       <form className="form" onSubmit={handleSubmit}>
+        {errors.length > 0 && (
+          <div className="FormErrors">
+            {errors.map(error => <div className="red error" key={error}>{error}</div>)}
+          </div>
+        )}
         <div>
           <label className="label" htmlFor="name">Title</label><br/>
           <input className="input" defaultValue={event.name} type="text" name="name"></input>
         </div>
         <div>
           <label className="label" htmlFor="details">Details</label><br/>
-          <textarea className="input-text" name="details" defaultValue={event.details}></textarea>
+          <textarea className="input-text" name="details" value={event.details}></textarea>
         </div>
         <input className="button" type="submit" value="Update" />
       </form>
@@ -75,6 +84,5 @@ const EventEditPage = (props) => {
     </div>
   );
 };
-
 
 export default EventEditPage;

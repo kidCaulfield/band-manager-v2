@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux';
 import { createAccount } from '../actions/userActions'
 import { createSelector } from 'reselect';
 
 const SignUpPage = (props) => {
+  let [errors, setErrors] = useState([])
 
   const createUser = async (params) => {
     props.onCreateAccount(params, props)
@@ -25,10 +26,23 @@ const SignUpPage = (props) => {
     })
   }
 
+  useEffect(() => {
+    setErrors([props.errors])
+  }, [props.errors])
+
+  useEffect(() => {
+    setErrors([])
+  }, [])
+
   return (
     <div className="form-box">
       <h1 className="title blue">Make an account</h1>
       <form className="form" onSubmit={signUp}>
+        {errors.length > 0 && (
+          <div className="FormErrors">
+            {errors.map(error => <div className="red error" key={error}>{error}</div>)}
+          </div>
+        )}
         <div>
           <label className="label" htmlFor="username">username</label><br/>
           <input className="input" type="text" name="username"></input>
@@ -51,15 +65,21 @@ const SignUpPage = (props) => {
   )
 };
 
+const errorSelector = createSelector(
+  state => state.errors,
+  errors => errors
+);
+
 const userSelector = createSelector(
   state => state.currentUser,
   currentUser => currentUser
 );
 
 const mapStateToProps = createSelector(
-  userSelector,
-  (currentUser) => ({
-    currentUser
+  userSelector, errorSelector,
+  (currentUser, errors) => ({
+    currentUser,
+    errors
   })
 );
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react'
 import { Google, Venue } from '../requests';
 
 import { connect } from 'react-redux';
@@ -6,6 +6,7 @@ import { createEvent } from '../actions/eventsActions';
 import { createSelector } from 'reselect';
 
 const EventsNewPage = (props) => {
+  let [errors, setErrors] = useState([])
 
   const createEventOnSubmit = (params) => {
     props.onCreateEvent(params, props.id)
@@ -38,13 +39,24 @@ const EventsNewPage = (props) => {
     })
   }
 
+  useEffect(() => {
+    setErrors([props.errors])
+  }, [props.errors])
+
+  useEffect(() => {
+    setErrors([])
+  }, [props.events])
+
+  useEffect(() => {
+    setErrors([])
+  }, [])
 
   return (
     <div className="EventsNewPage">
       <form className="form"onSubmit={handleSubmit}>
-        {props.errors.length > 0 && (
+        {errors.length > 0 && (
           <div className="FormErrors">
-            {props.errors.map(error => <div className="red error" key={error}>{error}</div>)}
+            {errors.map(error => <div className="red error" key={error}>{error}</div>)}
           </div>
         )}
         <div>

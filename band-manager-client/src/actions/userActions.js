@@ -28,6 +28,7 @@ const showError = (error) => {
 
 export const login = (params, props) => async dispatch => {
   const session = await Session.create(params);
+
   if (session.error) {
     return dispatch(showError(session.error));
   }
@@ -47,10 +48,9 @@ export const createAccount = (params, props) => async dispatch => {
  
   const { users } = params
   const user = await User.create(params);
-  
+
   if (user.error) {
-    props.history.push("/");
-    return showError(user)
+    return dispatch(showError(user.error));
   }
 
   // refactor API to send users object without array

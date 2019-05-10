@@ -51,6 +51,7 @@ module.exports = {
   },
 
   async create(req, res, next) {
+    console.log('req.body: ', req.body);
     const valid = validateTour(req.body, res);
     if (valid === null) {
       try {
