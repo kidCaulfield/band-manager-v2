@@ -17,14 +17,14 @@ const TourShowPage = (props) => {
     return confirm
   };
 
-  const editTour = async () => {
-    props.history.push(`/edit/${props.match.params.id}`)
-  };
+  // const editTour = () => {
+  //   props.history.push(`/tour/${props.match.params.id}/edit`);
+  // };
 
   const confirmTour = async (event) => {
     console.log('event.target.id: ', event.target.id);
-    const response = await Tour.update({tour: {title: props.tour.title, band: props.tour.band, confirmed: true}}, event.target.id)
-    setTrigger(!trigger)
+    const response = await Tour.update({tour: {title: props.tour.title, band: props.tour.band, confirmed: true}}, event.target.id);
+    setTrigger(!trigger);
     return response
   };
 
@@ -74,7 +74,7 @@ const TourShowPage = (props) => {
     <div className="TourShowPage">
       <div className="underline bp">
         <h1 className="blue">{props.tour.title}</h1>
-        <small>Band: {props.tour.band}<strong className="edit" id={props.tour.id} onClick={editTour}> edit</strong></small>
+        <small>Band: {props.tour.band}{/*<strong className="Confirm" id={props.tour.id} onClick={editTour}> edit</strong>*/}</small>
         { props.tour.confirmed ? 
           <p className="EventConfirmed">Tour confirmed</p> :
           <p className="EventUnconfirmed">pending confirmation</p>

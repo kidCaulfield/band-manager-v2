@@ -3,7 +3,8 @@ import { Event } from '../requests';
 
 const EventEditPage = (props) => {
   let [event, setEvent] = useState({});
-  let [errors, setErrors] = useState([])
+  let [errors, setErrors] = useState([]);
+  let [value, setValue] = useState([]);
 
   const updateEvent = async (params) => {
     const updated = await Event.update(props.match.params.tourId, props.match.params.eventId, params);
@@ -35,7 +36,12 @@ const EventEditPage = (props) => {
   const getEvent = async () => {
     const response = await Event.edit(props.match.params.tourId, props.match.params.eventId);
     setEvent(response.event)
+    setValue(response.event.details)
   };
+
+  const handleChange =  (event) => {
+    setValue(event.target.value);
+  }
 
   useEffect(() => {
     getEvent();
@@ -76,7 +82,7 @@ const EventEditPage = (props) => {
         </div>
         <div>
           <label className="label" htmlFor="details">Details</label><br/>
-          <textarea className="input-text" name="details" value={event.details}></textarea>
+          <textarea className="input-text" name="details" type="text" value={value} onChange={handleChange}></textarea>
         </div>
         <input className="button" type="submit" value="Update" />
       </form>

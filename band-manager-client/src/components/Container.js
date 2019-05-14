@@ -20,46 +20,46 @@ const Container = (props) => {
         <Navbar />
         <div className="Website">
           <Switch>
-            <Route path={`${process.env.PUBLIC_URL}/`} exact component={HomePage} />
+            <Route exact path={`${process.env.PUBLIC_URL}/`} component={HomePage} />
             <AuthRoute
-              path={`${process.env.PUBLIC_URL}/tours/new`} exact
+              exact path={`${process.env.PUBLIC_URL}/tours/new`}
               component={TourNewPage}
             />
             <AuthRoute
-              path={`${process.env.PUBLIC_URL}/tours`} exact
+              exact path={`${process.env.PUBLIC_URL}/tours`}
               component={TourIndexPage}
             />
             <Route
-              path={`${process.env.PUBLIC_URL}/network`} exact
+              path={`${process.env.PUBLIC_URL}/network`}
               component={TouringNetwork}
             />
             <Route
-              path={`${process.env.PUBLIC_URL}/tours/:id`} exact
+              path={`${process.env.PUBLIC_URL}/tours/:id`}
               component={TourPlanner}
             />
             <Route
-              path={`${process.env.PUBLIC_URL}/tour/:id`} exact
+              exact path={`${process.env.PUBLIC_URL}/tour/:id`}
               component={TourShowPage}
             />
             <Route
-              path={`${process.env.PUBLIC_URL}/edit/:id`} exact
+              path={`${process.env.PUBLIC_URL}/tour/:id/edit`}
               component={TourEditPage}
             />
             <Route
-              path={`${process.env.PUBLIC_URL}/tour/:tourId/event/:eventId`} exact
+              path={`${process.env.PUBLIC_URL}/tour/:tourId/event/:eventId`}
               component={EventEditPage}
             />
-            <Route path={`${process.env.PUBLIC_URL}/sign_in`} exact
+            <Route path={`${process.env.PUBLIC_URL}/sign_in`}
               render={routeProps => (
                 <SignInPage
                   {...routeProps}
                 />
               )}
             />
-            <Route path={`${process.env.PUBLIC_URL}/sign_up`} exact
+            <Route path={`${process.env.PUBLIC_URL}/sign_up`}
               render={routeProps => (
-              <SignUpPage
-                {...routeProps}
+                <SignUpPage
+                  {...routeProps}
                 />
               )}
             />
