@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Event, Tour } from '../requests';
 import Map from './Map';
 
@@ -23,8 +22,7 @@ const TourShowPage = (props) => {
   };
 
   const editTour = () => {
-    // props.history.push(`/tour/${props.match.params.id}/edit`);
-    
+    props.history.push(`/tour/${props.match.params.id}/edit`);
   };
 
   const confirmTour = async (event) => {
@@ -109,10 +107,10 @@ const TourShowPage = (props) => {
 
   return (
     <div className="TourShowPage-box">
-      <div className="TourShowPage">
+      <div className="TourShowPage" id="scroll">
         <div className="underline bp">
           <h1 className="blue">{props.tour.title}</h1>
-          <small>Band: {props.tour.band}</small>
+          <small>Band: {props.tour.band}<strong className="Confirm" onClick={editTour}> edit</strong></small>
           { props.tour.confirmed ? 
             <p className="EventConfirmed">Tour confirmed</p> :
             <p className="EventUnconfirmed">pending confirmation</p>

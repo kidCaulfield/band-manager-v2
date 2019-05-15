@@ -11,14 +11,15 @@ import { getVenues } from '../actions/venueActions';
 import { getEvents } from '../actions/eventsActions';
 
 
-/* CHECK LIST
+/**  CHECK LIST
 
-  * Edit tours
   * User Created venues
   * Add redux persist later to persist currentUser value to fix AuthRoute redirecting to SignInPage
   * TourShowPage with map of confirmed events with suggested route via google routes // after deployment
+  * export route to google maps app
+  * twilio
 
-*/
+**/
 
 const TourPlanner = (props) => {
   let [selectedVenue, setSelectedVenue] = useState({name: 'Click on a marker to add venue to your event'})
@@ -47,8 +48,12 @@ const TourPlanner = (props) => {
           region: selectedRegion,
           city: selectedCity.city
         });
-      const updateLocationGeo = await Location.update({locationData}, selectedCity.id)
-      setCoorinates(updateLocationGeo.geo)
+      if (locationData) {
+        const updateLocationGeo = await Location.update({locationData}, selectedCity.id)
+        setCoorinates(updateLocationGeo.geo)
+      } else {
+        return null
+      }
     } else {
       setCoorinates(selectedCity.geo)
     }

@@ -303,12 +303,15 @@ input::-webkit-calendar-picker-indicator {
 
 .TourShowPage {
   padding: 0px 5px 20px 5px;
-  flex-grow: 1;
-  /* overflow-y: auto;
-  height: 80vh; */
-  background-color: black;
+  overflow-y: auto;
+  height: 85vh;
+  max-width: 400px;
 }
 
+#scroll::-webkit-scrollbar {
+    width: 0px;
+    background-color: rgba(0, 0, 0, 0);
+}
 
 .EventList {
   margin: 0px 0px 10px 0px; 
@@ -691,9 +694,17 @@ input {
 
 .TourShowPage-box {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   width: 100%;
 }
+
+.TourShowPage {
+  padding: 0px 5px 20px 5px;
+  overflow-y: auto;
+  height: 85vh;
+  max-width: 100%;
+}
+
   
 /* ===================EventPages======================== */
 

@@ -18,6 +18,6 @@ const TourDetails = (props) => {
       <EventDetails id={props.tour.id} />
     </div>
   )
-}
+};
 
 export default TourDetails;

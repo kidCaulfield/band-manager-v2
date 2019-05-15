@@ -109,6 +109,7 @@ export const Tour = {
       console.error(error)
     }
   },
+  
   async all() {
     try {
       const response = await fetch('/tours');

@@ -62,9 +62,13 @@ module.exports = {
         try {
           const verify = await Venue.find({name, address})
           if (verify.length === 0) {
-            const venue = new Venue({name, address, geo});
-            const id = await venue.save()
-            res.status(200).json({id});
+            if (req.body.venues.name !== "Address Provided with Purchase") {
+              const venue = new Venue({name, address, geo});
+              const id = await venue.save()
+              res.status(200).json({id});
+            } else {
+              res.status(422).json({error: "Unprocessable Entity"})
+            }
           } else {
             res.status(422).json({error: "duplicate venue found"})
           }

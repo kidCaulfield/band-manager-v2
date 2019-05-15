@@ -62,7 +62,7 @@ module.exports = {
     if (response.data.status === 'OK') {
       res.status(200).json(response.data.candidates[0].geometry.location)
     } else {
-      res.status()
+      res.status(200).json(null)
     }
   },
 };
