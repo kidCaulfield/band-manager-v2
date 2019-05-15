@@ -59,11 +59,11 @@ const Navbar = (props) => {
           New Tour
         </NavLink>
       ) : null }
-      <NavLink
+      {/* <NavLink
         className="fancy NavbarLink"
         to={`${process.env.PUBLIC_URL}/network`}>
           Network
-      </NavLink>
+      </NavLink> */}
     </nav>
     <nav className="Navbar right NavbarItems">
       { !currentUser ? (

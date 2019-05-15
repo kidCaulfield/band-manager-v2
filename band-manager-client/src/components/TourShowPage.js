@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Event, Tour } from '../requests';
+import Map from './Map';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -10,10 +11,14 @@ var hdate = require('human-date')
 
 const TourShowPage = (props) => {
   let [trigger, setTrigger] = useState(true);
+  let [confirmedShow, setConfirmedShow] = useState(0);
+  console.log('confirmedShow: ', confirmedShow);
+  let [coordinates, setCoordinates] = useState({ lat: 49.2827, lng: -123.1207 });
 
   const confirmShow = async (event) => {
     const confirm = await Event.update(props.match.params.id, event.currentTarget.id, {'event': {'confirmed': true}});
-    setTrigger(!trigger)
+    let checked = confirmedShow + 1
+    setConfirmedShow(checked)
     return confirm
   };
 
@@ -22,9 +27,8 @@ const TourShowPage = (props) => {
   // };
 
   const confirmTour = async (event) => {
-    console.log('event.target.id: ', event.target.id);
     const response = await Tour.update({tour: {title: props.tour.title, band: props.tour.band, confirmed: true}}, event.target.id);
-    setTrigger(!trigger);
+    setTrigger(!trigger)
     return response
   };
 
@@ -37,6 +41,34 @@ const TourShowPage = (props) => {
     setTrigger(!trigger)
     return destroy
   };
+
+  const makeMarker = (marks, map) => {
+    console.log('marks: ', marks);
+    return marks.forEach(mark => {
+      if (mark.venue.geo != null && mark.confirmed === true) {
+        var marker = new window.google.maps.Marker({
+          position: { lat: mark.venue.geo.latitude, lng: mark.venue.geo.longitude },
+          map: map,
+          title: mark.venue.name
+        });
+        marker.addListener('click', e => {
+          createInfoWindow(e, map, mark.venue);
+        })
+      return marker;
+      }
+    });
+  }
+
+  const createInfoWindow = (e, map, place) => {
+    const infoWindow = new window.google.maps.InfoWindow({
+        content: `<div id="infoWindow">${place.name}</div>`,
+        position: { lat: e.latLng.lat(), lng: e.latLng.lng() }
+    })
+    infoWindow.addListener('domready', e => {
+      return (document.getElementById('infoWindow'))
+    })
+    infoWindow.open(map)
+  }
   
   useEffect(() => {
     props.onGetTour(props.match.params.id)
@@ -51,9 +83,13 @@ const TourShowPage = (props) => {
     props.onGetEvents(props.match.params.id)
   }, [trigger]);
 
-  if (!props.tour) {
+  useEffect(() => {
+    props.onGetEvents(props.match.params.id)
+  }, [confirmedShow]);
+
+  if (props.events.length === 0) {
     return (
-    <div className="sk-circle">
+      <div className="sk-circle">
         <div className="sk-circle1 sk-child"></div>
         <div className="sk-circle2 sk-child"></div>
         <div className="sk-circle3 sk-child"></div>
@@ -71,41 +107,57 @@ const TourShowPage = (props) => {
   };
 
   return (
-    <div className="TourShowPage">
-      <div className="underline bp">
-        <h1 className="blue">{props.tour.title}</h1>
-        <small>Band: {props.tour.band}{/*<strong className="Confirm" id={props.tour.id} onClick={editTour}> edit</strong>*/}</small>
-        { props.tour.confirmed ? 
-          <p className="EventConfirmed">Tour confirmed</p> :
-          <p className="EventUnconfirmed">pending confirmation</p>
-        }
-      </div>
-      <h2 className="blue">Events</h2>
-      {props.events.map(event => (
-        <div className="EventList thin-underline" key={event.id}>
-          <div>
-            <strong className="EventTitle">{event.title}</strong>
-            <p className="EventDate">{hdate.prettyPrint(event.date_time)}</p>
-            <p className="EventVenue"><strong>Venue:</strong> {event.venue.name}</p>
-            { !event.venue.formatted_address ?
-              <p className="EventAddress">{event.venue.address}</p>
-            : <p className="EventAddress">{event.venue.formatted_address}</p>
-            }
-            <p className="EventAddress">{event.venue.international_phone_number}</p>
-            <p className="EventAddress"><a href={`${event.venue.website}`}>{event.venue.website}</a></p>
-            { event.confirmed ? 
-              <p className="EventConfirmed">show confirmed</p> :
-              <p className="EventUnconfirmed">pending confirmation<strong className="Confirm" id={event.id} onClick={confirmShow}> confirm</strong></p>
-            }
-          </div>
-          <div className="Buttons">
-            <button className="Edit-button" onClick={editEvent} id={event.id}>edit</button>
-            <button className="Delete-button" onClick={deleteEvent} id={event.id}>delete</button>
-          </div>
+    <div className="TourShowPage-box">
+      <div className="TourShowPage">
+        <div className="underline bp">
+          <h1 className="blue">{props.tour.title}</h1>
+          <small>Band: {props.tour.band}{/*<strong className="Confirm" id={props.tour.id} onClick={editTour}> edit</strong>*/}</small>
+          { props.tour.confirmed ? 
+            <p className="EventConfirmed">Tour confirmed</p> :
+            <p className="EventUnconfirmed">pending confirmation</p>
+          }
         </div>
-      ))}
-      <button className="Confirm-button" onClick={confirmTour} id={props.tour.id}>Confirm Tour</button>
-      <button className="Delete-button" onClick={deleteEvent} id={props.tour.id}>delete</button>
+        <h2 className="blue">Events</h2>
+        {props.events.map(event => (
+          <div className="EventList thin-underline" key={event.id}>
+            <div>
+              <strong className="EventTitle">{event.title}</strong>
+              <p className="EventDate">{hdate.prettyPrint(event.date_time)}</p>
+              <p className="EventVenue"><strong>Venue:</strong> {event.venue.name}</p>
+              { !event.venue.formatted_address ?
+                <p className="EventAddress">{event.venue.address}</p>
+              : <p className="EventAddress">{event.venue.formatted_address}</p>
+              }
+              <p className="EventAddress">{event.venue.international_phone_number}</p>
+              <p className="EventAddress"><a href={`${event.venue.website}`}>{event.venue.website}</a></p>
+              { event.confirmed ? 
+                <p className="EventConfirmed">show confirmed</p> :
+                <p className="EventUnconfirmed">pending confirmation<strong className="Confirm" id={event.id} onClick={confirmShow}> confirm</strong></p>
+              }
+            </div>
+            <div className="Buttons">
+              <button className="Edit-button" onClick={editEvent} id={event.id}>edit</button>
+              <button className="Delete-button" onClick={deleteEvent} id={event.id}>delete</button>
+            </div>
+          </div>
+        ))}
+        <button className="Confirm-button" onClick={confirmTour} id={props.tour.id}>Confirm Tour</button>
+        <button className="Delete-button" onClick={deleteEvent} id={props.tour.id}>delete</button>
+      </div>
+      <div className="Map-box">
+        <Map
+          id="myMap"
+          options={{
+            center: coordinates,
+            zoom: 8,
+            events: props.events,
+            showConfirmed: confirmedShow
+          }}
+          onMapLoad={map => {
+            makeMarker(props.events, map)
+          }}
+        />
+      </div>
     </div>
   )
 };

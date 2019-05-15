@@ -14,7 +14,6 @@ import { getEvents } from '../actions/eventsActions';
 /* CHECK LIST
 
   * Edit tours
-  * add area to tours
   * User Created venues
   * Add redux persist later to persist currentUser value to fix AuthRoute redirecting to SignInPage
   * TourShowPage with map of confirmed events with suggested route via google routes // after deployment

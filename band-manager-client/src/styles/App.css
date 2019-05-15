@@ -294,8 +294,15 @@ input::-webkit-calendar-picker-indicator {
 
 /*=================== TourShowPage =======================*/
 
+.TourShowPage-box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 .TourShowPage {
   padding: 0px 5px 20px 5px;
+  flex-grow: 1;
 }
 
 .EventList {
@@ -674,6 +681,14 @@ input {
     flex-wrap: wrap;
     padding-left: 5px;
   }
+
+/*=================== TourShowPage =======================*/
+
+.TourShowPage-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
   
 /* ===================EventPages======================== */
 

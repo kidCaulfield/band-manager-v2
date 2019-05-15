@@ -26,10 +26,22 @@ const Map = (props) => {
       onScriptLoad()
     }
   }
+  
+  const newMarker = () => { // temporary solution to newMarkers live
+    if (props.options.showConfirmed > 0) {
+      return renderMap()
+    }
+    return null
+  }
+
 
   useEffect(() => {
     renderMap()
-  }, [props.options.center]) 
+  }, [props.options.center])
+
+  useEffect(() => {
+    newMarker()
+  }, [props.options.events])
 
   return (
     <div id={props.id} />
