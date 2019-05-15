@@ -4,7 +4,7 @@ import { Event } from '../requests';
 const EventEditPage = (props) => {
   let [event, setEvent] = useState({});
   let [errors, setErrors] = useState([]);
-  let [value, setValue] = useState([]);
+  let [value, setValue] = useState("");
 
   const updateEvent = async (params) => {
     const updated = await Event.update(props.match.params.tourId, props.match.params.eventId, params);
@@ -36,7 +36,9 @@ const EventEditPage = (props) => {
   const getEvent = async () => {
     const response = await Event.edit(props.match.params.tourId, props.match.params.eventId);
     setEvent(response.event)
-    setValue(response.event.details)
+    if (response.event.details) {
+      setValue(response.event.details)
+    }
   };
 
   const handleChange =  (event) => {

@@ -42,7 +42,6 @@ const TourShowPage = (props) => {
   };
 
   const makeMarker = (marks, map) => {
-    console.log('marks: ', marks);
     return marks.forEach(mark => {
       if (mark.venue.geo != null && mark.confirmed === true) {
         var marker = new window.google.maps.Marker({
