@@ -10,7 +10,7 @@ import TourIndexPage from './TourIndexPage';
 import TouringNetwork from './TouringNetwork';
 import TourPlanner from './TourPlanner';
 import TourShowPage from './TourShowPage';
-import TourEditPage from './EventEditPage';
+import TourEditPage from './TourEditPage';
 import EventEditPage from './EventEditPage';
 
 const Container = (props) => {
@@ -38,12 +38,12 @@ const Container = (props) => {
               component={TourPlanner}
             />
             <Route
-              exact path={`${process.env.PUBLIC_URL}/tour/:id`}
-              component={TourShowPage}
+              exact path={`${process.env.PUBLIC_URL}/tour/:id/edit`}
+              component={TourEditPage}
             />
             <Route
-              path={`${process.env.PUBLIC_URL}/tour/:id/edit`}
-              component={TourEditPage}
+              exact path={`${process.env.PUBLIC_URL}/tour/:id`}
+              component={TourShowPage}
             />
             <Route
               path={`${process.env.PUBLIC_URL}/tour/:tourId/event/:eventId`}

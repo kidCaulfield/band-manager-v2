@@ -17,7 +17,7 @@ const EventsNewPage = (props) => {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
     let details;
-    if (props.selected.place_id) {
+    if (!props.selected.place_id) {
       details = await Google.placesDetails(props.selected);
     }
     let venue;
@@ -25,6 +25,7 @@ const EventsNewPage = (props) => {
       venue = await Venue.update(props.selected.id, {venues: details})
       venue = details
     } else {
+      console.log('props.selected: ', props.selected);
       venue = props.selected
     }
 

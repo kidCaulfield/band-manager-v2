@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Event, Tour } from '../requests';
 import Map from './Map';
 
@@ -12,7 +13,6 @@ var hdate = require('human-date')
 const TourShowPage = (props) => {
   let [trigger, setTrigger] = useState(true);
   let [confirmedShow, setConfirmedShow] = useState(0);
-  console.log('confirmedShow: ', confirmedShow);
   let [coordinates, setCoordinates] = useState({ lat: 49.2827, lng: -123.1207 });
 
   const confirmShow = async (event) => {
@@ -22,9 +22,10 @@ const TourShowPage = (props) => {
     return confirm
   };
 
-  // const editTour = () => {
-  //   props.history.push(`/tour/${props.match.params.id}/edit`);
-  // };
+  const editTour = () => {
+    // props.history.push(`/tour/${props.match.params.id}/edit`);
+    
+  };
 
   const confirmTour = async (event) => {
     const response = await Tour.update({tour: {title: props.tour.title, band: props.tour.band, confirmed: true}}, event.target.id);
@@ -111,7 +112,7 @@ const TourShowPage = (props) => {
       <div className="TourShowPage">
         <div className="underline bp">
           <h1 className="blue">{props.tour.title}</h1>
-          <small>Band: {props.tour.band}{/*<strong className="Confirm" id={props.tour.id} onClick={editTour}> edit</strong>*/}</small>
+          <small>Band: {props.tour.band}</small>
           { props.tour.confirmed ? 
             <p className="EventConfirmed">Tour confirmed</p> :
             <p className="EventUnconfirmed">pending confirmation</p>

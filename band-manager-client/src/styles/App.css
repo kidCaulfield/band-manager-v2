@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: black
 }
 
 .App-logo {
@@ -303,7 +304,11 @@ input::-webkit-calendar-picker-indicator {
 .TourShowPage {
   padding: 0px 5px 20px 5px;
   flex-grow: 1;
+  /* overflow-y: auto;
+  height: 80vh; */
+  background-color: black;
 }
+
 
 .EventList {
   margin: 0px 0px 10px 0px; 
