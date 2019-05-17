@@ -1,3 +1,5 @@
+const aws = require('./config');
+
 module.exports = {
 
   development: {
@@ -7,7 +9,7 @@ module.exports = {
     },
     migrations: {
       tableName: 'migrations',
-      directory: './db/migrations',
+      directory: './db/migrations'
     },
     seeds: {
       directory: "./db/seeds",
@@ -32,19 +34,16 @@ module.exports = {
   //     }
   //   },
   
-  //   production: {
-  //     client: 'postgresql',
-  //     connection: {
-  //       database: 'my_db',
-  //       user:     'username',
-  //       password: 'password'
-  //     },
-  //     pool: {
-  //       min: 2,
-  //       max: 10
-  //     },
-  //     migrations: {
-  //       tableName: 'knex_migrations'
-  //     }
-  //   }
+    production: {
+      client: 'pg',
+      connection: {
+        database: aws.endpoint,
+        user:     aws.username,
+        password: aws.password
+      },
+      migrations: {
+        tableName: 'migrations',
+        directory: './db/migrations'
+      }
+    }
   
