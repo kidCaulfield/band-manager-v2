@@ -15,6 +15,18 @@ module.exports = {
       directory: "./db/seeds",
     },
   },
+  production: {
+    client: 'pg',
+    connection: {
+      database: aws.endpoint,
+      user:     aws.username,
+      password: aws.password
+    },
+    migrations: {
+      tableName: 'migrations',
+      directory: './db/migrations'
+    }
+  }
 };
 
 
@@ -34,16 +46,4 @@ module.exports = {
   //     }
   //   },
   
-    production: {
-      client: 'pg',
-      connection: {
-        database: aws.endpoint,
-        user:     aws.username,
-        password: aws.password
-      },
-      migrations: {
-        tableName: 'migrations',
-        directory: './db/migrations'
-      }
-    }
   
