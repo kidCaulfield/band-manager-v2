@@ -1,7 +1,9 @@
+const BASE_URL = `http://localhost:5000`
+
 export const User = {
   async create(params) {
     try {
-      const response = await fetch('/users', {
+      const response = await fetch(`${BASE_URL}/users`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -21,8 +23,8 @@ export const User = {
 export const Session = {
   async create(params) {
     try {
-    console.log('params3: ', params);
-      const response = await fetch('/session', {
+    console.log(`params3: `, params);
+      const response = await fetch(`${BASE_URL}/session`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -30,7 +32,7 @@ export const Session = {
         },
         body: JSON.stringify(params)
       });
-      console.log('response2: ', response);
+      console.log(`response2: `, response);
       const session = await response.json();
 
       return session;
@@ -40,7 +42,7 @@ export const Session = {
   },
   async destroy() {
     try {
-      const response = await fetch(`/session`, {
+      const response = await fetch(`${BASE_URL}/session`, {
         method: "DELETE",
         credentials: "include"
       });
@@ -52,7 +54,7 @@ export const Session = {
   },
   async getCurrentSession() {
     try {
-     const response = await fetch(`/session`);
+     const response = await fetch(`${BASE_URL}/session`);
      const json = await response.json();
      return json;
     } catch (error) {
@@ -64,7 +66,7 @@ export const Session = {
 export const Venue = {
   async all() {
     try {
-      const response = await fetch('/venues');
+      const response = await fetch(`${BASE_URL}/venues`);
       const json = await response.json();
 
       return json
@@ -74,9 +76,9 @@ export const Venue = {
   },
   async update(id, params) {
     try {
-      const response = await fetch(`/venue/${id}`, {
-        method: 'PATCH',
-        credentials: 'include',
+      const response = await fetch(`${BASE_URL}/venue/${id}`, {
+        method: `PATCH`,
+        credentials: `include`,
         headers: {
           "Content-Type": "application/json"
         },
@@ -94,9 +96,9 @@ export const Venue = {
 export const Tour = {
   async create(params) {
     try {
-      const response = await fetch('/tours', {
-        method: 'POST',
-        credentials: 'include',
+      const response = await fetch(`${BASE_URL}/tours`, {
+        method: `POST`,
+        credentials: `include`,
         headers: {
           "Content-Type": "application/json"
         },
@@ -112,7 +114,7 @@ export const Tour = {
   
   async all() {
     try {
-      const response = await fetch('/tours');
+      const response = await fetch(`${BASE_URL}/tours`);
       const json = await response.json();
 
       return json
@@ -122,7 +124,7 @@ export const Tour = {
   },
   async one(id) {
     try {
-      const response = await fetch(`/tours/${id}`);
+      const response = await fetch(`${BASE_URL}/tours/${id}`);
       const json = await response.json();
 
       return json;
@@ -132,9 +134,9 @@ export const Tour = {
   },
   async update(params, id) {
     try {
-      const response = await fetch(`/tour/${id}`, {
-        method: 'PATCH',
-        credentials: 'include',
+      const response = await fetch(`${BASE_URL}/tour/${id}`, {
+        method: `PATCH`,
+        credentials: `include`,
         headers: {
           "Content-Type": "application/json"
         },
@@ -149,7 +151,7 @@ export const Tour = {
   },
   async allConfirmed() {
     try {
-      const response = await fetch(`/confirmedtours`)
+      const response = await fetch(`${BASE_URL}/confirmedtours`)
       const json = await response.json();
 
       return json;
@@ -162,7 +164,7 @@ export const Tour = {
 export const Event = {
   async edit(tourId, eventId) {
     try {
-      const response = await fetch(`/tours/${tourId}/event/${eventId}`)
+      const response = await fetch(`${BASE_URL}/tours/${tourId}/event/${eventId}`)
       const json = await response.json();
       return json;
     } catch (error) {
@@ -171,9 +173,9 @@ export const Event = {
   },
   async create(params, id) {
     try {
-      const response = await fetch(`/tours/${id}/events`, {
-        method: 'POST',
-        credentials: 'include',
+      const response = await fetch(`${BASE_URL}/tours/${id}/events`, {
+        method: `POST`,
+        credentials: `include`,
         headers: {
           "Content-Type": "application/json"
         },
@@ -188,7 +190,7 @@ export const Event = {
   },
   async all(id) {
     try {
-      const response = await fetch(`/tours/${id}/events`);
+      const response = await fetch(`${BASE_URL}/tours/${id}/events`);
       const json = await response.json();
 
       return json
@@ -198,9 +200,9 @@ export const Event = {
   },
   async update(tourId, eventId, params) {
     try {
-      const response = await fetch(`/tours/${tourId}/event/${eventId}`, {
-        method: 'PATCH',
-        credentials: 'include',
+      const response = await fetch(`${BASE_URL}/tours/${tourId}/event/${eventId}`, {
+        method: `PATCH`,
+        credentials: `include`,
         headers: {
           "Content-Type": "application/json"
         },
@@ -215,8 +217,8 @@ export const Event = {
   },
   async delete(tourId, eventId) {
     try {
-      const response = await fetch(`/tours/${tourId}/events/${eventId}`, {
-        method: 'DELETE'
+      const response = await fetch(`${BASE_URL}/tours/${tourId}/events/${eventId}`, {
+        method: `DELETE`
       });
       
       return response
@@ -229,7 +231,7 @@ export const Event = {
 export const Location = {
   async countries() {
     try {
-      const response = await fetch(`/countries`);
+      const response = await fetch(`${BASE_URL}/countries`);
       const json = await response.json();
 
       return json;
@@ -239,9 +241,9 @@ export const Location = {
   },
   async regions(params) {
     try {
-      const response = await fetch(`/regions`, {
-        method: 'POST',
-        credentials: 'include',
+      const response = await fetch(`${BASE_URL}/regions`, {
+        method: `POST`,
+        credentials: `include`,
         headers: {
           "Content-Type": "application/json"
         },
@@ -256,9 +258,9 @@ export const Location = {
   },
   async cities(params) {
     try {
-      const response = await fetch(`/cities`, {
-        method: 'POST',
-        credentials: 'include',
+      const response = await fetch(`${BASE_URL}/cities`, {
+        method: `POST`,
+        credentials: `include`,
         headers: {
           "Content-Type": "application/json"
         },
@@ -273,9 +275,9 @@ export const Location = {
   },
   async update(params, id) {
     try {
-    const response = await fetch(`/location/${id}`, {
-      method: 'PATCH',
-      credentials: 'include',
+    const response = await fetch(`${BASE_URL}/location/${id}`, {
+      method: `PATCH`,
+      credentials: `include`,
       headers: {
         "Content-Type": "application/json"
       },
@@ -293,9 +295,9 @@ export const Location = {
 export const Google = {
   async placesDetails(place) {
     try {
-      const response = await fetch(`/google-places`, {
-        method: 'POST',
-        credentials: 'include',
+      const response = await fetch(`${BASE_URL}/google-places`, {
+        method: `POST`,
+        credentials: `include`,
         headers: {
           "Content-Type": "application/json"
         },
@@ -310,9 +312,9 @@ export const Google = {
   },
   async locationGeo(params) {
     try {
-      const response = await fetch(`/google-place`, {
-        method: 'POST',
-        credentials: 'include',
+      const response = await fetch(`${BASE_URL}/google-place`, {
+        method: `POST`,
+        credentials: `include`,
         headers: {
           "Content-Type": "application/json"
         },

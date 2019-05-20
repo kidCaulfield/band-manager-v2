@@ -18,7 +18,7 @@ module.exports = {
   production: {
     client: 'pg',
     connection: {
-      database: aws.endpoint,
+      database: 'band_manager_v2',
       user:     aws.username,
       password: aws.password
     },
