@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const logger = require("morgan");
 const session = require("express-session");
 const RedisStore = require('connect-redis')(session); // will not work in dev without redis installed and running locally
@@ -7,6 +8,21 @@ const RedisStore = require('connect-redis')(session); // will not work in dev wi
 //////////////////////////////////////////////////////////////////////
 /*                         Middle Ware                              */
 //////////////////////////////////////////////////////////////////////
+
+// Set up a whitelist and check against it:
+var whitelist = ['http://localhost:3030', 'localhost:3030', ]
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+// Then pass them to cors:
+
 
 app.use(logger("dev"));
 
@@ -61,6 +77,8 @@ app.use(session(sess))
 //////////////////////////////////////////////////////////////////////
 /*                            Routes                                */
 //////////////////////////////////////////////////////////////////////
+
+
 
 const venuesRouter = require("./routes/venues");
 app.use("/", venuesRouter);

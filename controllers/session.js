@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
   async create(req, res, next) {
+    console.log('req.body: ', req.body);
     res.setHeader('Content-Type', 'application/json')
     const { email, password } = req.body;
 

@@ -17,6 +17,7 @@
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
     "connect-redis": "^3.4.1",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "joi": "^14.3.1",
