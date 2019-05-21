@@ -4,19 +4,27 @@ const cors = require('cors');
 const sessionController = require("../controllers/session");
 
 var whitelist = ['http://localhost:3030', 'localhost:3030', ]
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      console.log('hello cors');
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    console.log('hello cors');
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
   }
+  callback(null, corsOptions) // callback expects two parameters: error and options
 }
 
-router.post("/session", cors(corsOptions), sessionController.create);
-router.delete("/session", cors(corsOptions), sessionController.destroy);
-router.get("/session", cors(corsOptions), sessionController.sessionInProgress)
+const preFlight = (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}
+
+router.options("*", cors(corsOptionsDelegate));
+router.post("/session", cors(corsOptionsDelegate), preFlight, sessionController.create);
+router.delete("/session", cors(corsOptionsDelegate), sessionController.destroy);
+router.get("/session", cors(corsOptionsDelegate), sessionController.sessionInProgress)
 
 module.exports = router;

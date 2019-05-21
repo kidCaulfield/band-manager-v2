@@ -9,21 +9,6 @@ const RedisStore = require('connect-redis')(session); // will not work in dev wi
 /*                         Middle Ware                              */
 //////////////////////////////////////////////////////////////////////
 
-// Set up a whitelist and check against it:
-var whitelist = ['http://localhost:3030', 'localhost:3030', ]
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-
-// Then pass them to cors:
-
-
 app.use(logger("dev"));
 
 // U R L E N C O D E D
@@ -78,7 +63,10 @@ app.use(session(sess))
 /*                            Routes                                */
 //////////////////////////////////////////////////////////////////////
 
-
+app.options('*', cors({
+  origin: 'http://localhost:3030',
+  credentials: true,
+}))
 
 const venuesRouter = require("./routes/venues");
 app.use("/", venuesRouter);

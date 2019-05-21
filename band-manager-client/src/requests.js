@@ -5,7 +5,7 @@ export const User = {
     try {
       const response = await fetch(`${BASE_URL}/users`, {
         method: "POST",
-        mode: 'cors',
+        // mode: 'cors',
         credentials: "include",
         headers: {
           "Content-Type": "application/json"
