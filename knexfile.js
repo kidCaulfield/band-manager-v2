@@ -6,6 +6,8 @@ module.exports = {
     client: 'pg',
     connection: {
       database: 'band_manager_v2',
+      user: process.env.DATABASE_USER,
+      password: 'password'
     },
     migrations: {
       tableName: 'migrations',

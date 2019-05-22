@@ -12,7 +12,7 @@ var hdate = require('human-date')
 const TourShowPage = (props) => {
   let [trigger, setTrigger] = useState(true);
   let [confirmedShow, setConfirmedShow] = useState(0);
-  let [coordinates, setCoordinates] = useState({ lat: 49.2827, lng: -123.1207 });
+  let [coordinates] = useState({ lat: 49.2827, lng: -123.1207 });
 
   const confirmShow = async (event) => {
     const confirm = await Event.update(props.match.params.id, event.currentTarget.id, {'event': {'confirmed': true}});

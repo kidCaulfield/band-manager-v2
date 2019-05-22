@@ -1,4 +1,4 @@
-const BASE_URL = `http://localhost:5000`
+const BASE_URL = `http://localhost:5000/api`
 
 export const User = {
   async create(params) {
@@ -23,7 +23,6 @@ export const User = {
 export const Session = {
   async create(params) {
     try {
-    console.log(`params3: `, params);
       const response = await fetch(`${BASE_URL}/session`, {
         method: "POST",
         credentials: "include",

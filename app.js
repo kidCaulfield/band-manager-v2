@@ -69,25 +69,25 @@ app.options('*', cors({
 }))
 
 const venuesRouter = require("./routes/venues");
-app.use("/", venuesRouter);
+app.use("/api", venuesRouter);
 
 const toursRouter = require("./routes/tours");
-app.use("/", toursRouter);
+app.use("/api", toursRouter);
 
 const eventsRouter = require("./routes/events");
-app.use("/", eventsRouter);
+app.use("/api", eventsRouter);
 
 const googleRouter = require("./routes/googleAPI");
-app.use("/", googleRouter);
+app.use("/api", googleRouter);
 
 const locationsRouter = require("./routes/locations");
-app.use("/", locationsRouter);
+app.use("/api", locationsRouter);
 
 const usersRouter = require("./routes/users");
-app.use("/", usersRouter);
+app.use("/api", usersRouter);
 
 const sessionRouter = require("./routes/session")
-app.use("/", sessionRouter);
+app.use("/api", sessionRouter);
 
 //////////////////////////////////////////////////////////////////////
 /*                            Server                                */
