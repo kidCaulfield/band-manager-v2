@@ -5,7 +5,6 @@ export const User = {
     try {
       const response = await fetch(`${BASE_URL}/users`, {
         method: "POST",
-        // mode: 'cors',
         credentials: "include",
         headers: {
           "Content-Type": "application/json"
@@ -55,7 +54,9 @@ export const Session = {
   },
   async getCurrentSession() {
     try {
-     const response = await fetch(`${BASE_URL}/session`);
+     const response = await fetch(`${BASE_URL}/session`, {
+        credentials: 'include'
+      });
      const json = await response.json();
      return json;
     } catch (error) {
@@ -67,7 +68,9 @@ export const Session = {
 export const Venue = {
   async all() {
     try {
-      const response = await fetch(`${BASE_URL}/venues`);
+      const response = await fetch(`${BASE_URL}/venues`, {
+        credentials: 'include'
+      });
       const json = await response.json();
 
       return json
@@ -115,7 +118,9 @@ export const Tour = {
   
   async all() {
     try {
-      const response = await fetch(`${BASE_URL}/tours`);
+      const response = await fetch(`${BASE_URL}/tours`, {
+        credentials: 'include'
+      });
       const json = await response.json();
 
       return json
@@ -125,7 +130,9 @@ export const Tour = {
   },
   async one(id) {
     try {
-      const response = await fetch(`${BASE_URL}/tours/${id}`);
+      const response = await fetch(`${BASE_URL}/tours/${id}`, {
+        credentials: 'include'
+      });
       const json = await response.json();
 
       return json;
@@ -152,7 +159,9 @@ export const Tour = {
   },
   async allConfirmed() {
     try {
-      const response = await fetch(`${BASE_URL}/confirmedtours`)
+      const response = await fetch(`${BASE_URL}/confirmedtours`, {
+        credentials: 'include'
+      })
       const json = await response.json();
 
       return json;
@@ -165,7 +174,9 @@ export const Tour = {
 export const Event = {
   async edit(tourId, eventId) {
     try {
-      const response = await fetch(`${BASE_URL}/tours/${tourId}/event/${eventId}`)
+      const response = await fetch(`${BASE_URL}/tours/${tourId}/event/${eventId}`, {
+        credentials: 'include'
+      })
       const json = await response.json();
       return json;
     } catch (error) {
@@ -191,7 +202,9 @@ export const Event = {
   },
   async all(id) {
     try {
-      const response = await fetch(`${BASE_URL}/tours/${id}/events`);
+      const response = await fetch(`${BASE_URL}/tours/${id}/events`, {
+        credentials: 'include'
+      });
       const json = await response.json();
 
       return json
@@ -232,7 +245,9 @@ export const Event = {
 export const Location = {
   async countries() {
     try {
-      const response = await fetch(`${BASE_URL}/countries`);
+      const response = await fetch(`${BASE_URL}/countries`, {
+        credentials: 'include'
+      });
       const json = await response.json();
 
       return json;

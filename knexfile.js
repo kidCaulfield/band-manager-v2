@@ -15,18 +15,18 @@ module.exports = {
       directory: "./db/seeds",
     },
   },
-  production: {
-    client: 'pg',
-    connection: {
-      database: 'band_manager_v2',
-      user:     aws.username,
-      password: aws.password
-    },
-    migrations: {
-      tableName: 'migrations',
-      directory: './db/migrations'
-    }
-  }
+//   production: {
+//     client: 'pg',
+//     connection: {
+//       database: 'band_manager_v2',
+//       user:     aws.username,
+//       password: aws.password
+//     },
+//     migrations: {
+//       tableName: 'migrations',
+//       directory: './db/migrations'
+//     }
+//   }
 };
 
 

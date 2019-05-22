@@ -20,6 +20,10 @@ export const getTours = () => async dispatch => {
     return dispatch(showError("response error"));
   };
 
+  if (response.error) {
+    return dispatch(showError("response error"));
+  };
+
   return dispatch({
     type: GET_TOURS,
     payload: {
