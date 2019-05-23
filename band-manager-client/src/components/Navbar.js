@@ -16,6 +16,7 @@ const Navbar = (props) => {
     props.onUpdateCurrentUser(null)
 
     const signOut = await Session.destroy()
+    handleClick();
     return signOut
   }
 
@@ -46,18 +47,22 @@ const Navbar = (props) => {
       { currentUser ? (
       <NavLink
         className="fancy NavbarLink"
-        exact to={`${process.env.PUBLIC_URL}/tours`}>
+        exact to={`${process.env.PUBLIC_URL}/tours`}
+        onClick={handleClick}
+      >
           Tours
       </NavLink>
       ) : 
       <div className="none"></div>
       }
       { currentUser ? (
-        <NavLink
+      <NavLink
         className="fancy NavbarLink"
-        to={`${process.env.PUBLIC_URL}/tours/new`}>
-          New Tour
-        </NavLink>
+        to={`${process.env.PUBLIC_URL}/tours/new`}
+        onClick={handleClick}
+      >
+        New Tour
+      </NavLink>
       ) : null }
       {/* <NavLink
         className="fancy NavbarLink"
@@ -69,7 +74,9 @@ const Navbar = (props) => {
       { !currentUser ? (
       <NavLink
         className="fancy NavbarLink"
-        exact to={`${process.env.PUBLIC_URL}/sign_up`}>
+        exact to={`${process.env.PUBLIC_URL}/sign_up`}
+        onClick={handleClick}
+      >
           Sign Up
       </NavLink>
       ) : 
@@ -85,7 +92,9 @@ const Navbar = (props) => {
       ) : (
         <NavLink
           className="fancy NavbarLink"
-          exact to={`${process.env.PUBLIC_URL}/sign_in`}>
+          exact to={`${process.env.PUBLIC_URL}/sign_in`}
+          onClick={handleClick}
+        >
             Sign In
         </NavLink>
       )}
