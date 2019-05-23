@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const path = require('path');
 const logger = require("morgan");
 const session = require("express-session");
 const RedisStore = require('connect-redis')(session); // will not work in dev without redis installed and running locally
@@ -8,7 +9,7 @@ const RedisStore = require('connect-redis')(session); // will not work in dev wi
 //////////////////////////////////////////////////////////////////////
 /*                         Middle Ware                              */
 //////////////////////////////////////////////////////////////////////
-
+app.use( express.static( `./band-manager-client/build` ) );
 app.use(logger("dev"));
 
 // U R L E N C O D E D
@@ -40,7 +41,7 @@ var sess = {
   },
   userId: null,
   name: "COOOKIE!!!!",
-  secret: 'Coookie Monster', // this need to become a randomly generated value for prduction
+  secret: require('crypto').randomBytes(64).toString('hex'),
   // fire up your redis server for dev with "redis-server /usr/local/etc/redis.conf"
   store: new RedisStore((process.env.NODE_ENV === 'production') ? deployedRedis : localRedis),
   resave: false,
@@ -88,6 +89,10 @@ app.use("/api", usersRouter);
 
 const sessionRouter = require("./routes/session")
 app.use("/api", sessionRouter);
+
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, './band-manager-client/build/index.html'));
+})
 
 //////////////////////////////////////////////////////////////////////
 /*                            Server                                */
