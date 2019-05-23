@@ -8,6 +8,7 @@ const SignInPage = (props) => {
   let [errors, setErrors] = useState([])
 
   const createSession = (params) => {
+    console.log('params: ', params);
     props.onLogin(params, props)
   }
 

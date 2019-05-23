@@ -5,6 +5,7 @@ const path = require('path');
 const logger = require("morgan");
 const session = require("express-session");
 const RedisStore = require('connect-redis')(session); // will not work in dev without redis installed and running locally
+const crypto = require('crypto');
 
 //////////////////////////////////////////////////////////////////////
 /*                         Middle Ware                              */
@@ -32,7 +33,7 @@ const localRedis = { port: 6379, host: 'localhost' };
 const deployedRedis = { url: process.env.REDIS_URL };
 
 const genuuid = () => {
-  return "Session ID"
+  return crypto.randomBytes(64).toString('hex');
 }
 
 var sess = {
@@ -41,7 +42,7 @@ var sess = {
   },
   userId: null,
   name: "COOOKIE!!!!",
-  secret: require('crypto').randomBytes(64).toString('hex'),
+  secret: crypto.randomBytes(64).toString('hex'),
   // fire up your redis server for dev with "redis-server /usr/local/etc/redis.conf"
   store: new RedisStore((process.env.NODE_ENV === 'production') ? deployedRedis : localRedis),
   resave: false,
