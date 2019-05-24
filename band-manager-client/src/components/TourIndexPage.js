@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -6,12 +6,14 @@ import { createSelector } from 'reselect';
 import { getTours } from '../actions/toursActions'
 
 const TourIndexPage = (props) => {
+  let [loading, setLoading] = useState(true)
   
   useEffect(() => {
     props.onGetTours();
+    setLoading(false);
   }, []);
 
-  if (props.tours.length === 0) {
+  if (loading === true) {
     return (
       <div className="sk-circle">
         <div className="sk-circle1 sk-child"></div>
@@ -26,6 +28,16 @@ const TourIndexPage = (props) => {
         <div className="sk-circle10 sk-child"></div>
         <div className="sk-circle11 sk-child"></div>
         <div className="sk-circle12 sk-child"></div>
+      </div>
+    )
+  }
+
+  if (props.tours.length === 0) {
+    return (
+      <div className="TourIndexPage-box">
+        <h1 className="title blue">Your Tours</h1>
+        <h3>You currently have no tours</h3>
+        <p>Navigate to "Tour New" to create one</p>
       </div>
     )
   }

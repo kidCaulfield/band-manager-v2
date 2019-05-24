@@ -36,7 +36,7 @@ const SignUpPage = (props) => {
 
   return (
     <div className="form-box">
-      <h1 className="title blue">Make an account</h1>
+      <h1 className="title blue">Sign Up</h1>
       <form className="form" onSubmit={signUp}>
         {errors.length > 0 && (
           <div className="FormErrors">
