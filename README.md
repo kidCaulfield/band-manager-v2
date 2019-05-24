@@ -1,10 +1,10 @@
-# Band Mananger 2.0
+# Band Manager 2.0
 
-User friendly tour planning application. Find contacts and venues for the cities you play. Organize a plan that
+User friendly tour planning application. Find contacts and venues for the cities you want to play. Organize a plan that
 suites your band. Let’s get the show on the road!
 
 ### Features
-Visual tour planner will allow users to map out there tour in a few easy steps. To return venues contacts and routes.
+Visual tour planner will allow users to map out there tour in a few easy steps. Plan a route and see where the venues are along the way by viewing a dasebase of venues displayed as a markers on map. While adding events to your itinerary you will receive phone numbers and website for the venues you choose as Band Manager taps Google Places API to supply helpful infomation to book your shows.
 
 ### Future Features 
 
@@ -21,10 +21,6 @@ cities and associated venues.
 
 ### Techonologies
 
-###### Server
-
-Asynchronous API built with Express/Node for band-manager react client
-
 ###### versions
 
 * node - 11.1.0
@@ -32,6 +28,32 @@ Asynchronous API built with Express/Node for band-manager react client
 * express - 4.16.4
 
 * react - 16.8.4
+
+# Client
+
+React client built with 100% react hooks and 0% class based components.
+
+### External API
+
+* Google Maps API
+
+### State Management
+
+* redux 4.0.1
+
+* redux-devtools 3.5.0
+
+* redux-thunk 2.3.0
+
+* reselect 4.0.0
+
+# Server
+
+Asynchronous API built with Express/Node for band-manager react client
+
+### External API
+
+* Google Places API
 
 ### ORM
 
