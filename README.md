@@ -63,4 +63,4 @@ Express/Node API for band-manager react-app
 
 * Google Domains
 
-visit: http://band-manager.com
+visit: http://band-manager.ca
