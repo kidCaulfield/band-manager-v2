@@ -23,11 +23,13 @@ cities and associated venues.
 
 ###### Server
 
-Express/Node API for band-manager react-app
+Asynchronous API built with Express/Node for band-manager react client
 
 ###### versions
 
 * node - 11.1.0
+
+* express - 4.16.4
 
 * react - 16.8.4
 
@@ -62,5 +64,9 @@ Express/Node API for band-manager react-app
 * Nginx 1.14.0 (Ubuntu)
 
 * Google Domains
+
+### SSL
+
+* certbot 0.31.0
 
 visit: http://band-manager.ca
