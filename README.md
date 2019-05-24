@@ -4,7 +4,7 @@ User friendly tour planning application. Find contacts and venues for the cities
 suites your band. Let’s get the show on the road!
 
 ### Features
-Visual tour planner will allow users to map out there tour in a few easy steps. Plan a route and see where the venues are along the way by viewing a dasebase of venues displayed as a markers on map. While adding events to your itinerary you will receive phone numbers and website for the venues you choose as Band Manager taps Google Places API to supply helpful infomation to book your shows.
+Visual tour planner will allow users to map out there tour in a few easy steps. Plan a route and see where the venues are by viewing a dasebase of venues displayed as a markers on map. While adding events to your itinerary you will receive phone numbers and website for the venues you choose as Band Manager taps Google Places API to supply helpful infomation to book your shows.
 
 ### Future Features 
 
