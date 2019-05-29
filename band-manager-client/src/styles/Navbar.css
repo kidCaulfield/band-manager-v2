@@ -57,7 +57,7 @@ nav a.fancy:hover {
   }
 
   .NavbarToggleShow {
-    display: flex;
+    display: grid;
   }
 
   .NavbarLinkToggle {
@@ -73,7 +73,6 @@ nav a.fancy:hover {
     background-color: black;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
-    display: flex;
     align-items: center;
     max-height: 100%;
   }

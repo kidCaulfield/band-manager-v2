@@ -66,7 +66,7 @@ app.use(session(sess))
 //////////////////////////////////////////////////////////////////////
 
 app.options('*', cors({
-  origin: 'http://localhost:3030',
+  origin: ['http://localhost:3030'],
   credentials: true,
 }))
 
