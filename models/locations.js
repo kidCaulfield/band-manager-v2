@@ -22,7 +22,8 @@ module.exports = class Location {
 
   static async findCountries() {
     const countries = await knex("locations")
-      .distinct('country');
+      .distinct('country')
+      .orderBy("country", "asc");
 
       return countries;
   };
@@ -30,7 +31,8 @@ module.exports = class Location {
   static async findRegions(params) {
     const regions = await knex("locations")
       .distinct('region')
-      .where(params);
+      .where(params)
+      .orderBy("region", "asc");
 
       return regions;
   };
@@ -38,7 +40,8 @@ module.exports = class Location {
   static async findCities(params) {
     const cities = await knex("locations")
       .select('*')
-      .where(params);
+      .where(params)
+      .orderBy("city", "asc");
 
       return cities;
   };
