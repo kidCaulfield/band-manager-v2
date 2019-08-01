@@ -6,13 +6,6 @@ import { createSelector } from 'reselect';
 var hdate = require('human-date')
 
 const EventDetails = (props) => {
-  if (props.events.length === 0) {
-    return (
-      <div>
-        <h4>No Current Events</h4>
-      </div>
-    );
-  };
   
   ////// First Custom Frontend Pagination Logic //////
 
@@ -60,7 +53,7 @@ const EventDetails = (props) => {
   }
 
   const initialize = (length) => {
-    if (loading) {
+    if (!loading) {
       const child = document.querySelector(".Paginate").lastChild
       child.setAttribute("class", "pagination On");
     };
@@ -85,6 +78,14 @@ const EventDetails = (props) => {
     setLoading(false);
   }, [props.events.length]);
 
+  if (props.events.length === 0) {
+    return (
+      <div>
+        <h4>No Current Events</h4>
+      </div>
+    );
+  };
+  
   return (
     <div className="EventDetails">
       <h2 className="blue">Events</h2>
